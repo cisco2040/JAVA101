@@ -1,0 +1,19 @@
+2018-02-21 21:27:31,419 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
+2018-02-21 21:27:31,419 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
+2018-02-21 21:27:31,419 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-02-21 21:27:31,435 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-02-21 21:27:31,435 - Do unicode file recognition:  false
+2018-02-21 21:27:31,435 - FileResourceLoader : adding path '.'
+2018-02-21 21:27:31,466 - ResourceCache: initialized (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-02-21 21:27:31,481 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-02-21 21:27:31,481 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-02-21 21:27:31,497 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-02-21 21:27:31,497 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-02-21 21:27:31,497 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-02-21 21:27:31,575 - Created '20' parsers.
+2018-02-21 21:27:31,591 - Velocimacro : "velocimacro.library" is not set.  Trying default library: VM_global_library.vm
+2018-02-21 21:27:31,591 - Velocimacro : Default library not found.
+2018-02-21 21:27:31,591 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-02-21 21:27:31,591 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-02-21 21:27:31,591 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2018-02-21 21:27:31,591 - Velocimacro : autoload off : VM system will not automatically reload global library macros
