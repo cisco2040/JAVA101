@@ -1,0 +1,46 @@
+<query xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" yahoo:count="1" yahoo:created="2018-02-21T17:15:42Z" yahoo:lang="en-US">
+  <results>
+    <channel>
+      <yweather:units distance="mi" pressure="in" speed="mph" temperature="F" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+      <title>Yahoo! Weather - New York, NY, US</title>
+      <link>http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2459115/</link>
+      <description>Yahoo! Weather for New York, NY, US</description>
+      <language>en-us</language>
+      <lastBuildDate>Wed, 21 Feb 2018 12:15 PM EST</lastBuildDate>
+      <ttl>60</ttl>
+      <yweather:location city="New York" country="US" region="NY" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+      <yweather:wind chill="39" direction="230" speed="25" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+      <yweather:atmosphere humidity="67" pressure="1024.0" rising="0" visibility="16.1" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+      <yweather:astronomy sunrise="6:42 am" sunset="5:38 pm" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+      <image>
+        <title>Yahoo! Weather</title>
+        <width>142</width>
+        <height>18</height>
+        <link>http://weather.yahoo.com</link>
+        <url>http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif</url>
+      </image>
+      <item>
+        <title>Conditions for New York, NY, US at 11:00 AM EST</title>
+        <geo:lat xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">40.71455</geo:lat>
+        <geo:long xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">-74.007118</geo:long>
+        <link>http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2459115/</link>
+        <pubDate>Wed, 21 Feb 2018 11:00 AM EST</pubDate>
+        <yweather:condition code="23" date="Wed, 21 Feb 2018 11:00 AM EST" temp="39" text="Fair" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+        <yweather:forecast code="12" date="21 Feb 2018" day="Wed" high="73" low="55" text="Rain" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+        <yweather:forecast code="11" date="22 Feb 2018" day="Thu" high="55" low="37" text="Showers" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+        <yweather:forecast code="11" date="23 Feb 2018" day="Fri" high="43" low="35" text="Showers" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+        <yweather:forecast code="39" date="24 Feb 2018" day="Sat" high="51" low="43" text="Scattered Showers" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+        <yweather:forecast code="11" date="25 Feb 2018" day="Sun" high="56" low="44" text="Showers" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+        <yweather:forecast code="30" date="26 Feb 2018" day="Mon" high="52" low="40" text="Partly Cloudy" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+        <yweather:forecast code="34" date="27 Feb 2018" day="Tue" high="52" low="37" text="Mostly Sunny" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+        <yweather:forecast code="30" date="28 Feb 2018" day="Wed" high="46" low="35" text="Partly Cloudy" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+        <yweather:forecast code="30" date="01 Mar 2018" day="Thu" high="51" low="35" text="Partly Cloudy" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+        <yweather:forecast code="30" date="02 Mar 2018" day="Fri" high="44" low="34" text="Partly Cloudy" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"/>
+        <description>
+          <![CDATA[<img src="http://l.yimg.com/a/i/us/we/52/23.gif"/><BR /><b>Current Conditions:</b><BR />Breezy <BR /><BR /><b>Forecast:</b><BR />Wed - Rain. High: 73Low: 55 <BR />Thu - Showers. High: 55Low: 37 <BR />Fri - Showers. High: 43Low: 35 <BR />Sat - Scattered Showers. High: 51Low: 43 <BR />Sun - Showers. High: 56Low: 44 <BR /><BR /><a href="http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2459115/">Full Forecast at Yahoo! Weather</a><BR /><BR /><BR />]]>
+        </description>
+        <guid isPermaLink="false"/>
+      </item>
+    </channel>
+  </results>
+</query>
