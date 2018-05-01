@@ -2,5 +2,5 @@ projectKey=org.sonatype.mavenbook.multispring:simple-parent
 serverUrl=http://localhost:9000
 serverVersion=6.7.1.35068
 dashboardUrl=http://localhost:9000/dashboard/index/org.sonatype.mavenbook.multispring:simple-parent
-ceTaskId=AWHDdaoKnf-ViZDRAiJJ
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AWHDdaoKnf-ViZDRAiJJ
+ceTaskId=AWMI95xtL1OnupcndON2
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AWMI95xtL1OnupcndON2
