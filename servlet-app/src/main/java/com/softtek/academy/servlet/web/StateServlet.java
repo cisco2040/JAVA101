@@ -79,10 +79,13 @@ public class StateServlet extends HttpServlet {
 		final String description = 
 				request.getParameter("description") != null 
 				? request.getParameter("description").toString() : StringUtils.EMPTY;
+		final String shippingZoneId = 
+				request.getParameter("shipping_zone_id") != null 
+				? request.getParameter("shipping_zone_id").toString() : StringUtils.EMPTY;
 		
-		WelcomeServlet.LOGGER.info("Saving state: {} - {}", id, description);
+		WelcomeServlet.LOGGER.info("Saving state: {} - {} - {}", id, description,shippingZoneId);
 		
-		final State state = stateService.save(id, description);
+		final State state = stateService.save(id, description, shippingZoneId);
 		
 				
         response.setContentType("text/html");

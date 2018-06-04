@@ -23,8 +23,8 @@ public class StateService {
 		return stateRepository.list();
 	}
 	
-	public State save(final Long id, final String description) {
-		final State state = new State(id, description);
+	public State save(final Long id, final String description, final String shippingZoneId) {
+		final State state = new State(id, description, shippingZoneId);
 		
 		stateRepository.save(state);
 		

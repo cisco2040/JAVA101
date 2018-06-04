@@ -20,7 +20,7 @@ public class StateRepository {
 		State state = null;
 		ResultSet result = null;
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT state_id, description AS state_name ");
+		sql.append("SELECT state_id, description AS state_name, shipping_zone_id ");
 		sql.append("FROM state ");
 		sql.append("WHERE state_id = ?");
 		
@@ -32,9 +32,10 @@ public class StateRepository {
 			ps.setString(1, id.toString());			
 			result = ps.executeQuery();
 			while (result.next()) {
-				long state_id = result.getLong("state_id");
-				String state_name = result.getString("state_name");
-				state = new State(state_id,state_name);	
+				long stateId = result.getLong("state_id");
+				String stateName = result.getString("state_name");				
+				String shippingZoneId = result.getString("shipping_zone_id");
+				state = new State(stateId,stateName,shippingZoneId);	
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -49,7 +50,7 @@ public class StateRepository {
 		List<State> states = new ArrayList<State>();
 		ResultSet result = null;
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT state_id , description AS state_name ");
+		sql.append("SELECT state_id, description AS state_name, shipping_zone_id ");
 		sql.append("FROM state");
 		
 		Connection connection = DatabaseConnection.getConnection();
@@ -62,9 +63,10 @@ public class StateRepository {
 			StateRepository.LOGGER.info("StatesRepo SQL Executed:" + result.toString());
 			while (result.next()) {
 				StateRepository.LOGGER.info("StatesRepo Start loop");
-				long state_id = result.getLong("state_id");
-				String state_name = result.getString("state_name");
-				states.add(new State(state_id,state_name));	
+				long stateId = result.getLong("state_id");
+				String stateName = result.getString("state_name");
+				String shippingZoneId = result.getString("shipping_zone_id");
+				states.add(new State(stateId,stateName,shippingZoneId));	
 				StateRepository.LOGGER.info("StatesRepo End loop");
 			}
 		} catch (SQLException e) {
@@ -78,19 +80,21 @@ public class StateRepository {
 	
 	public void save(final State state) {
 
-		Long state_id = state.getId();
-		String state_name = state.getDescription();
+		Long stateId = state.getId();
+		String stateName = state.getDescription();
+		String shippingZoneId = state.getShippingZoneId();
 		StringBuilder sql = new StringBuilder();
-		sql.append("INSERT INTO state (state_id, description) ");
-		sql.append("VALUES (?,?)");
+		sql.append("INSERT INTO state (state_id, description, shipping_zone_id) ");
+		sql.append("VALUES (?,?,?)");
 		
 		Connection connection = DatabaseConnection.getConnection();
 		PreparedStatement ps = null;
 		
 		try {
 			ps = connection.prepareStatement(sql.toString());			
-			ps.setString(1, state_id.toString());			
-			ps.setString(2, state_name);			
+			ps.setLong(1, stateId.longValue());			
+			ps.setString(2, stateName);			
+			ps.setString(3, shippingZoneId);			
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
