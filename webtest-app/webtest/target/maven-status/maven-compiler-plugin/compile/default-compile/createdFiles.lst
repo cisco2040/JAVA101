@@ -1,0 +1,13 @@
+com\softtek\javaweb\domain\model\Cart.class
+com\softtek\javaweb\service\UserRoleService.class
+com\softtek\javaweb\domain\model\Status.class
+com\softtek\javaweb\domain\model\State.class
+com\softtek\javaweb\domain\model\City.class
+com\softtek\javaweb\domain\model\UserRole.class
+com\softtek\javaweb\repository\UserRoleRepository.class
+com\softtek\javaweb\domain\model\ShipTo.class
+com\softtek\javaweb\connection\DriverManagerDatabase.class
+com\softtek\javaweb\domain\model\User.class
+DatabaseTest.class
+com\softtek\javaweb\repository\Repository.class
+com\softtek\javaweb\domain\model\ShippingZone.class

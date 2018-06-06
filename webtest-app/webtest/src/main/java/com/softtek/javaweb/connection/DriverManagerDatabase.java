@@ -18,9 +18,9 @@ public class DriverManagerDatabase {
 	
 	public static Connection getConnection () {
 		Connection connection = null;
-		
+
 		try {
-			DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?user=myuser&password=mypassword&serverTimezone=UTC&useSSL=false");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?user=myuser&password=mypassword&serverTimezone=UTC&useSSL=false");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

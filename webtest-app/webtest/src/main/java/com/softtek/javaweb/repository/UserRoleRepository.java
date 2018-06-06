@@ -10,16 +10,13 @@ import java.util.List;
 import com.softtek.javaweb.connection.DriverManagerDatabase;
 import com.softtek.javaweb.domain.model.UserRole;
 
-public class UserRoleRepository {
+public class UserRoleRepository extends Repository {
 
 	public List<UserRole> list() {
 		final List<UserRole> userRoles = new ArrayList<UserRole>();
 		
-		StringBuilder sql = new StringBuilder();
-		
-		sql.append("SELECT user_role_id, description ");
-		sql.append("FROM user_role");		
-		
+		StringBuilder sql = this.getSQL(CRUD_READ);
+
 		try 
 		( 
 			Connection connection = DriverManagerDatabase.getConnection();
@@ -44,5 +41,26 @@ public class UserRoleRepository {
 		userRole.setDescription(rs.getString("description"));
 		
 		return userRole;
+	}
+
+	@Override
+	public StringBuilder getSQL(final int action) {
+		StringBuilder sql = new StringBuilder();
+		
+		switch (action) {
+			case CRUD_CREATE:
+				break;
+			case CRUD_READ:
+				sql.append("SELECT user_role_id, description ");
+				sql.append("FROM user_role");
+				break;
+			case CRUD_UPDATE:
+				break;
+			case CRUD_DELETE:
+				break;
+			default:
+		}
+		
+		return sql;
 	}
 }
