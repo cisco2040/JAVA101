@@ -7,6 +7,7 @@ public class State {
 	private Long id;
 	private String description; 
 	private String shippingZoneId;
+	private ShippingZone shippingZone;
 		
 	public State(Long id, String description, String shippingZoneId) {
 		this.id = id;
