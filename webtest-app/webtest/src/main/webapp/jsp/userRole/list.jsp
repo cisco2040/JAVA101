@@ -9,15 +9,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="/webtest/css/defaultStyles.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User Roles</title>
 </head>
 <jsp:useBean id="ur" class="com.softtek.javaweb.service.UserRoleService"/>
 <% 
 pageContext.setAttribute("userRoles", ur.getList());
-%>    
-<body>	
-	<table>
+%>
+<body>
+	<div id="headerList">
+		<h1 align="center">User Role List</h1>
+	</div>
+	<div id="resultsSection">	
+	<table id="resultsTable">
 		<tr>
 			<th align="left">User Role ID</th>
 			<th align="left">Description</th>
@@ -29,5 +34,6 @@ pageContext.setAttribute("userRoles", ur.getList());
 			</tr>
 		</c:forEach>		
 	</table>
+	</div>
 </body>
 </html>

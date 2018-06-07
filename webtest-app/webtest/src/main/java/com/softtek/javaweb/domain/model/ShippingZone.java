@@ -12,6 +12,8 @@ public class ShippingZone {
 		this.deliveryTime = deliveryTime;
 		this.shippingCost = shippingCost;
 	}
+	public ShippingZone() {};
+	
 	public String getShippingZoneId() {
 		return shippingZoneId;
 	}

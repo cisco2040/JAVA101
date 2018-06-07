@@ -11,7 +11,7 @@ public class Status {
 		this.description = description;
 		this.statusType = statusType;
 	}
-	
+	public Status() {}
 	public Long getStatusId() {
 		return statusId;
 	}

@@ -9,6 +9,8 @@ public class City {
 		this.description = description;
 		this.state = state;
 	}
+	public City() {}
+	
 	public Long getCityId() {
 		return cityId;
 	}

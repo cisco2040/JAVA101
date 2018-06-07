@@ -11,6 +11,8 @@ public class State {
 		this.description = description;
 		this.shippingZone = shippingZone;
 	}
+	
+	public State() {}
 	public Long getStateId() {
 		return stateId;
 	}

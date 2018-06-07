@@ -22,6 +22,8 @@ public class ShipTo {
 		this.phone = phone;
 		this.email = email;
 	}
+	public ShipTo() {}
+	
 	public Long getShipToId() {
 		return shipToId;
 	}
