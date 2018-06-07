@@ -10,12 +10,38 @@ import java.util.List;
 import com.softtek.javaweb.connection.DriverManagerDatabase;
 import com.softtek.javaweb.domain.model.UserRole;
 
-public class UserRoleRepository extends Repository {
+public class UserRoleRepository {
 
+	public UserRole getOne(final String id) {
+		UserRole userRole = new UserRole();
+
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT user_role_id, description ");
+		sql.append("FROM user_role ");
+		sql.append("WHERE user_role_id = ?");
+		
+		try 
+		( 
+			Connection connection = DriverManagerDatabase.getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql.toString());				
+		) {
+			ps.setString(1, id);
+			ResultSet result = ps.executeQuery();
+			while (result.next()) {
+				userRole = this.buildEntity(result);
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return userRole;
+	}
 	public List<UserRole> list() {
 		final List<UserRole> userRoles = new ArrayList<UserRole>();
 		
-		StringBuilder sql = this.getSQL(CRUD_READ);
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT user_role_id, description ");
+		sql.append("FROM user_role");
 
 		try 
 		( 
@@ -24,7 +50,7 @@ public class UserRoleRepository extends Repository {
 		) {
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
-				userRoles.add(this.buildRole(result));
+				userRoles.add(this.buildEntity(result));
 			}
 			
 		} catch (SQLException e) {
@@ -34,7 +60,7 @@ public class UserRoleRepository extends Repository {
 		return userRoles;
 	}
 
-	private UserRole buildRole(ResultSet rs) throws SQLException  {
+	private UserRole buildEntity(ResultSet rs) throws SQLException  {
 		UserRole userRole = new UserRole();
 		
 		userRole.setUserRoleId(rs.getString("user_role_id"));
@@ -43,24 +69,4 @@ public class UserRoleRepository extends Repository {
 		return userRole;
 	}
 
-	@Override
-	public StringBuilder getSQL(final int action) {
-		StringBuilder sql = new StringBuilder();
-		
-		switch (action) {
-			case CRUD_CREATE:
-				break;
-			case CRUD_READ:
-				sql.append("SELECT user_role_id, description ");
-				sql.append("FROM user_role");
-				break;
-			case CRUD_UPDATE:
-				break;
-			case CRUD_DELETE:
-				break;
-			default:
-		}
-		
-		return sql;
-	}
 }

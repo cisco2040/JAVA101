@@ -15,6 +15,9 @@ public class User {
 		this.userRole = userRole;
 		this.active = active;
 	}
+	public User() {
+	}
+	
 	public String getUsername() {
 		return username;
 	}

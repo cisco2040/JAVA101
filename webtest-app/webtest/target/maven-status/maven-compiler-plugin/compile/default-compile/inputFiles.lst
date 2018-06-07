@@ -1,6 +1,9 @@
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\Cart.java
+C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\repository\UserRepository.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\ShippingZone.java
+C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\SqlAction.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\Status.java
+C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\service\UserService.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\DatabaseTest.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\City.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\connection\DriverManagerDatabase.java
@@ -9,5 +12,4 @@ C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\do
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\repository\UserRoleRepository.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\State.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\UserRole.java
-C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\repository\Repository.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\User.java

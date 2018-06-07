@@ -12,4 +12,8 @@ public class UserRoleService {
 	public List<UserRole> getList() {
 		return this.userRoleRepository.list();
 	}
+
+	public UserRole getOne(final String id) {
+		return this.userRoleRepository.getOne(id);
+	}
 }

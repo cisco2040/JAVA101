@@ -19,8 +19,8 @@ pageContext.setAttribute("userRoles", ur.getList());
 <body>	
 	<table>
 		<tr>
-			<th>User Role ID</th>
-			<th>Description</th>
+			<th align="left">User Role ID</th>
+			<th align="left">Description</th>
 		</tr>
 		<c:forEach var="userRole" items="${ userRoles }">
 			<tr>
