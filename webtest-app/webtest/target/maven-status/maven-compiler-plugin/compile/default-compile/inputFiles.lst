@@ -2,6 +2,7 @@ C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\do
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\repository\ShippingZoneRepository.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\ShippingZone.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\Status.java
+C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\service\CartService.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\service\UserService.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\City.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\connection\DriverManagerDatabase.java
@@ -18,8 +19,8 @@ C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\DatabaseTest.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\service\StatusService.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\service\UserRoleService.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\ShipTo.java
-C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\repository\WebTest.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\UserRole.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\service\StateService.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\repository\ShipToRepository.java
+C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\repository\CartRepository.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\User.java

@@ -28,6 +28,7 @@ public class Cart {
 		this.updateUser = updateUser;
 		this.updateDate = updateDate;
 	}
+	public Cart() {}
 
 	public Long getCartId() {
 		return cartId;
