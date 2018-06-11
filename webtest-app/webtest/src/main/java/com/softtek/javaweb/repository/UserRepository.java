@@ -105,7 +105,7 @@ public class UserRepository {
 			ps.setString(3, user.getUserRole().getUserRoleId());
 			ps.setString(4, user.getActive());
 			ps.setString(5, user.getUsername());
-			status = ps.executeUpdate();
+			status = ps.executeUpdate();			
 		}
 		catch (SQLException e) {
 			e.printStackTrace();

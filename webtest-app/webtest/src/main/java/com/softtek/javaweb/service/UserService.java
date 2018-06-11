@@ -28,8 +28,10 @@ public class UserService {
 		ValidateService validateUser = validate(user, confirmPassword, false);
 		if (validateUser.isValid()) {
 			LOGGER.info("## Attempting to update user: {}", user);
-			this.userRepository.update(user);
-			LOGGER.info("## User udpated: {}", user);
+			if (!(this.userRepository.update(user) > 0)) {
+				validateUser.setValid(false);
+				validateUser.appendServiceMsg("There was an unknown error while attempting to update record. Please contact DBAdmin.");				
+			}
 		}
 		return validateUser;
 	}
@@ -38,13 +40,22 @@ public class UserService {
 		ValidateService validateUser = validate(user, confirmPassword, true);
 		if (validateUser.isValid()) {
 			LOGGER.info("## Attempting to add user: {}", user);
-			this.userRepository.add(user);
-			LOGGER.info("## User added: {}", user);
+			if (!(this.userRepository.add(user) > 0)) {
+				validateUser.setValid(false);
+				validateUser.appendServiceMsg("There was an unknown error while attempting to add record. Please contact DBAdmin.");				
+			}
 		}
 		return validateUser;
 	}
-	public boolean delete (final String id) {		
-		return this.userRepository.delete(id) > 0;
+	public ValidateService delete (final String id) {
+		ValidateService validateUser = new ValidateService();
+		validateUser.setValid(true);
+		if (!(this.userRepository.delete(id) > 0)) {
+			validateUser.setValid(false);
+			validateUser.appendServiceMsg("There was an unknown error while attempting to delete record, or record does not exist. Please contact DBAdmin.");
+		}
+				
+		return validateUser;
 	}
 	
 	public ValidateService validate (final User user, final String confirmPassword, final boolean checkUsername) {
@@ -54,46 +65,33 @@ public class UserService {
 		LOGGER.info("## Validating user: {}", user);
 
 		if (user.getUsername() == null) { 
-			LOGGER.info("## Checked username (invalid): {}", user);
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Username is mandatory.");
 		}
-		LOGGER.info("## Checking username: {}", user);
 		if (checkUsername) {
 			if (!isUnique(user)) { 
-				LOGGER.info("## Checked username unique (invalid): {}", user);
 				validateService.setValid(false);
 				validateService.appendServiceMsg("Username already exists in DB. It must be unique.");
 			}
 		}
-		LOGGER.info("## Checking password: {}", user);
 		if (user.getPassword() == null) {
-			LOGGER.info("## Checked password (invalid): {}", user);
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Password is mandatory.");
-		} else	{
-			LOGGER.info("## Checking password equals: {}", user);
+		} else	{			
 			if (!user.getPassword().equals(confirmPassword)) {
-				LOGGER.info("## Checked password equals (invalid): {}", user);
 				validateService.setValid(false);
 				validateService.appendServiceMsg("Password fields must match.");
 			}
 		}
-		LOGGER.info("## Checking name: {}", user);
 		if (user.getName() == null) {
-			LOGGER.info("## Checked name (invalid): {}", user);
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Name is mandatory.");
 		}
-		LOGGER.info("## Checking user role: {}", user);
 		if (user.getUserRole().getUserRoleId() == null) {
-			LOGGER.info("## Checked user role (invalid): {}", user);
 			validateService.setValid(false);
 			validateService.appendServiceMsg("User Role is mandatory.");
 		}
-		LOGGER.info("## Checking user active: {}", user);
 		if (user.getActive() == null) {
-			LOGGER.info("## Checked user active (invalid): {}", user);
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Active Flag is mandatory.");
 		}
@@ -107,7 +105,6 @@ public class UserService {
 		User chkUser = this.getOne(user.getUsername());
 		LOGGER.info("## Validating user (unique): {}", user);
 		if (chkUser.getUsername() != null ) {
-			LOGGER.info("## Validating user (unique): {}", chkUser.getUsername());
 			return chkUser.getUsername().equals(user.getUsername()) ? false : true;
 		}
 		return true;
