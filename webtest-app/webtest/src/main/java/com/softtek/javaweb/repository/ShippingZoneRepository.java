@@ -39,7 +39,7 @@ public class ShippingZoneRepository {
 	}
 	
 	public List<ShippingZone> list() {
-		final List<ShippingZone> shippingZones = new ArrayList<ShippingZone>();
+		final List<ShippingZone> shippingZones = new ArrayList<>();
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT shipping_zone_id, description, delivery_time, shipping_cost ");
@@ -49,8 +49,8 @@ public class ShippingZoneRepository {
 		( 
 			Connection connection = DriverManagerDatabase.getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql.toString());				
-		) {
 			ResultSet result = ps.executeQuery();
+		) {
 			while (result.next()) {
 				shippingZones.add(this.buildEntity(result));
 			}

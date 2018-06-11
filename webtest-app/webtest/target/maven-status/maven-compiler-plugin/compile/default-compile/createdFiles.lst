@@ -1,5 +1,6 @@
 com\softtek\javaweb\domain\model\Cart.class
 com\softtek\javaweb\domain\model\Status.class
+com\softtek\javaweb\service\ValidateService.class
 com\softtek\javaweb\domain\model\State.class
 com\softtek\javaweb\service\CartService.class
 com\softtek\javaweb\domain\model\ShipTo.class
@@ -10,6 +11,7 @@ com\softtek\javaweb\service\StatusService.class
 com\softtek\javaweb\repository\CityRepository.class
 com\softtek\javaweb\repository\StatusRepository.class
 com\softtek\javaweb\service\UserService.class
+com\softtek\javaweb\service\ValidateService$ValidateServiceMsg.class
 com\softtek\javaweb\service\ShipToService.class
 com\softtek\javaweb\service\UserRoleService.class
 com\softtek\javaweb\repository\CartRepository.class

@@ -39,7 +39,7 @@ public class StateRepository {
 	}
 	
 	public List<State> list() {
-		final List<State> states = new ArrayList<State>();
+		final List<State> states = new ArrayList<>();
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT state_id, description, shipping_zone_id ");
@@ -49,8 +49,8 @@ public class StateRepository {
 		( 
 			Connection connection = DriverManagerDatabase.getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql.toString());				
-		) {
 			ResultSet result = ps.executeQuery();
+		) {
 			while (result.next()) {
 				states.add(this.buildEntity(result));
 			}			

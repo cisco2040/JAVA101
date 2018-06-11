@@ -41,7 +41,7 @@ public class CartRepository {
 	}
 	
 	public List<Cart> list() {
-		final List<Cart> carts = new ArrayList<Cart>();
+		final List<Cart> carts = new ArrayList<>();
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT cart_id, lines_amount, shipping_amount, cart_amount, ship_to_id, status_id, ");
@@ -52,8 +52,8 @@ public class CartRepository {
 		( 
 			Connection connection = DriverManagerDatabase.getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql.toString());				
-		) {
 			ResultSet result = ps.executeQuery();
+		) {
 			while (result.next()) {
 				carts.add(this.buildEntity(result));
 			}			

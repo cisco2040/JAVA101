@@ -6,6 +6,7 @@
 <%@ page import="com.softtek.javaweb.domain.model.User" %>
 <%@ page import="com.softtek.javaweb.domain.model.UserRole" %>
 <%@ page import="com.softtek.javaweb.service.ValidateService" %>
+<%@ page import="com.softtek.javaweb.service.ValidateService.ValidateServiceMsg" %>
 <%@ page import="com.softtek.javaweb.service.UserService" %>
 <%@ page import="com.softtek.javaweb.service.UserRoleService" %>
 
@@ -13,8 +14,8 @@
 
 <jsp:useBean id="userService" class="com.softtek.javaweb.service.UserService"/>
 <jsp:useBean id="userRoleService" class="com.softtek.javaweb.service.UserRoleService"/>
-<jsp:useBean id="validateService" class="com.softtek.javaweb.service.ValidateService"/>
 <%
+	pageContext.setAttribute("users", userService.getList());
 	pageContext.setAttribute("userRoles", userRoleService.getList());
 %>
 <%!public User makeUser(HttpServletRequest request) {
@@ -37,10 +38,13 @@
 <%
 	String headerTitle = "Edit User";
 	String frmValUsername = "";
+	String frmValPassword = "";
 	String frmValPasswordConfirm = "";
+	String frmValName = "";
 	String frmValUserRole = "";
+	String frmValActive = "";
 	String frmLblSubmitBtn = "";
-	List<String> frmMsgs = new ArrayList<>();
+	List<ValidateServiceMsg> frmMsgs = new ArrayList<>();
 	User user = new User();
 
 // if coming from edit link from list, populate form with values for selected user
@@ -65,11 +69,16 @@ if ( request.getParameter("Update") != null ) {
 	String passwordConfirm = StringUtils.isNotEmpty(request.getParameter("frmPasswordConfirm")) ?
 		       new String(request.getParameter("frmPasswordConfirm")) : StringUtils.EMPTY;
 	
-    validateService = userService.update(user, passwordConfirm);
+	System.out.println("##################### Update:" + user);
+	
+    ValidateService updated = userService.update(user, passwordConfirm);
 
-	if (validateService.isValid()) { // if succesful, redirect to list, otherwise repaint form
+	System.out.println("##################### Updated?:" + updated);
+
+	if (updated.isValid()) { // if succesful, redirect to list, otherwise repaint form
    		response.sendRedirect("/webtest/jsp/user/list.jsp");		
    	}
+	frmMsgs = updated.getServiceMsg();
 	pageContext.setAttribute("frmValUserRole", user.getUserRole().getUserRoleId());
 	pageContext.setAttribute("frmValPasswordConfirm", passwordConfirm);
 }
@@ -81,11 +90,14 @@ if (request.getParameter("Save") != null) {
 	String passwordConfirm = StringUtils.isNotEmpty(request.getParameter("frmPasswordConfirm")) ?
 		       new String(request.getParameter("frmPasswordConfirm")) : StringUtils.EMPTY;
 	
-	validateService = userService.add(user, passwordConfirm);
+	System.out.println("##################### Add: " + user.toString());
 	
-	if (validateService.isValid()) {
+    ValidateService added = userService.add(user, passwordConfirm);
+	
+	if (added.isValid()) {
  		response.sendRedirect("/webtest/jsp/user/list.jsp");
 	}
+	frmMsgs = added.getServiceMsg();
 	pageContext.setAttribute("frmValUserRole", user.getUserRole().getUserRoleId());
 	pageContext.setAttribute("frmValPasswordConfirm", passwordConfirm);
 }
@@ -108,7 +120,7 @@ if (request.getParameter("home") != null) {
 	response.sendRedirect("/webtest/index.jsp");
 }
 
-pageContext.setAttribute("frmValMsgs", validateService.getServiceMsg());
+pageContext.setAttribute("frmValMsgs", frmMsgs);
 pageContext.setAttribute("frmLblSubmitBtn", frmLblSubmitBtn);
 pageContext.setAttribute("user", user);
 %>
@@ -152,7 +164,7 @@ pageContext.setAttribute("user", user);
 			</div>
 		</form>
 		<c:forEach var="frmValMsg" items="${ frmValMsgs }">
-			<p style="color: red">${ frmValMsg }</p>
+			<p style="color: red">${ frmValMsg.message }</p>
 		</c:forEach>
 	</div>
 </body>

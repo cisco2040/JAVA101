@@ -12,6 +12,7 @@ C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\re
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\domain\model\State.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\repository\StateRepository.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\service\ShipToService.java
+C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\service\ValidateService.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\repository\StatusRepository.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\repository\UserRepository.java
 C:\Hugo\JavaMVP\JAVA101\webtest-app\webtest\src\main\java\com\softtek\javaweb\service\CityService.java

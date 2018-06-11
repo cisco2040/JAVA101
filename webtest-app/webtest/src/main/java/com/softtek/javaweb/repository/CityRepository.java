@@ -39,7 +39,7 @@ public class CityRepository {
 	}
 	
 	public List<City> list() {
-		final List<City> cities = new ArrayList<City>();
+		final List<City> cities = new ArrayList<>();
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT city_id, description, state_id ");
@@ -49,8 +49,8 @@ public class CityRepository {
 		( 
 			Connection connection = DriverManagerDatabase.getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql.toString());				
-		) {
 			ResultSet result = ps.executeQuery();
+		) {
 			while (result.next()) {
 				cities.add(this.buildEntity(result));
 			}			

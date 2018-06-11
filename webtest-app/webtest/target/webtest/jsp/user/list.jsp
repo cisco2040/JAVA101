@@ -21,6 +21,14 @@ pageContext.setAttribute("users", u.getList());
 	<div id="headerList">
 		<h1 align="center">User List</h1>
 	</div>
+	
+	<div style="margin-left:5%;margin-bottom: 1%;">
+		<form action="/webtest/jsp/user/edit.jsp">
+			<button name="home" type="submit" >Home</button>
+			<button name="addNew" type="submit" >Add New..</button>
+		</form>
+	</div>
+	
 	<div id="resultsSection">
 	<table id="resultsTable">
 		<tr>
@@ -32,8 +40,8 @@ pageContext.setAttribute("users", u.getList());
 		</tr>
 		<c:forEach var="user" items="${ users }">
 			<tr>
-				<td>${ user.username }</td>
-				<td>${ user.password }</td>
+				<td><a href="/webtest/jsp/user/edit.jsp?showDetail&username=${ user.username }">${ user.username }</a></td>
+				<td>********</td>
 				<td>${ user.name }</td>
 				<td>${ user.userRole.description }</td>
 				<td>${ user.active }</td>

@@ -37,7 +37,7 @@ public class UserRoleRepository {
 		return userRole;
 	}
 	public List<UserRole> list() {
-		final List<UserRole> userRoles = new ArrayList<UserRole>();
+		final List<UserRole> userRoles = new ArrayList<>();
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT user_role_id, description ");
@@ -47,8 +47,8 @@ public class UserRoleRepository {
 		( 
 			Connection connection = DriverManagerDatabase.getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql.toString());				
-		) {
 			ResultSet result = ps.executeQuery();
+		) {
 			while (result.next()) {
 				userRoles.add(this.buildEntity(result));
 			}

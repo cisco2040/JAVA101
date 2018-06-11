@@ -21,6 +21,11 @@ pageContext.setAttribute("shipTos", st.getList());
 	<div id="headerList">
 		<h1 align="center">Ship-To Address List</h1>
 	</div>
+	<div style="margin-left:5%;margin-bottom: 1%;">
+		<form action="/webtest/index.jsp">
+			<button name="home" type="submit" >Home</button>
+		</form>
+	</div>
 	<div id="resultsSection">
 	<table id="resultsTable">
 		<tr>

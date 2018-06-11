@@ -21,6 +21,11 @@ pageContext.setAttribute("carts", c.getList());
 	<div id="headerList">
 		<h1 align="center">Cart List</h1>
 	</div>
+	<div style="margin-left:5%;margin-bottom: 1%;">
+		<form action="/webtest/index.jsp">
+			<button name="home" type="submit" >Home</button>
+		</form>
+	</div>
 	<div id="resultsSection">
 	<table id="resultsTable">
 		<tr>
@@ -38,11 +43,11 @@ pageContext.setAttribute("carts", c.getList());
 		<c:forEach var="cart" items="${ carts }">
 			<tr>
 				<td>${ cart.cartId }</td>
-				<td>${ cart.linesAmount }</td>
-				<td>${ cart.shippingAmount }</td>
-				<td>${ cart.cartAmount }</td>
-				<td>${ cart.ShipTo.address }, ${ cart.ShipTo.City.description }, ${ cart.ShipTo.City.State.description }</td>
-				<td>${ cart.Status.description}</td>
+				<td align="right">${ cart.linesAmount }</td>
+				<td align="right">${ cart.shippingAmount }</td>
+				<td align="right">${ cart.cartAmount }</td>
+				<td>${ cart.shipTo.address }, ${ cart.shipTo.city.description }, ${ cart.shipTo.city.state.description }</td>
+				<td>${ cart.status.description}</td>
 				<td>${ cart.createUser }</td>
 				<td>${ cart.createDate }</td>
 				<td>${ cart.updateUser }</td>

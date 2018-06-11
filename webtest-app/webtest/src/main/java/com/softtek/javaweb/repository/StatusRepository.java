@@ -38,7 +38,7 @@ public class StatusRepository {
 	}
 
 	public List<Status> list() {
-		final List<Status> statuses = new ArrayList<Status>();
+		final List<Status> statuses = new ArrayList<>();
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT status_id, description, status_type ");
@@ -48,8 +48,8 @@ public class StatusRepository {
 		( 
 			Connection connection = DriverManagerDatabase.getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql.toString());				
-		) {
 			ResultSet result = ps.executeQuery();
+		) {
 			while (result.next()) {
 				statuses.add(this.buildEntity(result));
 			}
