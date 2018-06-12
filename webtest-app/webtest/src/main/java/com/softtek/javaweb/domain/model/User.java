@@ -17,7 +17,7 @@ public class User {
 	}
 	public User() {
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
@@ -50,7 +50,6 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", name=" + name + ", userRole=" + userRole
-				+ ", active=" + active + "]";
+		return "User [username=" + username + ", password=" + password + ", name=" + name + ", userRole=" + (userRole != null ? userRole.toString() : null) + ", active=" + active + "]";
 	}
 }

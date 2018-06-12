@@ -31,7 +31,7 @@ public class City {
 	}
 	@Override
 	public String toString() {
-		return "City [cityId=" + cityId + ", description=" + description + ", state=" + state.toString() + "]";
+		return "City [cityId=" + cityId + ", description=" + description + ", state=" + (state != null ? state.toString() : null) + "]";
 	}
 	
 	

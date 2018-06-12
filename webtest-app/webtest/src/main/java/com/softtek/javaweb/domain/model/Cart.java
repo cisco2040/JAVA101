@@ -113,7 +113,7 @@ public class Cart {
 	@Override
 	public String toString() {
 		return "Cart [cartId=" + cartId + ", linesAmount=" + linesAmount + ", shippingAmount=" + shippingAmount
-				+ ", cartAmount=" + cartAmount + ", shipTo=" + shipTo.toString() + ", status=" + status.toString() + ", createUser="
+				+ ", cartAmount=" + cartAmount + ", shipTo=" + (shipTo != null ? shipTo.toString() : null) + ", status=" + (status != null ? status.toString() : null) + ", createUser="
 				+ createUser + ", createDate=" + createDate + ", updateUser=" + updateUser + ", updateDate="
 				+ updateDate + "]";
 	}	

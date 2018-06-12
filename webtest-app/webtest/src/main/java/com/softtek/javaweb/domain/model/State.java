@@ -33,6 +33,6 @@ public class State {
 	}
 	@Override
 	public String toString() {
-		return "State [stateId=" + stateId + ", description=" + description + ", shippingZone=" + shippingZone.toString() + "]";
+		return "State [stateId=" + stateId + ", description=" + description + ", shippingZone=" + (shippingZone != null ? shippingZone.toString() : null) + "]";
 	}	
 }
