@@ -74,7 +74,7 @@ public class ShipTo {
 	}
 	@Override
 	public String toString() {
-		return "shipTo [shipToId=" + shipToId + ", user=" + user.toString() + ", name=" + name + ", address=" + address + ", city="
-				+ city.toString() + ", zipcode=" + zipcode + ", phone=" + phone + ", email=" + email + "]";
+		return "shipTo [shipToId=" + shipToId + ", user=" + (user != null ? user.toString() : null) + ", name=" + name + ", address=" + address + ", city="
+				+ (city != null ? city.toString() : null) + ", zipcode=" + zipcode + ", phone=" + phone + ", email=" + email + "]";
 	}
 }

@@ -61,6 +61,85 @@ public class ShipToRepository {
 		return shipTos;
 	}
 
+	public int add(final ShipTo shipTo) {
+		int status = 0;
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("INSERT INTO ship_to ");
+		sql.append("(user, name, address, city_id, zip_code, phone, email) ");
+		sql.append("VALUES (?, ?, ?, ?, ?, ?, ?)");
+		
+		try (
+			Connection connection = DriverManagerDatabase.getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql.toString());
+		) {
+			ps.setString(1, shipTo.getUser().getUsername());
+			ps.setString(2, shipTo.getName());
+			ps.setString(3, shipTo.getAddress());
+			ps.setLong(4, shipTo.getCity().getCityId());
+			ps.setLong(5, shipTo.getZipcode());
+			ps.setString(6, shipTo.getPhone());
+			ps.setString(7, shipTo.getEmail());
+			
+			status = ps.executeUpdate();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		
+		return status;	
+	}
+
+	public int update(final ShipTo shipTo) {
+		int status = 0;
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("UPDATE ship_to ");
+		sql.append("SET user = ?, name = ?, address = ?, city_id = ?, zip_code = ?, phone = ?, email = ? ");
+		sql.append("WHERE ship_to_id = ?");
+		
+		try (
+			Connection connection = DriverManagerDatabase.getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql.toString());
+		) {
+			ps.setString(1, shipTo.getUser().getUsername());
+			ps.setString(2, shipTo.getName());
+			ps.setString(3, shipTo.getAddress());
+			ps.setLong(4, shipTo.getCity().getCityId());
+			ps.setLong(5, shipTo.getZipcode());
+			ps.setString(6, shipTo.getPhone());
+			ps.setString(7, shipTo.getEmail());
+			ps.setLong(8, shipTo.getShipToId());
+			status = ps.executeUpdate();			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		
+		return status;	
+	}
+
+	public int delete(final Long id) {
+		int status = 0;
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("DELETE FROM ship_to ");
+		sql.append("WHERE ship_to_id = ?");
+		
+		try (
+			Connection connection = DriverManagerDatabase.getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql.toString());
+		) {
+			ps.setLong(1, id);
+			status = ps.executeUpdate();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		
+		return status;	
+	}	
+	
 	private ShipTo buildEntity(ResultSet rs) throws SQLException  {
 		ShipTo shipTo = new ShipTo();
 		UserRepository userRepository = new UserRepository();

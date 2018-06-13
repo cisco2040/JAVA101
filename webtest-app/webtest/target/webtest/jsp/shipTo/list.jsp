@@ -22,8 +22,9 @@ pageContext.setAttribute("shipTos", st.getList());
 		<h1 align="center">Ship-To Address List</h1>
 	</div>
 	<div style="margin-left:5%;margin-bottom: 1%;">
-		<form action="/webtest/index.jsp">
+		<form action="/webtest/jsp/shipTo/edit.jsp">
 			<button name="home" type="submit" >Home</button>
+			<button name="addNew" type="submit" >Add New..</button>
 		</form>
 	</div>
 	<div id="resultsSection">
@@ -40,7 +41,7 @@ pageContext.setAttribute("shipTos", st.getList());
 		</tr>
 		<c:forEach var="shipTo" items="${ shipTos }">
 			<tr>
-				<td>${ shipTo.shipToId}</td>
+				<td><a href="/webtest/jsp/shipTo/edit.jsp?showDetail&shipToId=${ shipTo.shipToId }">${ shipTo.shipToId }</a></td>
 				<td>${ shipTo.user.username }</td>
 				<td>${ shipTo.name }</td>
 				<td>${ shipTo.address }</td>

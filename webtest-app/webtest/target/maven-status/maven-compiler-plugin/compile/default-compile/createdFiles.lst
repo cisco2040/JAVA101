@@ -20,7 +20,6 @@ com\softtek\javaweb\domain\model\UserRole.class
 com\softtek\javaweb\repository\UserRoleRepository.class
 com\softtek\javaweb\service\StateService.class
 com\softtek\javaweb\connection\DriverManagerDatabase.class
-DatabaseTest.class
 com\softtek\javaweb\service\CityService.class
 com\softtek\javaweb\repository\ShippingZoneRepository.class
 com\softtek\javaweb\domain\model\ShippingZone.class

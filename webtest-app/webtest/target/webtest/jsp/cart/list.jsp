@@ -5,6 +5,7 @@
 <%@ page import="com.softtek.javaweb.service.CartService" %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"  %>  
 
 <jsp:useBean id="c" class="com.softtek.javaweb.service.CartService"/>
 <% 
@@ -43,15 +44,15 @@ pageContext.setAttribute("carts", c.getList());
 		<c:forEach var="cart" items="${ carts }">
 			<tr>
 				<td>${ cart.cartId }</td>
-				<td align="right">${ cart.linesAmount }</td>
-				<td align="right">${ cart.shippingAmount }</td>
-				<td align="right">${ cart.cartAmount }</td>
+				<td align="right"><fmt:formatNumber type="currency" value="${ cart.linesAmount }"></fmt:formatNumber></td>
+				<td align="right"><fmt:formatNumber type="currency" value="${ cart.shippingAmount }"></fmt:formatNumber></td>
+				<td align="right"><fmt:formatNumber type="currency" value="${ cart.cartAmount }"></fmt:formatNumber></td>
 				<td>${ cart.shipTo.address }, ${ cart.shipTo.city.description }, ${ cart.shipTo.city.state.description }</td>
 				<td>${ cart.status.description}</td>
 				<td>${ cart.createUser }</td>
-				<td>${ cart.createDate }</td>
+				<td><fmt:formatDate type="both" dateStyle="medium" timeStyle="long" value="${ cart.createDate }"></fmt:formatDate></td>
 				<td>${ cart.updateUser }</td>
-				<td>${ cart.updateDate }</td>
+				<td><fmt:formatDate type="both" dateStyle="medium" timeStyle="long" value="${ cart.updateDate }"></fmt:formatDate></td>
 			</tr>
 		</c:forEach>		
 	</table>
