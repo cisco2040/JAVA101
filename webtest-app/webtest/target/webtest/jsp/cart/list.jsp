@@ -23,8 +23,9 @@ pageContext.setAttribute("carts", c.getList());
 		<h1 align="center">Cart List</h1>
 	</div>
 	<div style="margin-left:5%;margin-bottom: 1%;">
-		<form action="/webtest/index.jsp">
+		<form action="/webtest/jsp/cart/edit.jsp">
 			<button name="home" type="submit" >Home</button>
+			<button name="addNew" type="submit" >Add New..</button>
 		</form>
 	</div>
 	<div id="resultsSection">
@@ -43,14 +44,14 @@ pageContext.setAttribute("carts", c.getList());
 		</tr>
 		<c:forEach var="cart" items="${ carts }">
 			<tr>
-				<td>${ cart.cartId }</td>
+				<td><a href="/webtest/jsp/cart/edit.jsp?showDetail&cartId=${ cart.cartId }">${ cart.cartId }</a></td>
 				<td align="right"><fmt:formatNumber type="currency" value="${ cart.linesAmount }"></fmt:formatNumber></td>
 				<td align="right"><fmt:formatNumber type="currency" value="${ cart.shippingAmount }"></fmt:formatNumber></td>
 				<td align="right"><fmt:formatNumber type="currency" value="${ cart.cartAmount }"></fmt:formatNumber></td>
 				<td>${ cart.shipTo.address }, ${ cart.shipTo.city.description }, ${ cart.shipTo.city.state.description }</td>
 				<td>${ cart.status.description}</td>
 				<td>${ cart.createUser }</td>
-				<td><fmt:formatDate type="both" dateStyle="medium" timeStyle="long" value="${ cart.createDate }"></fmt:formatDate></td>
+				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ cart.createDate }"></fmt:formatDate></td>
 				<td>${ cart.updateUser }</td>
 				<td><fmt:formatDate type="both" dateStyle="medium" timeStyle="long" value="${ cart.updateDate }"></fmt:formatDate></td>
 			</tr>

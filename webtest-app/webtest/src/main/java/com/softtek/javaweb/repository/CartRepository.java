@@ -1,9 +1,12 @@
 package com.softtek.javaweb.repository;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +66,92 @@ public class CartRepository {
 		
 		return carts;
 	}
+	public int add(final Cart cart) {
+		int status = 0;
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("INSERT INTO cart ");
+		sql.append("(lines_amount, shipping_amount, cart_amount, ship_to_id, status_id, ");
+		sql.append("create_user, create_date, update_user, update_date) ");
+		sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		
+		try (
+			Connection connection = DriverManagerDatabase.getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql.toString());
+		) {
+			ps.setFloat(1, cart.getLinesAmount());
+			ps.setFloat(2, cart.getShippingAmount());
+			ps.setFloat(3, cart.getCartAmount());
+			ps.setLong(4, cart.getShipTo().getShipToId());
+			ps.setLong(5, cart.getStatus().getStatusId());
+			ps.setString(6, cart.getCreateUser());
+			ps.setDate(7, (Date) cart.getCreateDate());
+			ps.setString(8, cart.getUpdateUser());
+			ps.setDate(9, (Date) cart.getUpdateDate());
+
+			status = ps.executeUpdate();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		
+		return status;	
+	}
+
+	public int update(final Cart cart) {
+		int status = 0;
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("UPDATE cart ");
+		sql.append("SET lines_amount = ?, shipping_amount = ?, cart_amount = ?, ship_to_id = ?, status_id = ?, ");
+		sql.append("create_user = ?, create_date = ?, update_user = ?, update_date = ? ");
+		sql.append("WHERE cart_id = ?");
+		
+		try (
+			Connection connection = DriverManagerDatabase.getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql.toString());
+		) {
+			ps.setFloat(1, cart.getLinesAmount());
+			ps.setFloat(2, cart.getShippingAmount());
+			ps.setFloat(3, cart.getCartAmount());
+			ps.setLong(4, cart.getShipTo().getShipToId());
+			ps.setLong(5, cart.getStatus().getStatusId());
+			ps.setString(6, cart.getCreateUser());
+			ps.setDate(7, (Date) cart.getCreateDate());
+			ps.setString(8, cart.getUpdateUser());
+			ps.setDate(9, (Date) cart.getUpdateDate());
+			ps.setLong(10, cart.getCartId());
+			
+			status = ps.executeUpdate();			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		
+		return status;	
+	}
+
+	public int delete(final Long id) {
+		int status = 0;
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("DELETE FROM cart ");
+		sql.append("WHERE cart_id = ?");
+		
+		try (
+			Connection connection = DriverManagerDatabase.getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql.toString());
+		) {
+			ps.setLong(1, id);
+			status = ps.executeUpdate();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		
+		return status;	
+	}	
+
 
 	private Cart buildEntity(ResultSet rs) throws SQLException  {
 		Cart cart = new Cart();
@@ -76,9 +165,21 @@ public class CartRepository {
 		cart.setShipTo(shipToRepository.getOne(rs.getLong("ship_to_id")));
 		cart.setStatus(statusRepository.getOne(rs.getLong("status_id")));
 		cart.setCreateUser(rs.getString("create_user"));
-		cart.setCreateDate(rs.getDate("create_date"));
+		java.util.Date createDate = null;
+		try {
+			createDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("create_date"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		cart.setCreateDate(createDate);
 		cart.setUpdateUser(rs.getString("update_user"));
-		cart.setUpdateDate(rs.getDate("update_date"));
+		java.util.Date updateDate = null;
+		try {
+			updateDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("update_date"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		cart.setUpdateDate(updateDate);
 		
 		return cart;
 	}

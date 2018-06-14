@@ -109,7 +109,7 @@ pageContext.setAttribute("shipTo", shipTo);
 <head>
 <link rel="stylesheet" type="text/css" href="/webtest/css/defaultStyles.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Users</title>
+<title>Ship To Addresses</title>
 </head>
 <body>	
 	<div id="headerList">
