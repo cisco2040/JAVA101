@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.softtek.javaweb.service.UserServiceTest
--------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.412 s - in com.softtek.javaweb.service.UserServiceTest
