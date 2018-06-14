@@ -51,9 +51,9 @@ pageContext.setAttribute("carts", c.getList());
 				<td>${ cart.shipTo.address }, ${ cart.shipTo.city.description }, ${ cart.shipTo.city.state.description }</td>
 				<td>${ cart.status.description}</td>
 				<td>${ cart.createUser }</td>
-				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ cart.createDate }"></fmt:formatDate></td>
+				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ cart.createDate }"/></td>
 				<td>${ cart.updateUser }</td>
-				<td><fmt:formatDate type="both" dateStyle="medium" timeStyle="long" value="${ cart.updateDate }"></fmt:formatDate></td>
+				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ cart.updateDate }"/></td>
 			</tr>
 		</c:forEach>		
 	</table>

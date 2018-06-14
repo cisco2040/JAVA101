@@ -1,12 +1,9 @@
 package com.softtek.javaweb.repository;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,9 +82,9 @@ public class CartRepository {
 			ps.setLong(4, cart.getShipTo().getShipToId());
 			ps.setLong(5, cart.getStatus().getStatusId());
 			ps.setString(6, cart.getCreateUser());
-			ps.setDate(7, (Date) cart.getCreateDate());
+			ps.setTimestamp(7, cart.getCreateDate());
 			ps.setString(8, cart.getUpdateUser());
-			ps.setDate(9, (Date) cart.getUpdateDate());
+			ps.setTimestamp(9, cart.getUpdateDate());
 
 			status = ps.executeUpdate();
 		}
@@ -117,9 +114,9 @@ public class CartRepository {
 			ps.setLong(4, cart.getShipTo().getShipToId());
 			ps.setLong(5, cart.getStatus().getStatusId());
 			ps.setString(6, cart.getCreateUser());
-			ps.setDate(7, (Date) cart.getCreateDate());
+			ps.setTimestamp(7, cart.getCreateDate());
 			ps.setString(8, cart.getUpdateUser());
-			ps.setDate(9, (Date) cart.getUpdateDate());
+			ps.setTimestamp(9, cart.getUpdateDate());
 			ps.setLong(10, cart.getCartId());
 			
 			status = ps.executeUpdate();			
@@ -165,21 +162,9 @@ public class CartRepository {
 		cart.setShipTo(shipToRepository.getOne(rs.getLong("ship_to_id")));
 		cart.setStatus(statusRepository.getOne(rs.getLong("status_id")));
 		cart.setCreateUser(rs.getString("create_user"));
-		java.util.Date createDate = null;
-		try {
-			createDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("create_date"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		cart.setCreateDate(createDate);
+		cart.setCreateDate(rs.getTimestamp("create_date"));
 		cart.setUpdateUser(rs.getString("update_user"));
-		java.util.Date updateDate = null;
-		try {
-			updateDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("update_date"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		cart.setUpdateDate(updateDate);
+		cart.setUpdateDate(rs.getTimestamp("update_date"));
 		
 		return cart;
 	}

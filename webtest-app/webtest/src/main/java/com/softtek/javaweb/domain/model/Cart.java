@@ -1,6 +1,6 @@
 package com.softtek.javaweb.domain.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Cart {
 
@@ -11,12 +11,12 @@ public class Cart {
 	private ShipTo shipTo;
 	private Status status;
 	private String createUser;
-	private Date createDate;
+	private Timestamp createDate;
 	private String updateUser;
-	private Date updateDate;
+	private Timestamp updateDate;
 	
 	public Cart(Long cartId, Float linesAmount, Float shippingAmount, Float cartAmount, ShipTo shipTo, Status status,
-			String createUser, Date createDate, String updateUser, Date updateDate) {
+			String createUser, Timestamp createDate, String updateUser, Timestamp updateDate) {
 		this.cartId = cartId;
 		this.linesAmount = linesAmount;
 		this.shippingAmount = shippingAmount;
@@ -86,11 +86,11 @@ public class Cart {
 		this.createUser = createUser;
 	}
 
-	public Date getCreateDate() {
+	public Timestamp getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
 
@@ -102,11 +102,11 @@ public class Cart {
 		this.updateUser = updateUser;
 	}
 
-	public Date getUpdateDate() {
+	public Timestamp getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
 	}
 

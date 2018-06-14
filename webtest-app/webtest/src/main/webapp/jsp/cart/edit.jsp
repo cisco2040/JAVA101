@@ -5,6 +5,8 @@
 <%@ page import="java.util.*"%>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.sql.Timestamp" %>
+
 <%@ page import="com.softtek.javaweb.domain.model.Cart" %>
 <%@ page import="com.softtek.javaweb.domain.model.Status" %>
 <%@ page import="com.softtek.javaweb.domain.model.ShipTo" %>
@@ -30,17 +32,17 @@
 	Long statusId = StringUtils.isNotEmpty(request.getParameter("frmStatusId")) ? new Long(request.getParameter("frmStatusId")) : null;
 	String createUser = StringUtils.isNotEmpty(request.getParameter("frmCreateUser")) ? new String(request.getParameter("frmCreateUser")) : null;
 	String createDateString = StringUtils.isNotEmpty(request.getParameter("frmCreateDate")) ? new String(request.getParameter("frmCreateDate")) : null;
-	Date createDate = null;
+	Timestamp createDate = null;
 	try {
-		createDate = createDateString != null ? new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(createDateString) : new Date();
+		createDate = createDateString != null ? new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(createDateString).getTime()) : null;
 	} catch (ParseException e) {
 		e.printStackTrace();
 	}
 	String updateUser = StringUtils.isNotEmpty(request.getParameter("frmUpdateUser")) ? new String(request.getParameter("frmUpdateUser")) : null;
 	String updateDateString = StringUtils.isNotEmpty(request.getParameter("frmUpdateDate")) ? new String(request.getParameter("frmUpdateDate")) : null;
-	Date updateDate = null;
+	Timestamp updateDate = null;
 	try {
-		updateDate = updateDateString != null ? new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(updateDateString) : new Date();
+		updateDate = updateDateString != null ? new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(updateDateString).getTime()) : null;
 	} catch (ParseException e) {
 		e.printStackTrace();
 	}
@@ -52,9 +54,9 @@
 	cart.setShipTo(new ShipTo(shipToId, null, StringUtils.EMPTY, StringUtils.EMPTY, null, Long.MIN_VALUE, StringUtils.EMPTY, StringUtils.EMPTY));
 	cart.setStatus(new Status(statusId, StringUtils.EMPTY, StringUtils.EMPTY));
 	cart.setCreateUser(createUser);
-	cart.setCreateDate(new java.sql.Date(createDate.getTime()));
+	cart.setCreateDate(createDate);
 	cart.setUpdateUser(updateUser);
-	cart.setUpdateDate(new java.sql.Date(updateDate.getTime()));
+	cart.setUpdateDate(updateDate);
 	
 	return cart;
 }%>
@@ -170,6 +172,7 @@ pageContext.setAttribute("cart", cart);
 						<option value="${ user.username }" <c:if test="${ user.username == frmValCreateUser }">selected</c:if>>${ user.username }</option>
 					</c:forEach>
 				</select><br>
+				Create Date: ${ cart.createDate }
 			</c:if>
 			<c:if test="${ cart.cartId != null }">
 				<input type="hidden" name="frmCreateUser" value="${ cart.createUser }"/>		

@@ -1,6 +1,6 @@
 package com.softtek.javaweb.service;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -102,13 +102,12 @@ public class CartService {
 		calculatedCart.setShippingAmount(shipToService.getOne(calculatedCart.getShipTo().getShipToId()).getCity().getState().getShippingZone().getShippingCost());
 		calculatedCart.setCartAmount(calculatedCart.getLinesAmount() + calculatedCart.getShippingAmount());
 		if (action == CartService.NEW) {
-			Date date = new Date();
-			calculatedCart.setCreateDate(new java.sql.Date(date.getTime()));
+			calculatedCart.setCreateDate(new Timestamp(System.currentTimeMillis()));
 		}
 		if (action == CartService.UPDATE) {
-			Date date = new Date();
-			calculatedCart.setUpdateDate(new java.sql.Date(date.getTime()));			
+			calculatedCart.setUpdateDate(new Timestamp(System.currentTimeMillis()));			
 		}
+		LOGGER.info("## Calculated cart: {}", cart);
 		
 		return calculatedCart;
 	}
