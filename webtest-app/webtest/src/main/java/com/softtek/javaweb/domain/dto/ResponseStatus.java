@@ -1,4 +1,4 @@
-package com.softtek.javaweb.service;
+package com.softtek.javaweb.domain.dto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ValidateService {
-	public static final Logger LOGGER = LoggerFactory.getLogger(ValidateService.class);
+public class ResponseStatus {
+	public static final Logger LOGGER = LoggerFactory.getLogger(ResponseStatus.class);
 
 	private List<String> serviceMsg = new ArrayList<>();
 	private boolean valid;

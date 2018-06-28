@@ -5,14 +5,14 @@
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="com.softtek.javaweb.domain.model.User" %>
 <%@ page import="com.softtek.javaweb.domain.model.UserRole" %>
-<%@ page import="com.softtek.javaweb.service.ValidateService" %>
+<%@ page import="com.softtek.javaweb.domain.dto.ResponseStatus" %>
 <%@ page import="com.softtek.javaweb.service.UserService" %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <jsp:useBean id="userService" class="com.softtek.javaweb.service.UserService"/>
 <jsp:useBean id="userRoleService" class="com.softtek.javaweb.service.UserRoleService"/>
-<jsp:useBean id="validateService" class="com.softtek.javaweb.service.ValidateService"/>
+<jsp:useBean id="validateService" class="com.softtek.javaweb.domain.dto.ResponseStatus"/>
 <%!public User makeUser(HttpServletRequest request) {
 	User user = new User();
 	

@@ -6,14 +6,14 @@
 <%@ page import="com.softtek.javaweb.domain.model.ShipTo" %>
 <%@ page import="com.softtek.javaweb.domain.model.User" %>
 <%@ page import="com.softtek.javaweb.domain.model.City" %>
-<%@ page import="com.softtek.javaweb.service.ValidateService" %>
+<%@ page import="com.softtek.javaweb.domain.dto.ResponseStatus" %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <jsp:useBean id="userService" class="com.softtek.javaweb.service.UserService"/>
 <jsp:useBean id="shipToService" class="com.softtek.javaweb.service.ShipToService"/>
 <jsp:useBean id="cityService" class="com.softtek.javaweb.service.CityService"/>
-<jsp:useBean id="validateService" class="com.softtek.javaweb.service.ValidateService"/>
+<jsp:useBean id="validateService" class="com.softtek.javaweb.domain.dto.ResponseStatus"/>
 
 <%!public ShipTo makeUser(HttpServletRequest request) {
 	ShipTo shipTo = new ShipTo();

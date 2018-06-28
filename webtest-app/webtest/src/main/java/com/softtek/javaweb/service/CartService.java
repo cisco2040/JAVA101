@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.softtek.javaweb.domain.dto.ResponseStatus;
 import com.softtek.javaweb.domain.model.Cart;
 import com.softtek.javaweb.repository.CartRepository;
 
@@ -14,7 +15,7 @@ public class CartService {
 	private CartRepository cartRepository = new CartRepository();
 	public static final Logger LOGGER = LoggerFactory.getLogger(CartService.class);
 	public static final String NEW = "New Record";
-	public static final String UPDATE = "Update Record";
+	public static final String MODIFY = "Update Record";
 	
 	public List<Cart> getList() {
 		List<Cart> carts = this.cartRepository.list();
@@ -24,14 +25,14 @@ public class CartService {
 
 	public Cart getOne(final Long id) {
 		Cart cart = this.cartRepository.getOne(id);
-		LOGGER.info("## Cart Obtained: {}", cart.toString());
+		LOGGER.info("## Cart Obtained: {}", cart);
 		return cart;
 	}
 	
-	public ValidateService update(final Cart cart) {
-		ValidateService validateCart = validate(cart, CartService.UPDATE);		
+	public ResponseStatus update(final Cart cart) {
+		ResponseStatus validateCart = validate(cart, CartService.MODIFY);		
 		if (validateCart.isValid()) {
-			Cart calculatedCart = calculateCart (cart, CartService.UPDATE);
+			Cart calculatedCart = calculateCart (cart, CartService.MODIFY);
 			LOGGER.info("## Attempting to update cart: {}", calculatedCart);
 			if (this.cartRepository.update(calculatedCart) <= 0) {
 				validateCart.setValid(false);
@@ -40,8 +41,8 @@ public class CartService {
 		}
 		return validateCart;
 	}
-	public ValidateService add(final Cart cart) {
-		ValidateService validateCart = validate(cart, CartService.NEW);
+	public ResponseStatus add(final Cart cart) {
+		ResponseStatus validateCart = validate(cart, CartService.NEW);
 		if (validateCart.isValid()) {
 			Cart calculatedCart = calculateCart (cart, CartService.NEW);
 			LOGGER.info("## Attempting to add cart: {}", cart);
@@ -52,8 +53,8 @@ public class CartService {
 		}
 		return validateCart;
 	}
-	public ValidateService delete (final Long id) {
-		ValidateService validateCart = new ValidateService();
+	public ResponseStatus delete (final Long id) {
+		ResponseStatus validateCart = new ResponseStatus();
 		validateCart.setValid(true);
 		if (this.cartRepository.delete(id) <= 0) {
 			validateCart.setValid(false);
@@ -63,8 +64,8 @@ public class CartService {
 		return validateCart;
 	}
 	
-	public ValidateService validate (final Cart cart, final String action) {
-		ValidateService validateService = new ValidateService();
+	public ResponseStatus validate (final Cart cart, final String action) {
+		ResponseStatus validateService = new ResponseStatus();
 		validateService.setValid(true);
 
 		LOGGER.info("## Validating cart: {}", cart);
@@ -85,7 +86,7 @@ public class CartService {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Create User is mandatory.");
 		}
-		if (cart.getUpdateUser() == null && action == CartService.UPDATE) {
+		if (cart.getUpdateUser() == null && action == CartService.MODIFY) {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Update User is mandatory.");
 		}
@@ -104,7 +105,7 @@ public class CartService {
 		if (action == CartService.NEW) {
 			calculatedCart.setCreateDate(new Timestamp(System.currentTimeMillis()));
 		}
-		if (action == CartService.UPDATE) {
+		if (action == CartService.MODIFY) {
 			calculatedCart.setUpdateDate(new Timestamp(System.currentTimeMillis()));			
 		}
 		LOGGER.info("## Calculated cart: {}", cart);

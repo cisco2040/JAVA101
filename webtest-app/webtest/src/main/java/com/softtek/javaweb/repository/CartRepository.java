@@ -11,6 +11,7 @@ import com.softtek.javaweb.connection.DriverManagerDatabase;
 import com.softtek.javaweb.domain.model.Cart;
 
 public class CartRepository {
+	private static final String WHERE_CART_ID = "WHERE cart_id = ?";
 
 	public Cart getOne(final Long id) {
 		Cart cart = new Cart();
@@ -20,7 +21,7 @@ public class CartRepository {
 		sql.append("SELECT cart_id, lines_amount, shipping_amount, cart_amount, ship_to_id, status_id, ");
 		sql.append("create_user, create_date, update_user, update_date ");
 		sql.append("FROM cart ");
-		sql.append("WHERE cart_id = ?");
+		sql.append(WHERE_CART_ID);
 
 		try 
 		( 
@@ -31,8 +32,7 @@ public class CartRepository {
 			ResultSet result = ps.executeQuery();
 			while (result.next()) {
 				cart = this.buildEntity(result);
-			}
-			
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -102,7 +102,7 @@ public class CartRepository {
 		sql.append("UPDATE cart ");
 		sql.append("SET lines_amount = ?, shipping_amount = ?, cart_amount = ?, ship_to_id = ?, status_id = ?, ");
 		sql.append("create_user = ?, create_date = ?, update_user = ?, update_date = ? ");
-		sql.append("WHERE cart_id = ?");
+		sql.append(WHERE_CART_ID);
 		
 		try (
 			Connection connection = DriverManagerDatabase.getConnection();
@@ -133,7 +133,7 @@ public class CartRepository {
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("DELETE FROM cart ");
-		sql.append("WHERE cart_id = ?");
+		sql.append(WHERE_CART_ID);
 		
 		try (
 			Connection connection = DriverManagerDatabase.getConnection();

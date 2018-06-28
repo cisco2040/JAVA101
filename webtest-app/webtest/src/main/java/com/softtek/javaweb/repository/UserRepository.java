@@ -11,6 +11,8 @@ import com.softtek.javaweb.connection.DriverManagerDatabase;
 import com.softtek.javaweb.domain.model.User;
 
 public class UserRepository {
+	
+	private static final String WHERE_USERNAME = "WHERE username = ?";
 
 	public User getOne(final String id) {
 		User user = new User();
@@ -18,7 +20,7 @@ public class UserRepository {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT username, password, name, user_role_id, active ");
 		sql.append("FROM user ");
-		sql.append("WHERE username = ?");
+		sql.append(WHERE_USERNAME);
 
 		try 
 		( 
@@ -94,7 +96,7 @@ public class UserRepository {
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE user ");
 		sql.append("SET password = ?, name = ?, user_role_id = ?, active = ? ");
-		sql.append("WHERE username = ?");
+		sql.append(WHERE_USERNAME);
 		
 		try (
 			Connection connection = DriverManagerDatabase.getConnection();
@@ -119,7 +121,7 @@ public class UserRepository {
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("DELETE FROM user ");
-		sql.append("WHERE username = ?");
+		sql.append(WHERE_USERNAME);
 		
 		try (
 			Connection connection = DriverManagerDatabase.getConnection();

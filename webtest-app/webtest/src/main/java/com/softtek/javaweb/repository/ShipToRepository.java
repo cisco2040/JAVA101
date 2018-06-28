@@ -11,14 +11,14 @@ import com.softtek.javaweb.connection.DriverManagerDatabase;
 import com.softtek.javaweb.domain.model.ShipTo;
 
 public class ShipToRepository {
-
+	private static final String WHERE_SHIP_TO_ID = "WHERE ship_to_id = ?";
 	public ShipTo getOne(final Long id) {
 		ShipTo shipTo = new ShipTo();
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT ship_to_id, user, name, address, city_id, zip_code, phone, email ");
 		sql.append("FROM ship_to ");
-		sql.append("WHERE ship_to_id = ?");
+		sql.append(WHERE_SHIP_TO_ID);
 
 		try 
 		( 
@@ -39,7 +39,7 @@ public class ShipToRepository {
 	}
 	
 	public List<ShipTo> list() {
-		final List<ShipTo> shipTos = new ArrayList<ShipTo>();
+		final List<ShipTo> shipTos = new ArrayList<>();
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT ship_to_id, user, name, address, city_id, zip_code, phone, email ");
@@ -96,7 +96,7 @@ public class ShipToRepository {
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE ship_to ");
 		sql.append("SET user = ?, name = ?, address = ?, city_id = ?, zip_code = ?, phone = ?, email = ? ");
-		sql.append("WHERE ship_to_id = ?");
+		sql.append(WHERE_SHIP_TO_ID);
 		
 		try (
 			Connection connection = DriverManagerDatabase.getConnection();
@@ -124,7 +124,7 @@ public class ShipToRepository {
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("DELETE FROM ship_to ");
-		sql.append("WHERE ship_to_id = ?");
+		sql.append(WHERE_SHIP_TO_ID);
 		
 		try (
 			Connection connection = DriverManagerDatabase.getConnection();

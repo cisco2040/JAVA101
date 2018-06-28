@@ -19,7 +19,7 @@
 <jsp:useBean id="cartService" class="com.softtek.javaweb.service.CartService"/>
 <jsp:useBean id="shipToService" class="com.softtek.javaweb.service.ShipToService"/>
 <jsp:useBean id="statusService" class="com.softtek.javaweb.service.StatusService"/>
-<jsp:useBean id="validateService" class="com.softtek.javaweb.service.ValidateService"/>
+<jsp:useBean id="validateService" class="com.softtek.javaweb.domain.dto.ResponseStatus"/>
 
 <%!public Cart makeCart(HttpServletRequest request) {
 	Cart cart = new Cart();

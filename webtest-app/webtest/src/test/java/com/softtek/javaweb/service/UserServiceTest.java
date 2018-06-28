@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.softtek.javaweb.domain.dto.ResponseStatus;
 import com.softtek.javaweb.domain.model.User;
 import com.softtek.javaweb.domain.model.UserRole;
 import com.softtek.javaweb.service.UserService;
-import com.softtek.javaweb.service.ValidateService;
 
 import org.junit.runners.MethodSorters;
 import org.junit.FixMethodOrder;
@@ -16,7 +16,7 @@ import org.junit.Test;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserServiceTest {
 	UserService userService = new UserService();
-	ValidateService validateService = new ValidateService();
+	ResponseStatus validateService = new ResponseStatus();
 	String testUsername = "test.user"; 
 	String confirmPassword = "mypassword"; // should match user.setPassword property
 	User user = new User(); // create Object

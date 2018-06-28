@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.softtek.javaweb.domain.dto.ResponseStatus;
 import com.softtek.javaweb.domain.model.User;
 import com.softtek.javaweb.repository.UserRepository;
 
@@ -21,14 +22,14 @@ public class UserService {
 
 	public User getOne(final String id) {
 		User user = this.userRepository.getOne(id);
-		LOGGER.info("## User Obtained: {}", user.toString());
+		LOGGER.info("## User Obtained: {}", user);
 		return user;
 	}	
-	public ValidateService update(final User user, final String confirmPassword) {
-		ValidateService validateUser = validate(user, confirmPassword, false);
+	public ResponseStatus update(final User user, final String confirmPassword) {
+		ResponseStatus validateUser = validate(user, confirmPassword, false);
 		if (validateUser.isValid()) {
 			LOGGER.info("## Attempting to update user: {}", user);
-			if (!(this.userRepository.update(user) > 0)) {
+			if (this.userRepository.update(user) <= 0) {
 				validateUser.setValid(false);
 				validateUser.appendServiceMsg("There was an unknown error while attempting to update record. Please contact DBAdmin.");				
 			}
@@ -36,21 +37,21 @@ public class UserService {
 		return validateUser;
 	}
 	
-	public ValidateService add(final User user, final String confirmPassword) {
-		ValidateService validateUser = validate(user, confirmPassword, true);
+	public ResponseStatus add(final User user, final String confirmPassword) {
+		ResponseStatus validateUser = validate(user, confirmPassword, true);
 		if (validateUser.isValid()) {
 			LOGGER.info("## Attempting to add user: {}", user);
-			if (!(this.userRepository.add(user) > 0)) {
+			if (this.userRepository.add(user) < 0) {
 				validateUser.setValid(false);
 				validateUser.appendServiceMsg("There was an unknown error while attempting to add record. Please contact DBAdmin.");				
 			}
 		}
 		return validateUser;
 	}
-	public ValidateService delete (final String id) {
-		ValidateService validateUser = new ValidateService();
+	public ResponseStatus delete (final String id) {
+		ResponseStatus validateUser = new ResponseStatus();
 		validateUser.setValid(true);
-		if (!(this.userRepository.delete(id) > 0)) {
+		if (this.userRepository.delete(id) <= 0) {
 			validateUser.setValid(false);
 			validateUser.appendServiceMsg("There was an unknown error while attempting to delete record, or record does not exist. Please contact DBAdmin.");
 		}
@@ -58,8 +59,8 @@ public class UserService {
 		return validateUser;
 	}
 	
-	public ValidateService validate (final User user, final String confirmPassword, final boolean checkUsername) {
-		ValidateService validateService = new ValidateService();
+	public ResponseStatus validate (final User user, final String confirmPassword, final boolean checkUsername) {
+		ResponseStatus validateService = new ResponseStatus();
 		validateService.setValid(true);
 
 		LOGGER.info("## Validating user: {}", user);
@@ -68,11 +69,9 @@ public class UserService {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Username is mandatory.");
 		}
-		if (checkUsername) {
-			if (!isUnique(user)) { 
-				validateService.setValid(false);
-				validateService.appendServiceMsg("Username already exists in DB. It must be unique.");
-			}
+		if (checkUsername && !isUnique(user)) { 
+			validateService.setValid(false);
+			validateService.appendServiceMsg("Username already exists in DB. It must be unique.");
 		}
 		if (user.getPassword() == null) {
 			validateService.setValid(false);
@@ -105,7 +104,7 @@ public class UserService {
 		User chkUser = this.getOne(user.getUsername());
 		LOGGER.info("## Validating user (unique): {}", user);
 		if (chkUser.getUsername() != null ) {
-			return chkUser.getUsername().equals(user.getUsername()) ? false : true;
+			return !chkUser.getUsername().equals(user.getUsername());
 		}
 		return true;
 	}

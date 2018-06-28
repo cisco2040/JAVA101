@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.softtek.javaweb.domain.dto.ResponseStatus;
 import com.softtek.javaweb.domain.model.ShipTo;
 import com.softtek.javaweb.repository.ShipToRepository;
 
@@ -21,15 +22,15 @@ public class ShipToService {
 
 	public ShipTo getOne(final Long id) {
 		ShipTo shipTo = this.shipToRepository.getOne(id);
-		LOGGER.info("## ShipTo Obtained: {}", shipTo.toString());
+		LOGGER.info("## ShipTo Obtained: {}", shipTo);
 		return shipTo;
 	}
 	
-	public ValidateService update(final ShipTo shipTo) {
-		ValidateService validateShipTo = validate(shipTo);
+	public ResponseStatus update(final ShipTo shipTo) {
+		ResponseStatus validateShipTo = validate(shipTo);
 		if (validateShipTo.isValid()) {
 			LOGGER.info("## Attempting to update shipTo: {}", shipTo);
-			if (!(this.shipToRepository.update(shipTo) > 0)) {
+			if (this.shipToRepository.update(shipTo) <= 0) {
 				validateShipTo.setValid(false);
 				validateShipTo.appendServiceMsg("There was an unknown error while attempting to update record. Please contact DBAdmin.");				
 			}
@@ -37,21 +38,21 @@ public class ShipToService {
 		return validateShipTo;
 	}
 	
-	public ValidateService add(final ShipTo shipTo) {
-		ValidateService validateShipTo = validate(shipTo);
+	public ResponseStatus add(final ShipTo shipTo) {
+		ResponseStatus validateShipTo = validate(shipTo);
 		if (validateShipTo.isValid()) {
 			LOGGER.info("## Attempting to add shipTo: {}", shipTo);
-			if (!(this.shipToRepository.add(shipTo) > 0)) {
+			if (this.shipToRepository.add(shipTo) <= 0) {
 				validateShipTo.setValid(false);
 				validateShipTo.appendServiceMsg("There was an unknown error while attempting to add record. Please contact DBAdmin.");				
 			}
 		}
 		return validateShipTo;
 	}
-	public ValidateService delete (final Long id) {
-		ValidateService validateShipTo = new ValidateService();
+	public ResponseStatus delete (final Long id) {
+		ResponseStatus validateShipTo = new ResponseStatus();
 		validateShipTo.setValid(true);
-		if (!(this.shipToRepository.delete(id) > 0)) {
+		if (this.shipToRepository.delete(id) <= 0) {
 			validateShipTo.setValid(false);
 			validateShipTo.appendServiceMsg("There was an unknown error while attempting to delete record, or record does not exist. Please contact DBAdmin.");
 		}
@@ -59,8 +60,8 @@ public class ShipToService {
 		return validateShipTo;
 	}
 	
-	public ValidateService validate (final ShipTo shipTo) {
-		ValidateService validateService = new ValidateService();
+	public ResponseStatus validate (final ShipTo shipTo) {
+		ResponseStatus validateService = new ResponseStatus();
 		validateService.setValid(true);
 
 		LOGGER.info("## Validating shipTo: {}", shipTo);
