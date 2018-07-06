@@ -1,0 +1,75 @@
+package com.softtek.javaweb.repository;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.softtek.javaweb.domain.model.Cart;
+
+@Repository
+public class CartRepository {
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	
+	@Autowired
+	public CartRepository (final DataSource dataSource){
+		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+	}
+	
+	public Cart getOne(final Long id) {
+		String sql = "SELECT * FROM cart WHERE cart_id = :id";
+		return namedParameterJdbcTemplate.queryForObject(sql, Collections.singletonMap("id", id), new CartRowMapper());
+	}
+	
+	public List<Cart> list() {
+		String sql = "SELECT FROM cart";
+		return namedParameterJdbcTemplate.query(sql, new CartRowMapper());
+	}
+	public int add(final Cart cart) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("INSERT INTO cart ");
+		sql.append("(lines_amount, shipping_amount, cart_amount, ship_to_id, status_id, ");
+		sql.append("create_user, create_date, update_user, update_date) ");
+		sql.append("VALUES (:lnamt, :shpamt, :crtamt, :ship_to_id, :status_id, :crtuser, :crtdate, :upduser, :upddate)");
+		
+		return namedParameterJdbcTemplate.update(sql.toString(),buildCartArgs(cart));	
+	}
+
+	public int update(final Cart cart) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("UPDATE cart ");
+		sql.append("SET lines_amount = :lnamt, shipping_amount = :shpamt, cart_amount = :crtamt, ship_to_id = :ship_to_id, status_id = :status_id, ");
+		sql.append("create_user = :crtuser, create_date = :crtdate, update_user = :upduser, update_date = :upddate ");
+		sql.append("WHERE cart_id = :cart_id");
+		
+		return namedParameterJdbcTemplate.update(sql.toString(), buildCartArgs(cart));	
+	}
+
+	public int delete(final Long id) {
+		String sql = "DELETE FROM cart WHERE cart_id = :id";
+		return namedParameterJdbcTemplate.update(sql, Collections.singletonMap("id", id));	
+	}	
+
+	private Map<String, Object> buildCartArgs(Cart cart) {
+		Map<String, Object> cartArgs = new HashMap<>();
+		
+		cartArgs.put("cart_id", cart.getCartId());
+		cartArgs.put("lnamt", cart.getLinesAmount());
+		cartArgs.put("shpamt", cart.getShippingAmount());
+		cartArgs.put("crtamt", cart.getCartAmount());
+		cartArgs.put("ship_to_id", cart.getShipTo().getShipToId());
+		cartArgs.put("status_id", cart.getStatus().getStatusId());
+		cartArgs.put("crtuser", cart.getCreateUser());
+		cartArgs.put("crtdate", cart.getCreateDate());
+		cartArgs.put("upduser", cart.getUpdateUser());
+		cartArgs.put("upddate", cart.getUpdateDate());
+		
+		return cartArgs;
+	}
+}
