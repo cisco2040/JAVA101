@@ -10,6 +10,7 @@ import com.softtek.javaweb.repository.StatusRepository;
 
 @Service
 public class StatusService {
+	
 	@Autowired
 	private StatusRepository statusRepository;
 	

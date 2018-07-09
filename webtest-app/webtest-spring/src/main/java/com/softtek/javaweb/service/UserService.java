@@ -13,6 +13,7 @@ import com.softtek.javaweb.repository.UserRepository;
 
 @Service
 public class UserService {
+	
 	@Autowired
 	private UserRepository userRepository;
 	

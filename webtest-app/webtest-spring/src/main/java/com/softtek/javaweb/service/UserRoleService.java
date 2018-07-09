@@ -10,6 +10,7 @@ import com.softtek.javaweb.repository.UserRoleRepository;
 
 @Service
 public class UserRoleService {
+	
 	@Autowired
 	UserRoleRepository userRoleRepository;
 	

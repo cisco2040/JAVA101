@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,12 +13,9 @@ import com.softtek.javaweb.domain.model.Cart;
 
 @Repository
 public class CartRepository {
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
 	@Autowired
-	public CartRepository (final DataSource dataSource){
-		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-	}
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
 	public Cart getOne(final Long id) {
 		String sql = "SELECT * FROM cart WHERE cart_id = :id";

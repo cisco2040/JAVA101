@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,13 +13,10 @@ import com.softtek.javaweb.domain.model.ShipTo;
 
 @Repository
 public class ShipToRepository {
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@Autowired
-	public ShipToRepository (final DataSource dataSource) {
-		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-	}
-	
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
 	public ShipTo getOne(final Long id) {
 		String sql = "SELECT * FROM ship_to WHERE ship_to_id = :id";
 		return namedParameterJdbcTemplate.queryForObject(sql, Collections.singletonMap("id", id), new ShipToRowMapper());

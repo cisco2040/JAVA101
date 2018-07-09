@@ -16,7 +16,7 @@
 	      <id>public</id>
 	      <url>http://maven.nuxeo.org/nexus/content/repositories/public/</url>
 	    </repository>
-	</repositories>
+	</repositories>	
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -119,7 +119,7 @@
 				<plugin>
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>2.8.2</version>
-				</plugin>
+				</plugin>				
 			</plugins>
 		</pluginManagement>
 	</build>

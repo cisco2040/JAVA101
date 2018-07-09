@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,16 +13,12 @@ import com.softtek.javaweb.domain.model.User;
 
 @Repository
 public class UserRepository {
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
 	@Autowired
-	public UserRepository (final DataSource dataSource) {
-		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate (dataSource);
-	}
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
 	public User getOne(final String id) {
 		String sql = "SELECT * FROM user WHERE username = :id";
-		System.out.println("##### This is the query ");
 		return namedParameterJdbcTemplate.queryForObject(sql, Collections.singletonMap("id", id), new UserRowMapper());
 	}
 	
