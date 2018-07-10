@@ -1,4 +1,4 @@
-package com.softtek.javaweb.repository;
+package com.softtek.javaweb.repository.impl;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,23 +10,30 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.softtek.javaweb.domain.model.ShipTo;
+import com.softtek.javaweb.repository.MyRepository;
+import com.softtek.javaweb.repository.impl.mapper.ShipToRowMapper;
 
 @Repository
-public class ShipToRepository {
+public class ShipToRepository implements MyRepository<ShipTo, Long> {
 
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	@Autowired
+	private ShipToRowMapper shipToRowMapper;
 
+	@Override
 	public ShipTo getOne(final Long id) {
 		String sql = "SELECT * FROM ship_to WHERE ship_to_id = :id";
-		return namedParameterJdbcTemplate.queryForObject(sql, Collections.singletonMap("id", id), new ShipToRowMapper());
+		return namedParameterJdbcTemplate.queryForObject(sql, Collections.singletonMap("id", id), shipToRowMapper);
 	}
 	
+	@Override
 	public List<ShipTo> list() {
 		String sql = "SELECT * FROM ship_to";
-		return namedParameterJdbcTemplate.query(sql, new ShipToRowMapper());
+		return namedParameterJdbcTemplate.query(sql, shipToRowMapper);
 	}
 
+	@Override
 	public int add(final ShipTo shipTo) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO ship_to ");
@@ -36,6 +43,7 @@ public class ShipToRepository {
 		return namedParameterJdbcTemplate.update(sql.toString(), buildShipToArgs(shipTo));	
 	}
 
+	@Override
 	public int update(final ShipTo shipTo) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE ship_to ");
@@ -45,6 +53,7 @@ public class ShipToRepository {
 		return namedParameterJdbcTemplate.update(sql.toString(), buildShipToArgs(shipTo));	
 	}
 
+	@Override
 	public int delete(final Long id) {
 		String sql = "DELETE FROM ship_to WHERE ship_to_id = :id";
 		return namedParameterJdbcTemplate.update(sql, Collections.singletonMap("id", id));	

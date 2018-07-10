@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.softtek.javaweb.domain.model.UserRole;
-import com.softtek.javaweb.repository.UserRoleRepository;
+import com.softtek.javaweb.repository.MyRepository;
 
 @Service
 public class UserRoleService {
 	
 	@Autowired
-	UserRoleRepository userRoleRepository;
+	MyRepository<UserRole,String> userRoleRepository;
 	
 	public List<UserRole> getList() {
 		return this.userRoleRepository.list();

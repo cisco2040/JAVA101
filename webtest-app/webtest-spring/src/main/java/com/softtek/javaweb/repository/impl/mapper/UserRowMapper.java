@@ -1,4 +1,4 @@
-package com.softtek.javaweb.repository;
+package com.softtek.javaweb.repository.impl.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,16 +8,16 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.softtek.javaweb.domain.model.User;
+import com.softtek.javaweb.repository.impl.UserRoleRepository;
 
 @Repository
 public class UserRowMapper implements RowMapper<User> {
 
 	@Autowired
-	UserRoleRepository userRoleRepository;
-	
+    UserRoleRepository userRoleRepository;
+
 	@Override
 	public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-		System.out.println("### Is this on? " + userRoleRepository.isThisOn());
 		return new User(
 			rs.getString("username"),
 			rs.getString("password"),

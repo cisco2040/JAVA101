@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="
 	http://www.springframework.org/schema/beans 
-	http://www.springframework.org/schema/beans/spring-beans.xsd 
-	http://www.springframework.org/schema/context 
-	http://www.springframework.org/schema/context/spring-context.xsd">
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<context:component-scan base-package="com.softtek.javaweb.repository" use-default-filters="false">
-		<context:include-filter expression="org.springframework.stereotype.Repository" type="annotation" />
-	</context:component-scan>
- 	<context:component-scan base-package="com.softtek.javaweb.service" use-default-filters="false">
-		<context:include-filter expression="org.springframework.stereotype.Service" type="annotation" />
-	</context:component-scan>
-	
+	<bean id="jdbcConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>/META-INF/applicationJdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+
 	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close" >
-		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/mydb" />
-		<property name="username" value="myuser" />
-		<property name="password" value="mypassword" />			
+		<property name="driverClassName" value="${jdbc.mysql.dataSource.driverClassName}" />
+		<property name="url" value="${jdbc.mysql.dataSource.url}" />
+		<property name="username" value="${jdbc.mysql.dataSource.username}" />
+		<property name="password" value="${jdbc.mysql.dataSource.password}" />			
 	</bean>	
 	
 	<bean class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" id="namedParameterJdbcTemplate" >

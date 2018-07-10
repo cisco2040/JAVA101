@@ -1,4 +1,4 @@
-package com.softtek.javaweb.repository;
+package com.softtek.javaweb.repository.impl;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,23 +10,30 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.softtek.javaweb.domain.model.User;
+import com.softtek.javaweb.repository.MyRepository;
+import com.softtek.javaweb.repository.impl.mapper.UserRowMapper;
 
 @Repository
-public class UserRepository {
+public class UserRepository implements MyRepository<User,String>{
 	
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	@Autowired
+	private UserRowMapper userRowMapper;
 	
+	@Override
 	public User getOne(final String id) {
 		String sql = "SELECT * FROM user WHERE username = :id";
-		return namedParameterJdbcTemplate.queryForObject(sql, Collections.singletonMap("id", id), new UserRowMapper());
+		return namedParameterJdbcTemplate.queryForObject(sql, Collections.singletonMap("id", id), userRowMapper);
 	}
 	
+	@Override
 	public List<User> list() {
 		String sql = "SELECT * FROM user";		
-		return namedParameterJdbcTemplate.query(sql, new UserRowMapper());
+		return namedParameterJdbcTemplate.query(sql, userRowMapper);
 	}
 	
+	@Override
 	public int add(final User user) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO user ");
@@ -36,6 +43,7 @@ public class UserRepository {
 		return namedParameterJdbcTemplate.update(sql.toString(), buildItemArgs(user));	
 	}
 
+	@Override
 	public int update(final User user) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE user ");
@@ -45,6 +53,7 @@ public class UserRepository {
 		return namedParameterJdbcTemplate.update(sql.toString(), buildItemArgs(user));
 	}
 
+	@Override
 	public int delete(final String id) {
 		String sql = "DELETE FROM user WHERE_username = :id";		
 		return namedParameterJdbcTemplate.update(sql, Collections.singletonMap("id", id));	

@@ -10,56 +10,59 @@ import org.springframework.stereotype.Service;
 
 import com.softtek.javaweb.domain.dto.ResponseStatus;
 import com.softtek.javaweb.domain.model.Cart;
-import com.softtek.javaweb.repository.CartRepository;
+import com.softtek.javaweb.repository.MyRepository;
+import com.softtek.javaweb.service.types.UpdateType;
 
 @Service
 public class CartService {
-	@Autowired
-	private CartRepository cartRepository;
+
 	public static final Logger LOGGER = LoggerFactory.getLogger(CartService.class);
-	public static final String NEW = "New Record";
-	public static final String MODIFY = "Update Record";
-	
+
+	@Autowired
+	MyRepository<Cart,Long> cartRepository;
+
 	public List<Cart> getList() {
-		List<Cart> carts = this.cartRepository.list();
+		List<Cart> carts = cartRepository.list();
 		LOGGER.info("## Cart List Obtained: {}", carts);
 		return carts;
 	}
 
 	public Cart getOne(final Long id) {
-		Cart cart = this.cartRepository.getOne(id);
+		Cart cart = cartRepository.getOne(id);
 		LOGGER.info("## Cart Obtained: {}", cart);
 		return cart;
 	}
 	
 	public ResponseStatus update(final Cart cart) {
-		ResponseStatus validateCart = validate(cart, CartService.MODIFY);		
+		ResponseStatus validateCart = validate(cart, UpdateType.MODIFY);		
 		if (validateCart.isValid()) {
-			Cart calculatedCart = calculateCart (cart, CartService.MODIFY);
+			Cart calculatedCart = calculateCart (cart, UpdateType.MODIFY);
 			LOGGER.info("## Attempting to update cart: {}", calculatedCart);
-			if (this.cartRepository.update(calculatedCart) <= 0) {
+			if (cartRepository.update(calculatedCart) <= 0) {
 				validateCart.setValid(false);
 				validateCart.appendServiceMsg("There was an unknown error while attempting to update record. Please contact DBAdmin.");				
 			}
 		}
 		return validateCart;
 	}
+
 	public ResponseStatus add(final Cart cart) {
-		ResponseStatus validateCart = validate(cart, CartService.NEW);
+		ResponseStatus validateCart = validate(cart, UpdateType.NEW);
 		if (validateCart.isValid()) {
-			Cart calculatedCart = calculateCart (cart, CartService.NEW);
+			Cart calculatedCart = calculateCart (cart, UpdateType.NEW);
 			LOGGER.info("## Attempting to add cart: {}", cart);
-			if (this.cartRepository.add(calculatedCart) <= 0) {
+			if (cartRepository.add(calculatedCart) <= 0) {
 				validateCart.setValid(false);
 				validateCart.appendServiceMsg("There was an unknown error while attempting to add record. Please contact DBAdmin.");				
 			}
 		}
 		return validateCart;
 	}
+
 	public ResponseStatus delete (final Long id) {
 		ResponseStatus validateCart = new ResponseStatus();
 		validateCart.setValid(true);
-		if (this.cartRepository.delete(id) <= 0) {
+		if (cartRepository.delete(id) <= 0) {
 			validateCart.setValid(false);
 			validateCart.appendServiceMsg("There was an unknown error while attempting to delete record, or record does not exist. Please contact DBAdmin.");
 		}
@@ -67,7 +70,7 @@ public class CartService {
 		return validateCart;
 	}
 	
-	public ResponseStatus validate (final Cart cart, final String action) {
+	public ResponseStatus validate (final Cart cart, final UpdateType action) {
 		ResponseStatus validateService = new ResponseStatus();
 		validateService.setValid(true);
 
@@ -89,7 +92,7 @@ public class CartService {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Create User is mandatory.");
 		}
-		if (cart.getUpdateUser() == null && action == CartService.MODIFY) {
+		if (cart.getUpdateUser() == null && action == UpdateType.MODIFY) {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Update User is mandatory.");
 		}
@@ -99,16 +102,17 @@ public class CartService {
 		
 		return validateService;
 	}	
-	private Cart calculateCart(Cart cart, String action) {
+
+	private Cart calculateCart(Cart cart, UpdateType action) {
 		Cart calculatedCart = cart;
 		ShipToService shipToService = new ShipToService();
 		LOGGER.info("## Attempting to calculate cart: {}", cart);
 		calculatedCart.setShippingAmount(shipToService.getOne(calculatedCart.getShipTo().getShipToId()).getCity().getState().getShippingZone().getShippingCost());
 		calculatedCart.setCartAmount(calculatedCart.getLinesAmount() + calculatedCart.getShippingAmount());
-		if (action == CartService.NEW) {
+		if (action == UpdateType.NEW) {
 			calculatedCart.setCreateDate(new Timestamp(System.currentTimeMillis()));
 		}
-		if (action == CartService.MODIFY) {
+		if (action == UpdateType.MODIFY) {
 			calculatedCart.setUpdateDate(new Timestamp(System.currentTimeMillis()));			
 		}
 		LOGGER.info("## Calculated cart: {}", cart);

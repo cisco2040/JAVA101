@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.softtek.javaweb.domain.dto.ResponseStatus;
 import com.softtek.javaweb.domain.model.ShipTo;
-import com.softtek.javaweb.repository.ShipToRepository;
+import com.softtek.javaweb.repository.MyRepository;
 
 @Service
 public class ShipToService {
+
 	@Autowired
-	private ShipToRepository shipToRepository;
+	private MyRepository<ShipTo,Long> shipToRepository;
+	
 	public static final Logger LOGGER = LoggerFactory.getLogger(ShipToService.class);
 	
 	public List<ShipTo> getList() {
@@ -52,6 +54,7 @@ public class ShipToService {
 		}
 		return validateShipTo;
 	}
+
 	public ResponseStatus delete (final Long id) {
 		ResponseStatus validateShipTo = new ResponseStatus();
 		validateShipTo.setValid(true);
@@ -102,5 +105,5 @@ public class ShipToService {
 		LOGGER.info("## Validating shipTo status messages: {}", validateService.getServiceMsg());
 		
 		return validateService;
-	}	
+	}
 }

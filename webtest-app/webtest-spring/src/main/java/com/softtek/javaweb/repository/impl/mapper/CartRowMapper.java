@@ -1,4 +1,4 @@
-package com.softtek.javaweb.repository;
+package com.softtek.javaweb.repository.impl.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.softtek.javaweb.domain.model.Cart;
+import com.softtek.javaweb.repository.impl.ShipToRepository;
+import com.softtek.javaweb.repository.impl.StatusRepository;
 
 @Repository
 public class CartRowMapper implements RowMapper<Cart> {

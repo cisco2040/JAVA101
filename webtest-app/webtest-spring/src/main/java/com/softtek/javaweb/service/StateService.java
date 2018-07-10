@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.softtek.javaweb.domain.model.State;
-import com.softtek.javaweb.repository.StateRepository;
+import com.softtek.javaweb.repository.MyRepository;
 
 @Service
 public class StateService {
+
 	@Autowired
-	private StateRepository stateRepository;
+	private MyRepository<State,Long> stateRepository;
 	
 	public List<State> getList() {
 		return this.stateRepository.list();

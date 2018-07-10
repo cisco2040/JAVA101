@@ -1,4 +1,4 @@
-package com.softtek.javaweb.repository;
+package com.softtek.javaweb.repository.impl;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,22 +10,30 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.softtek.javaweb.domain.model.Cart;
+import com.softtek.javaweb.repository.MyRepository;
+import com.softtek.javaweb.repository.impl.mapper.CartRowMapper;
 
 @Repository
-public class CartRepository {
+public class CartRepository implements MyRepository<Cart,Long> {
 	
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	
+	@Autowired
+	private CartRowMapper cartRowMapper;
+
+	@Override
 	public Cart getOne(final Long id) {
 		String sql = "SELECT * FROM cart WHERE cart_id = :id";
-		return namedParameterJdbcTemplate.queryForObject(sql, Collections.singletonMap("id", id), new CartRowMapper());
+		return namedParameterJdbcTemplate.queryForObject(sql, Collections.singletonMap("id", id), cartRowMapper);
 	}
 	
+	@Override
 	public List<Cart> list() {
-		String sql = "SELECT FROM cart";
-		return namedParameterJdbcTemplate.query(sql, new CartRowMapper());
+		String sql = "SELECT * FROM cart";
+		return namedParameterJdbcTemplate.query(sql, cartRowMapper);
 	}
+
+	@Override
 	public int add(final Cart cart) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO cart ");
@@ -36,6 +44,7 @@ public class CartRepository {
 		return namedParameterJdbcTemplate.update(sql.toString(),buildCartArgs(cart));	
 	}
 
+	@Override
 	public int update(final Cart cart) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE cart ");
@@ -46,6 +55,7 @@ public class CartRepository {
 		return namedParameterJdbcTemplate.update(sql.toString(), buildCartArgs(cart));	
 	}
 
+	@Override
 	public int delete(final Long id) {
 		String sql = "DELETE FROM cart WHERE cart_id = :id";
 		return namedParameterJdbcTemplate.update(sql, Collections.singletonMap("id", id));	

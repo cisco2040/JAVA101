@@ -1,4 +1,4 @@
-package com.softtek.javaweb.repository;
+package com.softtek.javaweb.repository.impl.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.softtek.javaweb.domain.model.City;
+import com.softtek.javaweb.repository.impl.StateRepository;
 
 @Repository
 public class CityRowMapper implements RowMapper<City> {

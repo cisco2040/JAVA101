@@ -1,4 +1,4 @@
-package com.softtek.javaweb.repository;
+package com.softtek.javaweb.repository.impl.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.softtek.javaweb.domain.model.ShipTo;
+import com.softtek.javaweb.repository.impl.CityRepository;
+import com.softtek.javaweb.repository.impl.UserRepository;
 
 @Repository
 public class ShipToRowMapper implements RowMapper<ShipTo> {

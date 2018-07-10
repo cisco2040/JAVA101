@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.softtek.javaweb.domain.model.ShippingZone;
-import com.softtek.javaweb.repository.ShippingZoneRepository;
+import com.softtek.javaweb.repository.MyRepository;
 
 @Service
 public class ShippingZoneService {
+
 	@Autowired
-	private ShippingZoneRepository shippingZoneRepository;
+	private MyRepository<ShippingZone,String> shippingZoneRepository;
 	
 	public List<ShippingZone> getList() {
 		return this.shippingZoneRepository.list();

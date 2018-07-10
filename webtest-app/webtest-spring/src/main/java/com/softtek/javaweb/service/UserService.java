@@ -9,16 +9,16 @@ import org.springframework.stereotype.Service;
 
 import com.softtek.javaweb.domain.dto.ResponseStatus;
 import com.softtek.javaweb.domain.model.User;
-import com.softtek.javaweb.repository.UserRepository;
+import com.softtek.javaweb.repository.MyRepository;
 
 @Service
 public class UserService {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private MyRepository<User,String> userRepository;
 	
 	public static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
-	
+
 	public List<User> getList() {
 		List<User> users = this.userRepository.list();
 		LOGGER.info("## User List Obtained: {}", users);
@@ -53,6 +53,7 @@ public class UserService {
 		}
 		return validateUser;
 	}
+
 	public ResponseStatus delete (final String id) {
 		ResponseStatus validateUser = new ResponseStatus();
 		validateUser.setValid(true);
@@ -105,7 +106,7 @@ public class UserService {
 		return validateService;
 	}
 	
-	public boolean isUnique(final User user) {
+	private boolean isUnique(final User user) {
 		User chkUser = this.getOne(user.getUsername());
 		LOGGER.info("## Validating user (unique): {}", user);
 		if (chkUser.getUsername() != null ) {
@@ -113,4 +114,5 @@ public class UserService {
 		}
 		return true;
 	}
+
 }
