@@ -1,19 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
-<%@ page import="java.util.*"%>
-<%@ page import="com.softtek.javaweb.service.UserService" %>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<jsp:useBean id="u" class="com.softtek.javaweb.service.UserService"/>
-<% 
-pageContext.setAttribute("users", u.getList());
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/webtest-spring/css/defaultStyles.css">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/defaultStyles.css"/> "/>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Users</title>
 </head>
@@ -40,7 +32,7 @@ pageContext.setAttribute("users", u.getList());
 		</tr>
 		<c:forEach var="user" items="${ users }">
 			<tr>
-				<td><a href="/webtest-spring/jsp/user/edit.jsp?showDetail&username=${ user.username }">${ user.username }</a></td>
+				<td><a href="/webtest-spring/jsp/user/edit.jsp?showDetail&id=${ user.username }">${ user.username }</a></td>
 				<td>********</td>
 				<td>${ user.name }</td>
 				<td>${ user.userRole.description }</td>

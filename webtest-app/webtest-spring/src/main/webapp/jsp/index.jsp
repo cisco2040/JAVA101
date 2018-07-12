@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
 	.menu-grid {
 		margin-top: 10px;
@@ -19,7 +20,7 @@
 </style>	
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="/webtest-spring/css/defaultStyles.css"/>
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/defaultStyles.css"/> "/>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 		<title>Web App Test</title>
@@ -30,17 +31,17 @@
 		</div>
 		<div class="container">
 			<div class="row menu-grid">
-				<a href="/webtest-spring/jsp/cart/list.jsp">
+				<a href="<c:url value="/cart/list"/>">
 					<div class="col-sm-4 menu-grid-element">
 						<p>Carts</p>
 					</div>
 				</a>
-				<a href="/webtest-spring/jsp/shipTo/list.jsp">
+				<a href="<c:url value="/shipTo/list"/>">
 					<div class="col-sm-4 menu-grid-element">
 						<p>Ship To Addresses</p>
 					</div>
 				</a>
-				<a href="/webtest-spring/jsp/user/list.jsp">
+				<a href="<c:url value="/user/list"/>">
 					<div class="col-sm-4 menu-grid-element">
 						<p>Users</p>
 					</div>
@@ -52,29 +53,29 @@
 		</div>	
 		<div class="container">
 			<div class="row menu-grid">
-				<a href="/webtest-spring/jsp/city/list.jsp">
+				<a href="<c:url value="/city/list"/>">
 					<div class="col-sm-4 menu-grid-element">
 						<p>Cities</p>
 					</div>
 				</a>
-				<a href="/webtest-spring/jsp/state/list.jsp">
+				<a href="<c:url value="/state/list"/>">
 					<div class="col-sm-4 menu-grid-element">
 						<p>States</p>
 					</div>
 				</a>
-				<a href="/webtest-spring/jsp/shippingZone/list.jsp">
+				<a href="<c:url value="/shippingZone/list"/>">
 					<div class="col-sm-4 menu-grid-element">
 						<p>Shipping Zones</p>
 					</div>
 				</a>
 			</div>
 			<div class="row menu-grid">
-				<a href="/webtest-spring/jsp/userRole/list.jsp">
+				<a href="<c:url value="/userRole/list"/>">
 					<div class="col-sm-4 menu-grid-element">
 						<p>User Roles</p>
 					</div>
 				</a>
-				<a href="/webtest-spring/jsp/status/list.jsp">
+				<a href="<c:url value="/status/list"/>">
 					<div class="col-sm-4 menu-grid-element">
 						<p>Status</p>
 					</div>

@@ -1,19 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
-<%@ page import="java.util.*"%>
-<%@ page import="com.softtek.javaweb.service.ShipToService" %>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<jsp:useBean id="st" class="com.softtek.javaweb.service.ShipToService"/>
-<% 
-pageContext.setAttribute("shipTos", st.getList());
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/webtest-spring/css/defaultStyles.css">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/defaultStyles.css"/> "/>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Ship-To Addresses</title>
 </head>
@@ -41,7 +33,7 @@ pageContext.setAttribute("shipTos", st.getList());
 		</tr>
 		<c:forEach var="shipTo" items="${ shipTos }">
 			<tr>
-				<td><a href="/webtest-spring/jsp/shipTo/edit.jsp?showDetail&shipToId=${ shipTo.shipToId }">${ shipTo.shipToId }</a></td>
+				<td><a href="/webtest-spring/jsp/shipTo/edit.jsp?showDetail&id=${ shipTo.shipToId }">${ shipTo.shipToId }</a></td>
 				<td>${ shipTo.user.username }</td>
 				<td>${ shipTo.name }</td>
 				<td>${ shipTo.address }</td>

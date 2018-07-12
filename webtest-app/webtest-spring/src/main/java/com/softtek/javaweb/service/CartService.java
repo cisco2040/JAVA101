@@ -20,6 +20,8 @@ public class CartService {
 
 	@Autowired
 	MyRepository<Cart,Long> cartRepository;
+	@Autowired
+	ShipToService shipToService;
 
 	public List<Cart> getList() {
 		List<Cart> carts = cartRepository.list();
@@ -105,7 +107,6 @@ public class CartService {
 
 	private Cart calculateCart(Cart cart, UpdateType action) {
 		Cart calculatedCart = cart;
-		ShipToService shipToService = new ShipToService();
 		LOGGER.info("## Attempting to calculate cart: {}", cart);
 		calculatedCart.setShippingAmount(shipToService.getOne(calculatedCart.getShipTo().getShipToId()).getCity().getState().getShippingZone().getShippingCost());
 		calculatedCart.setCartAmount(calculatedCart.getLinesAmount() + calculatedCart.getShippingAmount());

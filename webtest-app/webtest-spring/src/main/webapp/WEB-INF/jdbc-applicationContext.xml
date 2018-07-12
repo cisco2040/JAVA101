@@ -8,7 +8,7 @@
 	<bean id="jdbcConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>/META-INF/applicationJdbc.properties</value>
+				<value>/WEB-INF/applicationJdbc.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -17,7 +17,9 @@
 		<property name="driverClassName" value="${jdbc.mysql.dataSource.driverClassName}" />
 		<property name="url" value="${jdbc.mysql.dataSource.url}" />
 		<property name="username" value="${jdbc.mysql.dataSource.username}" />
-		<property name="password" value="${jdbc.mysql.dataSource.password}" />			
+		<property name="password" value="${jdbc.mysql.dataSource.password}" />
+		<property name="maxIdle" value="999999" />
+					
 	</bean>	
 	
 	<bean class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" id="namedParameterJdbcTemplate" >
