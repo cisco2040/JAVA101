@@ -15,7 +15,7 @@
 		<h1 align="center">Status List</h1>
 	</div>
 	<div style="margin-left:5%;margin-bottom: 1%;">
-		<form action="/webtest-spring/index.jsp">
+		<form action=<c:url value="/cart/edit"/>>
 			<button name="home" type="submit" >Home</button>
 		</form>
 	</div>

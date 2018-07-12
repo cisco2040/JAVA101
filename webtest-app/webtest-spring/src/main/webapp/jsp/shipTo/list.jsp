@@ -14,7 +14,7 @@
 		<h1 align="center">Ship-To Address List</h1>
 	</div>
 	<div style="margin-left:5%;margin-bottom: 1%;">
-		<form action="/webtest-spring/jsp/shipTo/edit.jsp">
+		<form action=<c:url value="/shipTo/edit"/>>
 			<button name="home" type="submit" >Home</button>
 			<button name="addNew" type="submit" >Add New..</button>
 		</form>
@@ -33,7 +33,7 @@
 		</tr>
 		<c:forEach var="shipTo" items="${ shipTos }">
 			<tr>
-				<td><a href="/webtest-spring/jsp/shipTo/edit.jsp?showDetail&id=${ shipTo.shipToId }">${ shipTo.shipToId }</a></td>
+				<td><a href=<c:url value="/shipTo/edit?showDetail&id=${ shipTo.shipToId }"/>>${ shipTo.shipToId }</a></td>
 				<td>${ shipTo.user.username }</td>
 				<td>${ shipTo.name }</td>
 				<td>${ shipTo.address }</td>

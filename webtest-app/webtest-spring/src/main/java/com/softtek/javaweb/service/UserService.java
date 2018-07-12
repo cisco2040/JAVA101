@@ -109,7 +109,7 @@ public class UserService {
 	private boolean isUnique(final User user) {
 		User chkUser = this.getOne(user.getUsername());
 		LOGGER.info("## Validating user (unique): {}", user);
-		if (chkUser.getUsername() != null ) {
+		if (chkUser != null) {
 			return !chkUser.getUsername().equals(user.getUsername());
 		}
 		return true;

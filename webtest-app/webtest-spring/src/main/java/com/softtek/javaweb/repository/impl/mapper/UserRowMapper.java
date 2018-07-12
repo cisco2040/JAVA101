@@ -26,5 +26,4 @@ public class UserRowMapper implements RowMapper<User> {
 			rs.getString("active")		
 		);
 	}
-
 }

@@ -15,7 +15,7 @@
 		<h1 align="center">Cart List</h1>
 	</div>
 	<div style="margin-left:5%;margin-bottom: 1%;">
-		<form action="/webtest-spring/jsp/cart/edit.jsp">
+		<form action=<c:url value="/cart/edit"/> method="post">
 			<button name="home" type="submit" >Home</button>
 			<button name="addNew" type="submit" >Add New..</button>
 		</form>

@@ -15,7 +15,7 @@
 	</div>
 	
 	<div style="margin-left:5%;margin-bottom: 1%;">
-		<form action="/webtest-spring/jsp/user/edit.jsp">
+		<form action=<c:url value="/user/edit"/>>
 			<button name="home" type="submit" >Home</button>
 			<button name="addNew" type="submit" >Add New..</button>
 		</form>
@@ -32,7 +32,7 @@
 		</tr>
 		<c:forEach var="user" items="${ users }">
 			<tr>
-				<td><a href="/webtest-spring/jsp/user/edit.jsp?showDetail&id=${ user.username }">${ user.username }</a></td>
+				<td><a href=<c:url value="/user/edit?showDetail&id=${ user.username }"/>>${ user.username }</a></td>
 				<td>********</td>
 				<td>${ user.name }</td>
 				<td>${ user.userRole.description }</td>
