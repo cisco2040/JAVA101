@@ -19,13 +19,10 @@
 	</div>
 	<div style="margin-left: 5%; margin-top: 1%;">
 		<form action="<c:url value="/cart/edit"/>" method="post">
-			<input type="hidden" name="frmCartId" value="${ cart.cartId }" /> <input
-				type="hidden" name="frmShippingAmount"
-				value="${ cart.shippingAmount }" /> <input type="hidden"
-				name="frmCartAmount" value="${ cart.cartAmount }" /> <input
-				type="hidden" name="frmCreateUser" value="${ cart.createUser }" /> <input
-				type="hidden" name="frmCreateDate"
-				value="<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ cart.createDate }"/>" />
+			<input type="hidden" name="frmCartId" value="${ cart.cartId }" />
+			<input type="hidden" name="frmShippingAmount" value="${ cart.shippingAmount }" /> 
+			<input type="hidden" name="frmCartAmount" value="${ cart.cartAmount }" /> 
+			<input type="hidden" name="frmCreateDate" value="<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ cart.createDate }"/>" />
 			<table>
 				<c:if test="${ cart.cartId != null }">
 					<tr>
@@ -84,6 +81,7 @@
 					</tr>
 				</c:if>
 				<c:if test="${ cart.cartId != null }">
+					<input type="hidden" name="frmCreateUser" value="${ cart.createUser }" />					
 					<tr>
 						<td align="right">Create User:</td>
 						<td>${ cart.createUser }</td>
@@ -110,7 +108,7 @@
 				<button name="cancel" type="submit" value="">Cancel</button>
 				<c:if test="${ param.addNew == null }">
 					<c:if test="${ param.Save == null }">
-						<button id="deleteBtn" onclick="alertDelete()" name="delete"
+						<button id="deleteBtn" onclick="alertDelete(event)" name="delete"
 							type="submit" value="">Delete</button>
 					</c:if>
 				</c:if>
@@ -121,8 +119,8 @@
 		</c:forEach>
 	</div>
 </body>
-<script>
-function alertDelete() {
+<script type="application/javascript">
+function alertDelete(event) {
     if (confirm("Do you want to delete this entry?")) {
     } else {
     	event.preventDefault();

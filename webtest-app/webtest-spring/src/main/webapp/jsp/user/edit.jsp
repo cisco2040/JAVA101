@@ -61,7 +61,7 @@
 				<button name="cancel" type="submit" value="">Cancel</button>
 				<c:if test="${ param.addNew == null }">
 					<c:if test="${ param.Save == null }">
-						<button id="deleteBtn" onclick="alertDelete()" name="delete"
+						<button id="deleteBtn" onclick="alertDelete(event)" name="delete"
 							type="submit" value="">Delete</button>
 					</c:if>
 				</c:if>
@@ -73,7 +73,7 @@
 	</div>
 </body>
 <script>
-	function alertDelete() {
+	function alertDelete(event) {
 		if (confirm("Do you want to delete this entry?")) {
 		} else {
 			event.preventDefault();
