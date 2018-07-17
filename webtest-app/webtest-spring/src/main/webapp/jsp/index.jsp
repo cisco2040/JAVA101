@@ -1,4 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
 <style>
 .menu-grid {
 	margin-top: 10px;
@@ -20,7 +22,6 @@
 	text-align: center;
 }
 </style>
-<html>
 <head>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/defaultStyles.css"/> " />

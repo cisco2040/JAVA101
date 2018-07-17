@@ -8,15 +8,10 @@
 	http://www.springframework.org/schema/context 
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<import resource="jdbc-applicationContext.xml"/>
-	<import resource="web-applicationContext.xml"/>
+	<import resource="classpath:/META-INF/jdbc-applicationContext.xml"/>
 
  	<context:component-scan base-package="com.softtek.javaweb">
-		<context:exclude-filter expression="org.springframework.stereotype.Repository" type="annotation" />
 		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation" />
-	</context:component-scan>
-	<context:component-scan base-package="com.softtek.javaweb.repository.impl" use-default-filters="false">
-		<context:include-filter expression="org.springframework.stereotype.Repository" type="annotation" />
 	</context:component-scan>
 
 </beans>

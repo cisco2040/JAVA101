@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.softtek.javaweb.domain.model.Cart;
 import com.softtek.javaweb.domain.model.City;
 import com.softtek.javaweb.repository.MyRepository;
 

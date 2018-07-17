@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.softtek.javaweb.domain.model.City;
 import com.softtek.javaweb.repository.MyRepository;
-import com.softtek.javaweb.repository.impl.mapper.CartRowMapper;
 import com.softtek.javaweb.repository.impl.mapper.CityRowMapper;
 
 @Repository

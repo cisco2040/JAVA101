@@ -37,7 +37,7 @@ public class RepositoryFactory {
 		case SHIPPING_ZONE:
 			return shippingZoneRepository;
 		case SHIP_TO:
-			return (MyRepository) shipToRepositoryImpl;
+			return shipToRepositoryImpl;
 		case STATE:
 			return stateRepository;
 		case STATUS:
