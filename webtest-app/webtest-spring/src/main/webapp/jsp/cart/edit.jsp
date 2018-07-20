@@ -17,6 +17,8 @@
 	</div>
 	<div style="margin-left: 5%; margin-top: 1%;">
 		<form action="<c:url value="/cart/edit"/>" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		
 			<input type="hidden" name="frmCartId" value="${ cart.cartId }" />
 			<input type="hidden" name="frmShippingAmount" value="${ cart.shippingAmount }" /> 
 			<input type="hidden" name="frmCartAmount" value="${ cart.cartAmount }" /> 
