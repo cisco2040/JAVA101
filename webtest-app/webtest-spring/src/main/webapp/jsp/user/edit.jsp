@@ -18,40 +18,40 @@
 			<table>
 				<tr>
 					<td align="right">Username:</td>
-					<td><input type="text" name="frmUsername"
+					<td><input type="text" name="username"
 						value="${ user.username }"
 						<c:if test="${ param.showDetail != null }">readonly="true"</c:if>
 						<c:if test="${ param.Update != null }">readonly="true"</c:if> /></td>
 				</tr>
 				<tr>
 					<td align="right">Password:</td>
-					<td><input type="password" name="frmPassword"
+					<td><input type="password" name="password"
 						value="${ user.password }"></input></td>
 				</tr>
 				<tr>
 					<td align="right">Confirm Password:</td>
-					<td><input type="password" name="frmPasswordConfirm"
-						value="${ frmValPasswordConfirm }"></input></td>
+					<td><input type="password" name="passwordConfirm"
+						value="${ user.passwordConfirm }"></input></td>
 				</tr>
 				<tr>
 					<td align="right">Name:</td>
-					<td><input type="text" name="frmName" value="${ user.name }"></input>
+					<td><input type="text" name="name" value="${ user.name }"></input>
 					</td>
 				</tr>
 				<tr>
 					<td align="right">User Role:</td>
-					<td><select name="frmUserRoleId">
+					<td><select name="userRoleId">
 							<option value="" selected>Select Role...</option>
 							<c:forEach var="userRole" items="${ userRoles }">
 								<option value="${ userRole.userRoleId }"
-									<c:if test="${ userRole.userRoleId == user.userRole.userRoleId }">selected</c:if>>${ userRole.description }
+									<c:if test="${ userRole.userRoleId == user.userRoleId }">selected</c:if>>${ userRole.description }
 								</option>
 							</c:forEach>
 					</select></td>
 				</tr>
 				<tr>
 					<td align="right">Active:</td>
-					<td><input type="text" name="frmActive"
+					<td><input type="text" name="active"
 						value="${ user.active }"></input></td>
 				</tr>
 			</table>

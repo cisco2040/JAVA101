@@ -19,10 +19,10 @@
 		<form action="<c:url value="/cart/edit"/>" method="post">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		
-			<input type="hidden" name="frmCartId" value="${ cart.cartId }" />
-			<input type="hidden" name="frmShippingAmount" value="${ cart.shippingAmount }" /> 
-			<input type="hidden" name="frmCartAmount" value="${ cart.cartAmount }" /> 
-			<input type="hidden" name="frmCreateDate" value="<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ cart.createDate }"/>" />
+			<input type="hidden" name="cartId" value="${ cart.cartId }" />
+			<input type="hidden" name="shippingAmount" value="${ cart.shippingAmount }" /> 
+			<input type="hidden" name="cartAmount" value="${ cart.cartAmount }" /> 
+			<input type="hidden" name="createDate" value="<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ cart.createDate }"/>" />
 			<table>
 				<c:if test="${ cart.cartId != null }">
 					<tr>
@@ -32,7 +32,7 @@
 				</c:if>
 				<tr>
 					<td align="right">Line Amount:</td>
-					<td><input type="number" name="frmLinesAmount"
+					<td><input type="number" name="linesAmount"
 						value="${ cart.linesAmount }"></input></td>
 				</tr>
 				<c:if test="${ cart.cartId != null }">
@@ -47,23 +47,23 @@
 				</c:if>
 				<tr>
 					<td align="right">Ship-To Address:</td>
-					<td><select name="frmShipToId">
+					<td><select name="shipToId">
 							<option value="" selected>Select Address...</option>
 							<c:forEach var="shipTo" items="${ shipTos }">
 								<option value="${ shipTo.shipToId }"
-									<c:if test="${ shipTo.shipToId == cart.shipTo.shipToId }">selected</c:if>>${ shipTo.address },
+									<c:if test="${ shipTo.shipToId == cart.shipToId }">selected</c:if>>${ shipTo.address },
 									${ shipTo.city.description }, ${ shipTo.city.state.description }</option>
 							</c:forEach>
 					</select></td>
 				</tr>
 				<tr>
 					<td align="right">Status:</td>
-					<td><select name="frmStatusId">
+					<td><select name="statusId">
 							<option value="" selected>Select Status...</option>
 							<c:forEach var="status" items="${ statuses }">
 								<c:if test="${ status.statusType == 'CART' }">
 									<option value="${ status.statusId }"
-										<c:if test="${ status.statusId == cart.status.statusId }">selected</c:if>>${ status.description }</option>
+										<c:if test="${ status.statusId == cart.statusId }">selected</c:if>>${ status.description }</option>
 								</c:if>
 							</c:forEach>
 					</select></td>
@@ -71,7 +71,7 @@
 				<c:if test="${ cart.cartId == null }">
 					<tr>
 						<td align="right">Create User:</td>
-						<td><select name="frmCreateUser">
+						<td><select name="createUser">
 								<option value="" selected>Select Username...</option>
 								<c:forEach var="user" items="${ users }">
 									<option value="${ user.username }"
@@ -81,7 +81,7 @@
 					</tr>
 				</c:if>
 				<c:if test="${ cart.cartId != null }">
-					<input type="hidden" name="frmCreateUser" value="${ cart.createUser }" />					
+					<input type="hidden" name="createUser" value="${ cart.createUser }" />					
 					<tr>
 						<td align="right">Create User:</td>
 						<td>${ cart.createUser }</td>
@@ -93,7 +93,7 @@
 					</tr>
 					<tr>
 						<td align="right">Update User:</td>
-						<td><select name="frmUpdateUser">
+						<td><select name="updateUser">
 								<option value="" selected>Select Username...</option>
 								<c:forEach var="user" items="${ users }">
 									<option value="${ user.username }"

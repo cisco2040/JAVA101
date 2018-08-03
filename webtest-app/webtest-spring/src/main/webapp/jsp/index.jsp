@@ -5,11 +5,9 @@
 .menu-grid {
 	margin-top: 10px;
 }
-
 .menu-grid-element:hover {
 	background-color: dodgerblue;
 }
-
 .menu-grid-element {
 	color: white;
 	background-color: blue;
@@ -23,14 +21,36 @@
 }
 </style>
 <head>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/css/defaultStyles.css"/> " />
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/defaultStyles.css"/> " />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <title>Web App Test</title>
 </head>
 <body class="container-fluid">
+	<c:url value="/login?logout" var="logoutUrl" />
+	<form action="${logoutUrl}" method="POST" id="logoutForm">
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />
+	</form>
+	<c:url value="/login" var="loginUrl" />
+	<form action="${loginUrl}" method="POST" id="loginForm">
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />
+	</form>
+
+	<c:if test="${pageContext.request.userPrincipal.name != null}">
+		<h4 align="right">
+			Welcome : ${pageContext.request.userPrincipal.name} | <a
+				href="javascript:logoutFormSubmit()"> Logout</a>
+		</h4>
+	</c:if>
+	<c:if test="${pageContext.request.userPrincipal.name == null}">
+		<h4 align="right">
+			Welcome : Anonymous | <a
+				href="javascript:loginFormSubmit()"> Login</a>
+		</h4>
+	</c:if>
+
 	<div class="container">
 		<div class="row">
 			<div id="headerList">
@@ -96,4 +116,12 @@
 		</div>
 	</div>
 </body>
+	<script>
+		function logoutFormSubmit() {
+			document.getElementById("logoutForm").submit();
+		}
+		function loginFormSubmit() {
+			document.getElementById("loginForm").submit();
+		}
+	</script>
 </html>

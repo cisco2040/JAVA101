@@ -3,12 +3,15 @@ package com.softtek.javaweb.service;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.softtek.javaweb.domain.dto.CartForm;
 import com.softtek.javaweb.domain.dto.ResponseStatus;
+import com.softtek.javaweb.domain.mapper.EntityMapper;
 import com.softtek.javaweb.domain.model.Cart;
 import com.softtek.javaweb.repository.MyRepository;
 import com.softtek.javaweb.service.types.UpdateType;
@@ -48,6 +51,10 @@ public class CartService {
 		return validateCart;
 	}
 
+	public ResponseStatus update(final CartForm cartForm) {
+		return this.update(EntityMapper.makeCartFromForm(cartForm));
+	}
+	
 	public ResponseStatus add(final Cart cart) {
 		ResponseStatus validateCart = validate(cart, UpdateType.NEW);
 		if (validateCart.isValid()) {
@@ -61,6 +68,10 @@ public class CartService {
 		return validateCart;
 	}
 
+	public ResponseStatus add(final CartForm cartForm) {
+		return this.add(EntityMapper.makeCartFromForm(cartForm));
+	}
+	
 	public ResponseStatus delete (final Long id) {
 		ResponseStatus validateCart = new ResponseStatus();
 		validateCart.setValid(true);
@@ -78,23 +89,23 @@ public class CartService {
 
 		LOGGER.info("## Validating cart: {}", cart);
 
-		if (cart.getLinesAmount() == null ) {
+		if (cart.getLinesAmount() == null || cart.getLinesAmount().toString().equals(StringUtils.EMPTY) ) {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Line Amount is mandatory.");
 		}
-		if (cart.getShipTo().getShipToId() == null ) {
+		if (cart.getShipTo().getShipToId() == null || cart.getShipTo().getShipToId().toString().equals(StringUtils.EMPTY) ) {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Ship-To ID is mandatory.");
 		}
-		if (cart.getStatus().getStatusId() == null ) {
+		if (cart.getStatus().getStatusId() == null || cart.getStatus().getStatusId().toString().equals(StringUtils.EMPTY)) {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Status is mandatory.");
 		}
-		if (cart.getCreateUser() == null ) {
+		if (cart.getCreateUser() == null || cart.getCreateUser().equals(StringUtils.EMPTY)) {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Create User is mandatory.");
 		}
-		if (cart.getUpdateUser() == null && action == UpdateType.MODIFY) {
+		if ((cart.getUpdateUser() == null || cart.getUpdateUser().equals(StringUtils.EMPTY)) && action == UpdateType.MODIFY) {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Update User is mandatory.");
 		}

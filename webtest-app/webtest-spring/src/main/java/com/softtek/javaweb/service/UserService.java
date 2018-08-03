@@ -2,12 +2,15 @@ package com.softtek.javaweb.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.softtek.javaweb.domain.dto.ResponseStatus;
+import com.softtek.javaweb.domain.dto.UserForm;
+import com.softtek.javaweb.domain.mapper.EntityMapper;
 import com.softtek.javaweb.domain.model.User;
 import com.softtek.javaweb.repository.MyRepository;
 
@@ -41,6 +44,9 @@ public class UserService {
 		}
 		return validateUser;
 	}
+	public ResponseStatus update(final UserForm userForm) {
+		return this.update(EntityMapper.makeUserFromForm(userForm), userForm.getPasswordConfirm());
+	}
 	
 	public ResponseStatus add(final User user, final String confirmPassword) {
 		ResponseStatus validateUser = validate(user, confirmPassword, true);
@@ -53,7 +59,9 @@ public class UserService {
 		}
 		return validateUser;
 	}
-
+	public ResponseStatus add(final UserForm userForm) {
+		return this.add(EntityMapper.makeUserFromForm(userForm), userForm.getPasswordConfirm());
+	}
 	public ResponseStatus delete (final String id) {
 		ResponseStatus validateUser = new ResponseStatus();
 		validateUser.setValid(true);
@@ -71,7 +79,7 @@ public class UserService {
 
 		LOGGER.info("## Validating user: {}", user);
 
-		if (user.getUsername() == null) { 
+		if (user.getUsername() == null || user.getUsername().equals(StringUtils.EMPTY)) { 
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Username is mandatory.");
 		}
@@ -79,7 +87,7 @@ public class UserService {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Username already exists in DB. It must be unique.");
 		}
-		if (user.getPassword() == null) {
+		if (user.getPassword() == null || user.getPassword().equals(StringUtils.EMPTY)) {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Password is mandatory.");
 		} else	{			
@@ -88,15 +96,15 @@ public class UserService {
 				validateService.appendServiceMsg("Password fields must match.");
 			}
 		}
-		if (user.getName() == null) {
+		if (user.getName() == null || user.getName().equals(StringUtils.EMPTY)) {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Name is mandatory.");
 		}
-		if (user.getUserRole().getUserRoleId() == null) {
+		if (user.getUserRole().getUserRoleId() == null || user.getUserRole().getUserRoleId().equals(StringUtils.EMPTY)) {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("User Role is mandatory.");
 		}
-		if (user.getActive() == null) {
+		if (user.getActive() == null || user.getActive().equals(StringUtils.EMPTY)) {
 			validateService.setValid(false);
 			validateService.appendServiceMsg("Active Flag is mandatory.");
 		}

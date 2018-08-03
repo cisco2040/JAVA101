@@ -24,8 +24,9 @@
 <!-- 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
  -->
 	<!-- Maps '/' requests to the 'home' view -->
- 	<mvc:view-controller path="/" view-name="index"/>
-	<mvc:annotation-driven />
-	<context:component-scan base-package="com.softtek.javaweb.web"/>
+  	<mvc:view-controller path="/" view-name="index"/>
+ 	<mvc:annotation-driven>
+	</mvc:annotation-driven>
+ 	<context:component-scan base-package="com.softtek.javaweb.web"/>
 
 </beans:beans>

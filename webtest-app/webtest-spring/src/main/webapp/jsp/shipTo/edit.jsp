@@ -19,54 +19,54 @@
 				<c:if test="${ shipTo.shipToId != null }">
 					<tr>
 						<td align="right">Ship-To ID:</td>
-						<td><input type="text" name="frmShipToId"
+						<td><input type="text" name="shipToId"
 							value="${ shipTo.shipToId }" readonly /></td>
 					<tr>
 				</c:if>
 				<tr>
 					<td align="right">Username:</td>
-					<td><select name="frmUserId">
+					<td><select name="username">
 							<option value="" selected>Select Username...</option>
 							<c:forEach var="user" items="${ users }">
 								<option value="${ user.username }"
-									<c:if test="${ user.username == shipTo.user.username }">selected</c:if>>${ user.username }</option>
+									<c:if test="${ user.username == shipTo.username }">selected</c:if>>${ user.username }</option>
 							</c:forEach>
 					</select></td>
 				</tr>
 				<tr>
 					<td align="right">Name:</td>
-					<td><input type="text" name="frmName" value="${ shipTo.name }"></input>
+					<td><input type="text" name="name" value="${ shipTo.name }"></input>
 					</td>
 				</tr>
 				<tr>
 					<td align="right">Address:</td>
-					<td><input type="text" name="frmAddress"
+					<td><input type="text" name="address"
 						value="${ shipTo.address }"></input></td>
 				</tr>
 				<tr>
 					<td align="right">City:</td>
-					<td><select name="frmCityId">
+					<td><select name="cityId">
 							<option value="" selected>Select City...</option>
 							<c:forEach var="city" items="${ cities }">
 								<option value="${ city.cityId }"
-									<c:if test="${ city.cityId == shipTo.city.cityId }">selected</c:if>>${ city.description },
+									<c:if test="${ city.cityId == shipTo.cityId }">selected</c:if>>${ city.description },
 									${ city.state.description }</option>
 							</c:forEach>
 					</select></td>
 				</tr>
 				<tr>
 					<td align="right">Zip Code:</td>
-					<td><input type="number" name="frmZipcode"
+					<td><input type="number" name="zipcode"
 						value="${ shipTo.zipcode }"></input></td>
 				</tr>
 				<tr>
 					<td align="right">Phone:</td>
-					<td><input type="text" name="frmPhone"
+					<td><input type="text" name="phone"
 						value="${ shipTo.phone }"></input></td>
 				</tr>
 				<tr>
 					<td align="right">Email:</td>
-					<td><input type="email" name="frmEmail"
+					<td><input type="email" name="email"
 						value="${ shipTo.email }"></input></td>
 				</tr>
 			</table>
