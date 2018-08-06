@@ -19,7 +19,7 @@
 				<tr>
 					<td align="right">Username:</td>
 					<td><input type="text" name="username"
-						value="${ user.username }"
+						value="${ user.username }" pattern="[A-Za-z\.]+" title="Alpha chars and period only. No spaces."
 						<c:if test="${ param.showDetail != null }">readonly="true"</c:if>
 						<c:if test="${ param.Update != null }">readonly="true"</c:if> /></td>
 				</tr>
@@ -31,7 +31,7 @@
 				<tr>
 					<td align="right">Confirm Password:</td>
 					<td><input type="password" name="passwordConfirm"
-						value="${ user.passwordConfirm }"></input></td>
+						value="${ passwordConfirm }"></input></td>
 				</tr>
 				<tr>
 					<td align="right">Name:</td>
@@ -44,7 +44,7 @@
 							<option value="" selected>Select Role...</option>
 							<c:forEach var="userRole" items="${ userRoles }">
 								<option value="${ userRole.userRoleId }"
-									<c:if test="${ userRole.userRoleId == user.userRoleId }">selected</c:if>>${ userRole.description }
+									<c:if test="${ userRole.userRoleId == user.userRole.userRoleId }">selected</c:if>>${ userRole.description }
 								</option>
 							</c:forEach>
 					</select></td>

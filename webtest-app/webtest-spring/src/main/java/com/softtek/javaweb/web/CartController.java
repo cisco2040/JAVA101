@@ -65,19 +65,19 @@ public class CartController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET, params = {"showDetail","id"})
 	public String cartEditController (@RequestParam("id") String id, Model model) {
 		model.addAllAttributes(this.initializeEditForm("Edit Cart", "Update", null));
-		model.addAttribute("cart", EntityMapper.makeFormFromCart(cartService.getOne(Long.valueOf(id))));	
+		model.addAttribute("cart", cartService.getOne(Long.valueOf(id)));	
 		return CartController.EDIT_FORM;				
 	}	
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "Update")
 	public String cartUpdateController (@ModelAttribute final CartForm cartForm, BindingResult bindingResult, Model model) {
 		ResponseStatus responseStatus = cartService.update(cartForm);
-		LOGGER.info("## Mapping update. This is cart form. {}", cartForm);
+
 		if (responseStatus.isValid()) {
 			model.addAttribute("carts", cartService.getList());	
 			return CartController.LIST_FORM;				
 	   	} else {
-			model.addAttribute("cart", cartForm);
+			model.addAttribute("cart", EntityMapper.makeCartFromForm(cartForm));
 	   		model.addAllAttributes(this.initializeEditForm("Edit Cart", "Update", responseStatus));
 			return CartController.EDIT_FORM;				
 	   	}
@@ -92,14 +92,12 @@ public class CartController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "Save")
 	public String cartSaveController (@ModelAttribute final CartForm cartForm, BindingResult bindingResult, Model model) {
 		ResponseStatus responseStatus = cartService.add(cartForm);
-		if (bindingResult.hasErrors()) {
-			bindingResult.getAllErrors().forEach(msg -> LOGGER.info("## Binding Errors: {}", msg));
-		}
+
 		if (responseStatus.isValid()) {
 			model.addAttribute("carts", cartService.getList());	
 			return CartController.LIST_FORM;				
 	   	} else {
-			model.addAttribute("cart", cartForm);
+			model.addAttribute("cart", EntityMapper.makeCartFromForm(cartForm));
 	   		model.addAllAttributes(this.initializeEditForm("Add New Cart", "Save", responseStatus));
 			return CartController.EDIT_FORM;				
 	   	}
@@ -113,7 +111,7 @@ public class CartController {
 			model.addAttribute("carts", cartService.getList());	
 			return CartController.LIST_FORM;				
 	   	} else {
-			model.addAttribute("cart", cartForm);
+			model.addAttribute("cart", EntityMapper.makeCartFromForm(cartForm));
 	   		model.addAllAttributes(this.initializeEditForm("Edit Cart", "Update", responseStatus));
 			return CartController.EDIT_FORM;				
 	   	}

@@ -15,11 +15,10 @@ public class CartForm {
 	private String createUser;
 	private Timestamp createDate;
 	private String updateUser;
-	private Timestamp updateDate;
 
 	public CartForm() {}	
 	public CartForm(Long cartId, Float linesAmount, Float shippingAmount, Float cartAmount, Long shipToId,
-			Long statusId, String createUser, Timestamp createDate, String updateUser, Timestamp updateDate) {
+			Long statusId, String createUser, Timestamp createDate, String updateUser) {
 		super();
 		this.cartId = cartId;
 		this.linesAmount = linesAmount;
@@ -28,9 +27,8 @@ public class CartForm {
 		this.shipToId = shipToId;
 		this.statusId = statusId;
 		this.createUser = createUser;
-		this.createDate = createDate;
+		this.setCreateDate(createDate);
 		this.updateUser = updateUser;
-		this.updateDate = updateDate;
 	}
 
 	public Long getCartId() {
@@ -87,17 +85,10 @@ public class CartForm {
 	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
 	}
-	public Timestamp getUpdateDate() {
-		return updateDate;
-	}
-	public void setUpdateDate(Timestamp updateDate) {
-		this.updateDate = updateDate;
-	}
 	@Override
 	public String toString() {
 		return "CartForm [cartId=" + cartId + ", linesAmount=" + linesAmount + ", shippingAmount=" + shippingAmount
 				+ ", cartAmount=" + cartAmount + ", shipToId=" + shipToId + ", statusId=" + statusId + ", createUser="
-				+ createUser + ", createDate=" + createDate + ", updateUser=" + updateUser + ", updateDate="
-				+ updateDate + "]";
+				+ createUser + "createDate =" + createDate + "updateUser=" + updateUser + "]";
 	}
 }

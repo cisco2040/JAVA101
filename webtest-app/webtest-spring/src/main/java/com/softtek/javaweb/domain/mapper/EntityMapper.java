@@ -17,13 +17,12 @@ public class EntityMapper {
 		
 		cart.setCartId(cartForm.getCartId());
 		cart.setCartAmount(cartForm.getCartAmount());
-		cart.setCreateDate(cartForm.getCreateDate());
 		cart.setCreateUser(cartForm.getCreateUser());
+		cart.setCreateDate(cartForm.getCreateDate());
 		cart.setLinesAmount(cartForm.getLinesAmount());
 		cart.setShippingAmount(cartForm.getShippingAmount());
 		cart.setShipTo(new ShipTo(cartForm.getShipToId(), null, null, null, null, null, null, null ));
 		cart.setStatus(new Status(cartForm.getStatusId(), null, null));
-		cart.setUpdateDate(cartForm.getUpdateDate());
 		cart.setUpdateUser(cartForm.getUpdateUser());
 		
 		return cart;
@@ -33,13 +32,12 @@ public class EntityMapper {
 		
 		cartForm.setCartId(cart.getCartId());
 		cartForm.setCartAmount(cart.getCartAmount());
-		cartForm.setCreateDate(cart.getCreateDate());
 		cartForm.setCreateUser(cart.getCreateUser());
+		cartForm.setCreateDate(cart.getCreateDate());
 		cartForm.setLinesAmount(cart.getLinesAmount());
 		cartForm.setShippingAmount(cart.getShippingAmount());
 		cartForm.setShipToId(cart.getShipTo().getShipToId());
 		cartForm.setStatusId(cart.getStatus().getStatusId());
-		cartForm.setUpdateDate(cart.getUpdateDate());
 		cartForm.setUpdateUser(cart.getUpdateUser());
 		
 		return cartForm;

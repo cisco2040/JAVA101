@@ -61,7 +61,7 @@ public class ShipToController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET, params = {"showDetail","id"})
 	public String shipToEditController (@RequestParam("id") String id, Model model) {
 		model.addAllAttributes(this.initializeEditForm("Edit Ship-To Address", "Update", null));
-		model.addAttribute("shipTo", EntityMapper.makeFormFromShipTo(shipToService.getOne(Long.valueOf(id))));	
+		model.addAttribute("shipTo", shipToService.getOne(Long.valueOf(id)));	
 		return ShipToController.EDIT_FORM;				
 	}	
 
@@ -73,7 +73,7 @@ public class ShipToController {
 			model.addAttribute("shipTos", shipToService.getList());	
 			return ShipToController.LIST_FORM;				
 	   	} else {
-			model.addAttribute("shipTo", shipToForm);
+			model.addAttribute("shipTo", EntityMapper.makeShipToFromForm(shipToForm));
 	   		model.addAllAttributes(this.initializeEditForm("Edit Ship-To Address", "Update", responseStatus));
 			return ShipToController.EDIT_FORM;				
 	   	}
@@ -93,7 +93,7 @@ public class ShipToController {
 			model.addAttribute("shipTos", shipToService.getList());	
 			return ShipToController.LIST_FORM;				
 	   	} else {
-			model.addAttribute("shipTo", shipToForm);
+			model.addAttribute("shipTo", EntityMapper.makeShipToFromForm(shipToForm));
 	   		model.addAllAttributes(this.initializeEditForm("Add New Ship-To Address", "Save", responseStatus));
 			return ShipToController.EDIT_FORM;				
 	   	}
@@ -107,7 +107,7 @@ public class ShipToController {
 			model.addAttribute("shipTos", shipToService.getList());	
 			return ShipToController.LIST_FORM;				
 	   	} else {
-			model.addAttribute("shipTo", shipToForm);
+			model.addAttribute("shipTo", EntityMapper.makeShipToFromForm(shipToForm));
 	   		model.addAllAttributes(this.initializeEditForm("Edit Ship-To Address", "Update", responseStatus));
 			return ShipToController.EDIT_FORM;				
 	   	}

@@ -51,7 +51,7 @@
 							<option value="" selected>Select Address...</option>
 							<c:forEach var="shipTo" items="${ shipTos }">
 								<option value="${ shipTo.shipToId }"
-									<c:if test="${ shipTo.shipToId == cart.shipToId }">selected</c:if>>${ shipTo.address },
+									<c:if test="${ shipTo.shipToId == cart.shipTo.shipToId }">selected</c:if>>${ shipTo.address },
 									${ shipTo.city.description }, ${ shipTo.city.state.description }</option>
 							</c:forEach>
 					</select></td>
@@ -63,7 +63,7 @@
 							<c:forEach var="status" items="${ statuses }">
 								<c:if test="${ status.statusType == 'CART' }">
 									<option value="${ status.statusId }"
-										<c:if test="${ status.statusId == cart.statusId }">selected</c:if>>${ status.description }</option>
+										<c:if test="${ status.statusId == cart.status.statusId }">selected</c:if>>${ status.description }</option>
 								</c:if>
 							</c:forEach>
 					</select></td>

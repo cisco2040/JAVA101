@@ -61,8 +61,7 @@ public class UserController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET, params = {"showDetail","id"})
 	public String userEditController (@RequestParam("id") String id, Model model) {
-		model.addAllAttributes(this.initializeEditForm("Edit User", "Update", null));
-		model.addAttribute("user", EntityMapper.makeFormFromUser(userService.getOne(id)));	
+		model.addAllAttributes(this.initializeEditForm("Edit User", "Update", EntityMapper.makeFormFromUser(userService.getOne(id)), null));
 		return UserController.EDIT_FORM;				
 	}	
 
@@ -74,15 +73,14 @@ public class UserController {
 			model.addAttribute("users", userService.getList());	
 			return UserController.LIST_FORM;				
 	   	} else {
-			model.addAttribute("user", userForm);
-	   		model.addAllAttributes(this.initializeEditForm("Edit User", "Update", responseStatus));
+	   		model.addAllAttributes(this.initializeEditForm("Edit User", "Update", userForm, responseStatus));
 			return UserController.EDIT_FORM;				
 	   	}
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "addNew")
 	public String userNewController (Model model) {
-   		model.addAllAttributes(this.initializeEditForm("Add New User", "Save", null));
+   		model.addAllAttributes(this.initializeEditForm("Add New User", "Save", null, null));
 		return UserController.EDIT_FORM;				
 	}
 	
@@ -94,8 +92,7 @@ public class UserController {
 			model.addAttribute("users", userService.getList());	
 			return UserController.LIST_FORM;				
 	   	} else {
-			model.addAttribute("user", userForm);
-	   		model.addAllAttributes(this.initializeEditForm("Add New User", "Save", responseStatus));
+	   		model.addAllAttributes(this.initializeEditForm("Add New User", "Save", userForm, responseStatus));
 			return UserController.EDIT_FORM;				
 	   	}
 	}
@@ -108,17 +105,20 @@ public class UserController {
 			model.addAttribute("users", userService.getList());	
 			return UserController.LIST_FORM;				
 	   	} else {
-			model.addAttribute("user", userForm);
-	   		model.addAllAttributes(this.initializeEditForm("Edit User", "Update", responseStatus));
+	   		model.addAllAttributes(this.initializeEditForm("Edit User", "Update", userForm, responseStatus));
 			return UserController.EDIT_FORM;				
 	   	}
 	}
 
-	private Map<String,Object> initializeEditForm (final String header, final String submitAction, ResponseStatus responseStatus) {
+	private Map<String,Object> initializeEditForm (final String header, final String submitAction, UserForm userForm, ResponseStatus responseStatus) {
 		Map<String,Object> map = new HashMap<>();
 		
 		map.put(UserController.HEADER, header);
 		map.put(UserController.SUBMIT_BTN, submitAction);
+		if (userForm != null ) {
+			map.put("user", EntityMapper.makeUserFromForm(userForm));
+			map.put("passwordConfirm", userForm.getPasswordConfirm());
+		}		
 		map.put("userRoles", userRoleService.getList());
 		if (responseStatus != null) {
 			map.put("frmValMsgs", responseStatus.getServiceMsg());

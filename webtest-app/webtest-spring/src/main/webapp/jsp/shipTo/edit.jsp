@@ -29,7 +29,7 @@
 							<option value="" selected>Select Username...</option>
 							<c:forEach var="user" items="${ users }">
 								<option value="${ user.username }"
-									<c:if test="${ user.username == shipTo.username }">selected</c:if>>${ user.username }</option>
+									<c:if test="${ user.username == shipTo.user.username }">selected</c:if>>${ user.username }</option>
 							</c:forEach>
 					</select></td>
 				</tr>
@@ -49,7 +49,7 @@
 							<option value="" selected>Select City...</option>
 							<c:forEach var="city" items="${ cities }">
 								<option value="${ city.cityId }"
-									<c:if test="${ city.cityId == shipTo.cityId }">selected</c:if>>${ city.description },
+									<c:if test="${ city.cityId == shipTo.city.cityId }">selected</c:if>>${ city.description },
 									${ city.state.description }</option>
 							</c:forEach>
 					</select></td>
