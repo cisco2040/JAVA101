@@ -2,6 +2,8 @@ package com.softtek.javaweb.domain.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 @XmlRootElement
 public class UserForm {
 

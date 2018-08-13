@@ -14,7 +14,8 @@
 		<h1 align="center">${ headerTitle }</h1>
 	</div>
 	<div style="margin-left: 5%; margin-top: 1%;">
-		<form action=<c:url value="/user/edit"/> method="post">
+		<form action=<c:url value="/user/edit"/> method="post" enctype="multipart/form-data">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<table>
 				<tr>
 					<td align="right">Username:</td>
@@ -53,6 +54,10 @@
 					<td align="right">Active:</td>
 					<td><input type="text" name="active"
 						value="${ user.active }"></input></td>
+				</tr>
+				<tr>
+					<td align="right">Picture:</td>
+					<td><input type="file" name="userPicture" value="${ userPicture }"></input></td>
 				</tr>
 			</table>
 			<div style="margin-top: 1%;">

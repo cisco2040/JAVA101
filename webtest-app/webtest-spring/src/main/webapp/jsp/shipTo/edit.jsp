@@ -15,6 +15,7 @@
 	</div>
 	<div style="margin-left: 5%; margin-top: 1%;">
 		<form action=<c:url value="/shipTo/edit"/> method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<table>
 				<c:if test="${ shipTo.shipToId != null }">
 					<tr>

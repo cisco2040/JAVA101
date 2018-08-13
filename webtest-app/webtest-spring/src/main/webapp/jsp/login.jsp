@@ -52,7 +52,7 @@
 
 		<form name='loginForm'
 			action="<c:url value='login' />" method='POST'>
-
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<table>
 				<tr>
 					<td>User:</td>

@@ -1,19 +1,39 @@
 package com.softtek.javaweb.main;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.softtek.javaweb.domain.dto.StoredFiles;
 import com.softtek.javaweb.service.*;
 
 public class JavaWebMain {
 
 	public static void main(String[] args) {
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("/META-INF/applicationContext.xml");
-        
-		String[] allBeanNames = applicationContext.getBeanDefinitionNames();
-        for(String beanName : allBeanNames) {
-            System.out.println("###### Beans: " + beanName + " -- " + applicationContext.getBean(beanName));
-        }
+		
+		File file = new File("C:\\Users\\victor.cortes\\Documents\\workspace-sts-3.9.4.RELEASE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\webtest-spring\\uploads");
+		System.out.println("this is the file in getlAllfiles: " + file);
+		for (File myFile: file.listFiles()) {
+			System.out.println("files: " + myFile.getPath().toString() + " - size: " + myFile.length());
+		}
+		
+		try {
+			System.out.println("this is the URI: " + new URL("filename with spaces.txt").toString());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+//		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("/META-INF/applicationContext.xml");
+//        
+//		String[] allBeanNames = applicationContext.getBeanDefinitionNames();
+//        for(String beanName : allBeanNames) {
+//            System.out.println("###### Beans: " + beanName + " -- " + applicationContext.getBean(beanName));
+//        }
 		
 //		CartService cartService = applicationContext.getBean(CartService.class);
 //		CityService cityService = applicationContext.getBean(CityService.class);

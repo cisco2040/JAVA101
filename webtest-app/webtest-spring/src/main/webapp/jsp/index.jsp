@@ -27,30 +27,13 @@
 <title>Web App Test</title>
 </head>
 <body class="container-fluid">
-	<c:url value="/login?logout" var="logoutUrl" />
-	<form action="${logoutUrl}" method="POST" id="logoutForm">
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
+	<form action="<c:url value="/logout"/>" method="post" id="loginForm">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
-	<c:url value="/login" var="loginUrl" />
-	<form action="${loginUrl}" method="POST" id="loginForm">
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
-	</form>
-
-	<c:if test="${pageContext.request.userPrincipal.name != null}">
-		<h4 align="right">
-			Welcome : ${pageContext.request.userPrincipal.name} | <a
-				href="javascript:logoutFormSubmit()"> Logout</a>
-		</h4>
-	</c:if>
-	<c:if test="${pageContext.request.userPrincipal.name == null}">
-		<h4 align="right">
-			Welcome : Anonymous | <a
-				href="javascript:loginFormSubmit()"> Login</a>
-		</h4>
-	</c:if>
-
+	<h4 align="right">
+		Welcome : ${username} | <a href="javascript:formSubmit(event, '${username}')"> ${ username == "Anonymous" ? "Login" : "Logout" }</a>
+		<a href="<c:url value="/login"/>" style="display: none" id="loginAction"></a>
+	</h4>
 	<div class="container">
 		<div class="row">
 			<div id="headerList">
@@ -115,13 +98,34 @@
 			<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
 		</div>
 	</div>
+	<div class="container">
+		<div class="row">
+			<div id="headerList">
+				<h1 align="center">File Upload</h1>
+			</div>
+			<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+			<div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
+				<div class="row menu-grid">
+					<a href="<c:url value="/files/list"/>">
+						<div class="menu-grid-element">
+							<p>Upload Files</p>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+		</div>
+	</div>
 </body>
 	<script>
-		function logoutFormSubmit() {
-			document.getElementById("logoutForm").submit();
-		}
-		function loginFormSubmit() {
-			document.getElementById("loginForm").submit();
+		function formSubmit(event, username) {
+			if (username != 'Anonymous' ) {
+				if (confirm("Do you want to finish your session?")) {
+					document.getElementById("loginForm").submit();					
+				}
+			} else {
+				document.getElementById("loginAction").click();
+			}
 		}
 	</script>
 </html>

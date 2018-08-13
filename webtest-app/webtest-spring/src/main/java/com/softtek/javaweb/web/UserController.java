@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -66,9 +67,9 @@ public class UserController {
 	}	
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "Update")
-	public String userUpdateController (@ModelAttribute UserForm userForm, Model model) {
+	public String userUpdateController (@ModelAttribute UserForm userForm, BindingResult results, Model model) {
 		ResponseStatus responseStatus = userService.update(userForm);
-		
+		results.getAllErrors().forEach(err -> System.out.println("## Binding Errors: " + err));
 		if (responseStatus.isValid()) {
 			model.addAttribute("users", userService.getList());	
 			return UserController.LIST_FORM;				
@@ -85,7 +86,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "Save")
-	public String userSaveController (@ModelAttribute UserForm userForm, Model model) {
+	public String userSaveController (@ModelAttribute UserForm userForm, BindingResult results, Model model) {
 		ResponseStatus responseStatus = userService.add(userForm);
 		
 		if (responseStatus.isValid()) {
@@ -98,7 +99,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public String userDeleteController (@ModelAttribute UserForm userForm, Model model) {
+	public String userDeleteController (@ModelAttribute UserForm userForm, BindingResult results, Model model) {
 		ResponseStatus responseStatus = userService.delete(userForm.getUsername());
 		
 		if (responseStatus.isValid()) {

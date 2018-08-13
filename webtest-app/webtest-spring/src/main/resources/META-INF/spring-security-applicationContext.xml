@@ -1,39 +1,44 @@
-<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:beans="http://www.springframework.org/schema/beans"
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	xsi:schemaLocation ="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+						http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
-    <!-- enable use-expressions -->
-<!-- 	<security:http pattern="/login*" security="none"/>
- -->	<security:http auto-config="true" use-expressions="true">
-		
-		<security:intercept-url pattern="/login" access="permitAll"/>
-		<security:intercept-url pattern="/cart/*" access="hasAuthority('ADM')" />
-		<security:intercept-url pattern="/"  access="permitAll" />
-		
+	<!-- enable use-expressions -->
+ 	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/resources**" access="permitAll" />
+ 		<security:intercept-url pattern="/cart/*" access="hasAnyAuthority('ADM','USR')" />
+ 		<security:intercept-url pattern="/user/*" access="hasAuthority('ADM')" />
+		<security:intercept-url pattern="/login" access="permitAll" />
+		<security:intercept-url pattern="/logout" access="permitAll" />
+		<security:intercept-url pattern="/**" access="permitAll" />
+ 
 		<!-- access denied page -->
 		<security:access-denied-handler error-page="/403" />
-		<security:form-login 
-		    login-page="/login" 
-		    default-target-url="/index" 
+		<security:form-login  
+			login-page="/login"
+			default-target-url="/index" 
 			authentication-failure-url="/login?error"
-			username-parameter="username"
+			username-parameter="username" 
 			password-parameter="password" />
-		<security:logout logout-success-url="/login?logout"  />
-		<!-- enable csrf protection -->
-		<security:csrf/>
+		<security:logout 
+			logout-url="/logout" 
+			delete-cookies="true" 
+			invalidate-session="true" 
+			logout-success-url="/login?logout" />
 	</security:http>
-	
+
 	<!-- Select users and user_roles from database -->
 	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query=
-					"SELECT username, password, CASE WHEN active = 'S' THEN true ELSE false END AS enabled FROM user WHERE username=?"
-				authorities-by-username-query=
-					"SELECT username, user_role_id AS authority FROM user WHERE username=?" />
-		</security:authentication-provider>
+		<security:authentication-provider user-service-ref="myUserDetailsService">
+		
+<!-- 			<jdbc-user-service
+				data-source-ref="dataSource"
+				users-by-username-query="SELECT username, password, CASE WHEN active = 'S' THEN true ELSE false END AS enabled FROM user WHERE username=?"
+				authorities-by-username-query="SELECT username, user_role_id AS authority FROM user WHERE username=?" />
+ -->		</security:authentication-provider>
 	</security:authentication-manager>
 
 </beans:beans>

@@ -5,7 +5,7 @@
 </head>
 <body>
 
-	<h1>Access Denied - must authenticate</h1>
+	<h1>Access Denied - must authenticate with proper privileges.</h1>
 
 
 </body>

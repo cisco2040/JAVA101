@@ -15,6 +15,7 @@
 	</div>
 	<div style="margin-left:5%;margin-bottom: 1%;">
 		<form action=<c:url value="/cart/edit"/> method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<button name="home" type="submit" >Home</button>
 		</form>
 	</div>
