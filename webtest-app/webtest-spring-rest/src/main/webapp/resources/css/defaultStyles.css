@@ -1,0 +1,35 @@
+<style>
+	body {
+		background: white;
+		color: black
+	}
+	#headerList {
+		margin-left: 5%;
+		margin-right: 5%;
+		background-color: black;
+		color: white;
+		border-radius: 5px;
+	}
+	#resultsSection {
+		margin-left: 5%;
+		margin-right: 5%;
+	}
+	#resultsTable {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	#resultsTable th {
+		background-color: black;
+		color: white;
+	}
+	#resultsTable td, #resultsTable th {
+		border: 1px solid black;
+	}
+	#resultsTable tr {
+		background-color: #f2f2f2;
+		color: black;
+	}
+	#resultsTable tr:hover {
+		background-color: #ddd;
+	}
+</style>
