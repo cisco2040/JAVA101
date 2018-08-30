@@ -1,7 +1,11 @@
 package com.softtek.javaweb.exceptionhandling;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.softtek.javaweb.domain.dto.RestResponse;
 import com.softtek.javaweb.exception.JavawebException;
@@ -10,6 +14,14 @@ import com.softtek.javaweb.exceptionhandling.types.RestStatusCodes;
 
 @ControllerAdvice
 public class ExceptionHandlerControllerAdvice {
+	
+	@ExceptionHandler(NoHandlerFoundException.class)
+	public @ResponseBody ResponseEntity<RestResponse> handlePageNotFound (final Exception e) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity<>(setResponse(RestStatusCodes.C401_NOT_ALLOWED, new JavawebException(e.getMessage())), headers, HttpStatus.METHOD_NOT_ALLOWED);
+	}
+	
 	@ExceptionHandler(ResourceNotAvailableException.class)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public @ResponseBody RestResponse handleResourceNotAvailable (final JavawebException e) {
