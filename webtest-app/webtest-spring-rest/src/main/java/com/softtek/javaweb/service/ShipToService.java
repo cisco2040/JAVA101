@@ -1,18 +1,14 @@
 package com.softtek.javaweb.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.softtek.javaweb.domain.dto.WebResponseStatus;
+import com.softtek.javaweb.domain.dto.RestError;
 import com.softtek.javaweb.domain.model.City;
 import com.softtek.javaweb.domain.model.ShipTo;
 import com.softtek.javaweb.domain.model.User;
@@ -21,6 +17,7 @@ import com.softtek.javaweb.exception.impl.ResourceNotAvailableException;
 import com.softtek.javaweb.exception.impl.ResourceNotDeletedException;
 import com.softtek.javaweb.exception.impl.ResourceCouldNotBeFoundException;
 import com.softtek.javaweb.exception.impl.ResourceNotUpdatedException;
+import com.softtek.javaweb.exceptionhandling.MyValidation;
 import com.softtek.javaweb.repository.MyRepository;
 
 @Service
@@ -37,7 +34,6 @@ public class ShipToService {
 		if (shipTos.isEmpty()) {
 			throw new ResourceNotAvailableException("No Ship-To addresses were found.");
 		}
-
 		return shipTos;
 	}
 
@@ -50,13 +46,13 @@ public class ShipToService {
 		return shipTo;
 	}
 
-	public void updateFull(final ShipTo shipTo, final Long id) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
+	public ShipTo updateFull(final ShipTo shipTo, final Long id) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
 		ShipTo fullShipTo = shipTo;
 		fullShipTo.setShipToId(id);
-		this.update(fullShipTo);
+		return this.update(fullShipTo);
 	}
 
-	public void updatePartial(final ShipTo shipTo, final Long id) throws ResourceCouldNotBeFoundException, ResourceNotUpdatedException {
+	public ShipTo updatePartial(final ShipTo shipTo, final Long id) throws ResourceCouldNotBeFoundException, ResourceNotUpdatedException {
 		ShipTo fullShipTo = this.shipToRepository.getOne(id);
 		
 		if (fullShipTo == null) {
@@ -64,49 +60,51 @@ public class ShipToService {
 		}
 		
 		ShipTo newShipTo = mergeBeans(shipTo, fullShipTo);
-		WebResponseStatus validateShipTo = validate(newShipTo);
+		List<RestError> restErrors = MyValidation.validateBean(newShipTo);
 
-		if (validateShipTo.isValid()) {
+		if (restErrors.isEmpty()) {
 			LOGGER.info("## Attempting to update (PATCH) shipTo: {}, with elements: {}", id, shipTo);
-			if (this.shipToRepository.update(newShipTo) <= 0) {
+			if (this.shipToRepository.update(newShipTo) == null) {
 				throw new ResourceNotUpdatedException("Could not update Ship-To address due to unknown problems during persist.");
 			}
 		} else {
-			throw new ResourceNotUpdatedException("Could not update Ship-To address due to missing/incorrect data.", validateShipTo.getServiceMsg());
+			throw new ResourceNotUpdatedException("Could not update Ship-To address due to missing/incorrect data.", restErrors);
 		}
+		
+		return shipToRepository.getOne(id);
 	}
 
-	public WebResponseStatus update(final ShipTo shipTo) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
-		WebResponseStatus validateShipTo = validate(shipTo);
+	public ShipTo update(final ShipTo shipTo) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
+		List<RestError> restErrors = MyValidation.validateBean(shipTo);
 		
 		if (!isUnique(shipTo)) {
-			if (validateShipTo.isValid()) {
+			if (restErrors.isEmpty()) {
 				LOGGER.info("## Attempting to update Ship-To address: {}", shipTo);
-				if (this.shipToRepository.update(shipTo) <= 0) {
+				if (this.shipToRepository.update(shipTo) == null ) {
 					throw new ResourceNotUpdatedException("Could not update Ship-To address due to unknown problems during persist.");
 				}
 			} else {
-				throw new ResourceNotUpdatedException("Could not update Ship-To address due to missing/incorrect data.", validateShipTo.getServiceMsg());
+				throw new ResourceNotUpdatedException("Could not update Ship-To address due to missing/incorrect data.", restErrors);
 			}
 		} else {
 			throw new ResourceCouldNotBeFoundException("Ship-To id <" + shipTo.getShipToId() + "> not found.");
 		}
 
-		return validateShipTo;
+		return shipToRepository.getOne(shipTo.getShipToId());
 	}
 	public ShipTo add(final ShipTo shipTo) throws ResourceNotAddedException {
-		WebResponseStatus validateShipTo = validate(shipTo);
+		List<RestError> restErrors = MyValidation.validateBean(shipTo);
 		ShipTo newShipTo;
 		
 		if (isUnique(shipTo)) {
-			if (validateShipTo.isValid()) {
+			if (restErrors.isEmpty()) {
 				LOGGER.info("## Attempting to add shipTo: {}", shipTo);
 				newShipTo = this.shipToRepository.add(shipTo); 
 				if (newShipTo == null) {
 					throw new ResourceNotAddedException("Could not add Ship-To address due to unknown problems during persist.");
 				}
 			} else {
-				throw new ResourceNotAddedException("Could not add Ship-To address due to missing/incorrect data.", validateShipTo.getServiceMsg());			
+				throw new ResourceNotAddedException("Could not add Ship-To address due to missing/incorrect data.", restErrors);			
 			}
 		} else {			
 			throw new ResourceNotAddedException("Ship-To id <" + shipTo.getShipToId() + "> already exists. Please post a PUT or PATCH request if you mean to udpate this resource.");
@@ -115,36 +113,14 @@ public class ShipToService {
 		return newShipTo;
 	}
 
-	public WebResponseStatus delete (final Long id) throws ResourceNotDeletedException {
-		WebResponseStatus validateShipTo = new WebResponseStatus();
-		
+	public void delete (final Long id) throws ResourceNotDeletedException {
 		if (this.shipToRepository.getOne(id) == null ) {
 			throw new ResourceNotDeletedException("Ship-To id <" + id + "> not found.");			
 		} else if (this.shipToRepository.delete(id) <= 0) {
 			throw new ResourceNotDeletedException("Could not delete Ship-To address due to unknwon problems during delete process.");			
 		}
-
-		return validateShipTo;
 	}
 	
-	public WebResponseStatus validate (final ShipTo shipTo) {
-		WebResponseStatus validateService = new WebResponseStatus();
-		validateService.setValid(true);
-
-		LOGGER.info("## Validating shipTo: {}", shipTo);
-
-		List<String> validateBeanErrors = validateBean(shipTo);
-		if (!validateBeanErrors.isEmpty()) {
-			validateService.setValid(false);
-			validateService.setServiceMsg(validateBeanErrors);
-		}
-		
-		LOGGER.info("## Validating shipTo status: {}", validateService.isValid());
-		LOGGER.info("## Validating shipTo status messages: {}", validateService.getServiceMsg());
-		
-		return validateService;
-	}
-
 	private ShipTo mergeBeans(final ShipTo partialShipTo, final ShipTo fullShipTo) {
 		ShipTo newShipTo = fullShipTo;
 		
@@ -171,16 +147,6 @@ public class ShipToService {
 		}
 		
 		return newShipTo;
-	}
-
-	private List<String> validateBean(final ShipTo shipTo) {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
-		List<String> validationMsgs = new ArrayList<>();
-		
-		validator.validate(shipTo).forEach(v -> validationMsgs.add(v.getMessage()));
-
-		return validationMsgs;
 	}
 
 	private boolean isUnique(final ShipTo shipTo) {

@@ -2,6 +2,7 @@ package com.softtek.javaweb.exception.impl;
 
 import java.util.List;
 
+import com.softtek.javaweb.domain.dto.RestError;
 import com.softtek.javaweb.exception.JavawebException;
 
 public class ResourceCouldNotBeFoundException extends JavawebException {
@@ -16,7 +17,7 @@ public class ResourceCouldNotBeFoundException extends JavawebException {
 		super(message);
 	}
 	
-	public ResourceCouldNotBeFoundException(final String message, List<String> violations) {
+	public ResourceCouldNotBeFoundException(final String message, List<RestError> violations) {
 		super(message, violations);
 	}
 

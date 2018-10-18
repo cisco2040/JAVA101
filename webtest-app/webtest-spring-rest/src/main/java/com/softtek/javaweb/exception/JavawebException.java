@@ -2,10 +2,21 @@ package com.softtek.javaweb.exception;
 
 import java.util.List;
 
+import com.softtek.javaweb.domain.dto.RestError;
+
 public class JavawebException extends Exception {
 	
 	private static final long serialVersionUID = -1245496375701440441L;
-	private List<String> violations;
+	
+	private List<RestError> restErrors;
+
+	public List<RestError> getRestErrors() {
+		return restErrors;
+	}
+
+	public void setRestErrors(List<RestError> restErrors) {
+		this.restErrors = restErrors;
+	}
 	
 	public JavawebException() {
 		super();
@@ -15,16 +26,8 @@ public class JavawebException extends Exception {
 		super(message);
 	}
 	
-	public JavawebException(final String message, List<String> violations) {
+	public JavawebException(final String message, final List<RestError> restErrors) {
 		super(message);
-		this.violations = violations;
-	}
-
-	public void setViolations(List<String> violations) {
-		this.violations = violations;
-	}
-
-	public List<String> getViolations() {
-		return violations;
+		this.restErrors = restErrors;
 	}
 }

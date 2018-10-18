@@ -1,5 +1,8 @@
 package com.softtek.javaweb.domain.model;
 
+import java.io.Serializable;
+
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,25 +13,32 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @XmlRootElement
-public class User {
+@Entity
+@Table(name = "user")
+public class User implements Serializable {
 	
-	@NotNull (message = "<username> {javax.validation.constraints.NotNull.message}")
-	@Length (min=1, max=20, message = "<username> {org.hibernate.validator.constraints.Length.message}")
+	private static final long serialVersionUID = 9141276168135546112L;
+	
+	@NotNull @Length (min=1, max=20)
+	@Id @Column (name = "username")
 	private String username;
-	@JsonIgnore
-	@NotNull (message = "<password> {javax.validation.constraints.NotNull.message}")
-	@Length (min=1, max=20, message = "<password> {org.hibernate.validator.constraints.Length.message}")
+	
+	@NotNull @Length (min=1, max=20)
+	@Column (name = "password")
 	private String password;
-	@NotNull (message = "<name> {javax.validation.constraints.NotNull.message}")
-	@Length (min=1, max=100, message = "<name> {org.hibernate.validator.constraints.Length.message}")
+	
+	@NotNull @Length (min=1, max=100)
+	@Column (name = "name")
 	private String name;
-	@NotNull (message = "<userRole> {javax.validation.constraints.NotNull.message}")
-	@Valid
+	
+	@NotNull @Valid	@ManyToOne
+	@JoinColumn (name = "user_role_id")
 	private UserRole userRole;
-	@NotNull (message = "<active> {javax.validation.constraints.NotNull.message}")
-	@Pattern (regexp = "[SN]", message = "<active> flag must be either 'S' or 'N'.")
+	
+	@NotNull @Pattern (regexp = "[SN]", message = "must be either 'S' or 'N'.")
+	@Column (name = "active")
 	private String active;
-
+	
 	public User(String username, String password, String name, UserRole userRole, String active) {
 		this.username = username;
 		this.password = password;

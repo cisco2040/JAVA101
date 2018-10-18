@@ -1,23 +1,20 @@
 package com.softtek.javaweb.service;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.softtek.javaweb.domain.dto.RestError;
 import com.softtek.javaweb.domain.dto.WebResponseStatus;
 import com.softtek.javaweb.domain.model.Cart;
 import com.softtek.javaweb.domain.model.ShipTo;
 import com.softtek.javaweb.domain.model.Status;
 import com.softtek.javaweb.exception.impl.*;
+import com.softtek.javaweb.exceptionhandling.MyValidation;
 import com.softtek.javaweb.repository.MyRepository;
 import com.softtek.javaweb.repository.impl.ShipToRepository;
 import com.softtek.javaweb.service.types.UpdateType;
@@ -50,13 +47,13 @@ public class CartService {
 		return cart;
 	}
 	
-	public void updateFull(final Cart cart, final Long id) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
+	public Cart updateFull(final Cart cart, final Long id) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
 		Cart fullCart = cart;
 		fullCart.setCartId(id);
-		this.update(fullCart);
+		return this.update(fullCart);
 	}
 
-	public void updatePartial(final Cart cart, final Long id) throws ResourceCouldNotBeFoundException, ResourceNotUpdatedException {
+	public Cart updatePartial(final Cart cart, final Long id) throws ResourceCouldNotBeFoundException, ResourceNotUpdatedException {
 		Cart fullCart = this.cartRepository.getOne(id);
 		
 		if (fullCart == null) {
@@ -68,31 +65,35 @@ public class CartService {
 
 		if (validateCart.isValid()) {
 			LOGGER.info("## Attempting to update (PATCH) cart: {}, with elements: {}", id, cart);
-			if (this.cartRepository.update(newCart) <= 0) {
+			Cart calculatedCart = calculateCart (newCart, UpdateType.MODIFY);
+			if (this.cartRepository.update(calculatedCart) == null) {
 				throw new ResourceNotUpdatedException("Could not update cart due to unknown problems during persist.");
 			}
 		} else {
-			throw new ResourceNotUpdatedException("Could not update cart due to missing/incorrect data.", validateCart.getServiceMsg());
+			throw new ResourceNotUpdatedException("Could not update cart due to missing/incorrect data.", MyValidation.validateBean(newCart));
 		}
+		
+		return cartRepository.getOne(id);
 	}
 
-	public WebResponseStatus update(final Cart cart) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
+	public Cart update(final Cart cart) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
 		WebResponseStatus validateCart = validate(cart, UpdateType.MODIFY);
 		
 		if (!isUnique(cart)) {
 			if (validateCart.isValid()) {
 				LOGGER.info("## Attempting to update cart: {}", cart);
-				if (this.cartRepository.update(cart) <= 0) {
+				Cart calculatedCart = calculateCart (cart, UpdateType.MODIFY);
+				if (this.cartRepository.update(calculatedCart) == null) {
 					throw new ResourceNotUpdatedException("Could not update cart due to unknown problems during persist.");
 				}
 			} else {
-				throw new ResourceNotUpdatedException("Could not update cart due to missing/incorrect data.", validateCart.getServiceMsg());
+				throw new ResourceNotUpdatedException("Could not update cart due to missing/incorrect data.", MyValidation.validateBean(cart));
 			}
 		} else {
 			throw new ResourceCouldNotBeFoundException("Cart id <" + cart.getCartId() + "> not found.");
 		}
 
-		return validateCart;
+		return cartRepository.getOne(cart.getCartId());
 	}
 
 	public Cart add(final Cart cart) throws ResourceNotAddedException {
@@ -107,7 +108,7 @@ public class CartService {
 				throw new ResourceNotAddedException("Could not add cart due to unknown problems during persist.");
 			}
 		} else {
-			throw new ResourceNotAddedException("Could not add cart due to missing/incorrect data.", validateCart.getServiceMsg());			
+			throw new ResourceNotAddedException("Could not add cart due to missing/incorrect data.", MyValidation.validateBean(cart));			
 		}
 
 		return newCart;
@@ -131,10 +132,9 @@ public class CartService {
 
 		LOGGER.info("## Validating cart: {}", cart);
 		
-		List<String> validateBeanErrors = validateBean(cart);
+		List<RestError> validateBeanErrors = MyValidation.validateBean(cart);
 		if (!validateBeanErrors.isEmpty()) {
 			validateService.setValid(false);
-			validateService.setServiceMsg(validateBeanErrors);
 		}
 
 		LOGGER.info("## Validating cart status: {}", validateService.isValid());
@@ -173,16 +173,6 @@ public class CartService {
 		}
 		
 		return newCart;
-	}
-
-	private List<String> validateBean(final Cart cart) {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
-		List<String> validationMsgs = new ArrayList<>();
-		
-		validator.validate(cart).forEach(v -> validationMsgs.add(v.getMessage()));
-
-		return validationMsgs;
 	}
 
 	private boolean isUnique(final Cart cart) {

@@ -2,6 +2,7 @@ package com.softtek.javaweb.exception.impl;
 
 import java.util.List;
 
+import com.softtek.javaweb.domain.dto.RestError;
 import com.softtek.javaweb.exception.JavawebException;
 
 public class ResourceNotUpdatedException extends JavawebException {
@@ -16,8 +17,7 @@ public class ResourceNotUpdatedException extends JavawebException {
 		super(message);
 	}
 	
-	public ResourceNotUpdatedException(final String message, List<String> violations) {
+	public ResourceNotUpdatedException(final String message, final List<RestError> violations) {
 		super(message, violations);
 	}
-
 }

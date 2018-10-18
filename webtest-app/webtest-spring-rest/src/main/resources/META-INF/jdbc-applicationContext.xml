@@ -2,10 +2,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xsi:schemaLocation="
 	http://www.springframework.org/schema/beans 
-	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+	http://www.springframework.org/schema/data/jpa 
+    http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd">
 
 	<bean id="jdbcConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
@@ -15,19 +20,36 @@
 		</property>
 	</bean>
 
-	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close" >
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
 		<property name="driverClassName" value="${jdbc.mysql.dataSource.driverClassName}" />
 		<property name="url" value="${jdbc.mysql.dataSource.url}" />
 		<property name="username" value="${jdbc.mysql.dataSource.username}" />
 		<property name="password" value="${jdbc.mysql.dataSource.password}" />
-		<property name="maxIdle" value="999999" />
-					
-	</bean>	
-	
-	<bean class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" id="namedParameterJdbcTemplate" >
-		<constructor-arg>
-			<ref bean="dataSource"/>
-		</constructor-arg>
+		<property name="testWhileIdle" value="true" />
 	</bean>
-		
+
+	<!-- <bean class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" 
+		id="namedParameterJdbcTemplate" > <constructor-arg> <ref bean="dataSource"/> 
+		</constructor-arg> </bean> -->
+
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="com.softtek.javaweb.domain.model" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<jpa:repositories base-package="com.softtek.javaweb.repository.jpa" />
 </beans>

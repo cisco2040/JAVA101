@@ -39,9 +39,9 @@ public class ShippingZoneRepository implements MyRepository<ShippingZone,String>
 	}
 
 	@Override
-	public int update(ShippingZone entity) {
+	public ShippingZone update(ShippingZone entity) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override

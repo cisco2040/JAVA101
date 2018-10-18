@@ -1,21 +1,18 @@
 package com.softtek.javaweb.service;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.softtek.javaweb.domain.dto.RestError;
 import com.softtek.javaweb.domain.dto.WebResponseStatus;
 import com.softtek.javaweb.domain.model.User;
 import com.softtek.javaweb.domain.model.UserRole;
 import com.softtek.javaweb.exception.impl.*;
+import com.softtek.javaweb.exceptionhandling.MyValidation;
 import com.softtek.javaweb.repository.MyRepository;
 
 @Service
@@ -43,13 +40,13 @@ public class UserService {
 		}
 		return user;
 	}	
-	public void updateFull(final User user, final String id) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
+	public User updateFull(final User user, final String id) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
 		User fullUser = user;
 		fullUser.setUsername(id);
-		this.update(fullUser);
+		return this.update(fullUser);
 	}
 	
-	public void updatePartial(final User user, final String id) throws ResourceCouldNotBeFoundException, ResourceNotUpdatedException {
+	public User updatePartial(final User user, final String id) throws ResourceCouldNotBeFoundException, ResourceNotUpdatedException {
 		User fullUser = this.userRepository.getOne(id);
 		
 		if (fullUser == null) {
@@ -61,29 +58,33 @@ public class UserService {
 
 		if (validateUser.isValid()) {
 			LOGGER.info("## Attempting to update (PATCH) user: {}, with elements: {}", id, user);
-			if (this.userRepository.update(newUser) <= 0) {
+			if (this.userRepository.update(newUser) == null) {
 				throw new ResourceNotUpdatedException("Could not update user due to unknown problems during persist.");
 			}
 		} else {
-			throw new ResourceNotUpdatedException("Could not update user due to missing/incorrect data.", validateUser.getServiceMsg());
+			throw new ResourceNotUpdatedException("Could not update user due to missing/incorrect data.", MyValidation.validateBean(fullUser));
 		}
+		
+		return userRepository.getOne(id);
 	}
 
-	public void update(final User user) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
+	public User update(final User user) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
 		WebResponseStatus validateUser = validate(user, false);
 		
 		if (!isUnique(user)) {
 			if (validateUser.isValid()) {
 				LOGGER.info("## Attempting to update user: {}", user);
-				if (this.userRepository.update(user) <= 0) {
+				if (this.userRepository.update(user) == null) {
 					throw new ResourceNotUpdatedException("Could not update user due to unknown problems during persist.");
 				}
 			} else {
-				throw new ResourceNotUpdatedException("Could not update user due to missing/incorrect data.", validateUser.getServiceMsg());
+				throw new ResourceNotUpdatedException("Could not update user due to missing/incorrect data.", MyValidation.validateBean(user));
 			}
 		} else {
 			throw new ResourceCouldNotBeFoundException("User <" + user.getUsername() + "> not found.");
 		}
+		
+		return userRepository.getOne(user.getUsername());
 	}
 	
 	public User add(final User user) throws ResourceNotAddedException {
@@ -98,7 +99,7 @@ public class UserService {
 					throw new ResourceNotAddedException("Could not add user due to unknown problems during persist.");
 				}
 			} else {
-				throw new ResourceNotAddedException("Could not add user due to missing/incorrect data.", validateUser.getServiceMsg());			
+				throw new ResourceNotAddedException("Could not add user due to missing/incorrect data.", MyValidation.validateBean(user));			
 			}
 		} else {			
 			throw new ResourceNotAddedException("User <" + user.getUsername() + "> already exists. Please post a PUT or PATCH request if you mean to udpate this resource.");
@@ -107,7 +108,7 @@ public class UserService {
 		return newUser;
 	}
 
-	public void delete (final String id) throws ResourceNotDeletedException, ResourceCouldNotBeFoundException {
+	public void delete (final String id) throws ResourceNotDeletedException {
 		if (this.userRepository.getOne(id) == null ) {
 			throw new ResourceNotDeletedException("User <" + id + "> not found.");			
 		} else if (this.userRepository.delete(id) <= 0) {
@@ -120,10 +121,9 @@ public class UserService {
 		LOGGER.info("## Validating user: {}", user);
 		validateService.setValid(true);
 
-		List<String> validateBeanErrors = validateBean(user);
+		List<RestError> validateBeanErrors = MyValidation.validateBean(user);
 		if (!validateBeanErrors.isEmpty()) {
 			validateService.setValid(false);
-			validateService.setServiceMsg(validateBeanErrors);
 		}
 		
 		if (!isUnique(user) && checkUsername) { 
@@ -134,16 +134,6 @@ public class UserService {
 		LOGGER.info("## Validating user status messages: {}", validateService.getServiceMsg());
 		
 		return validateService;
-	}
-	
-	private List<String> validateBean(final User user) {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
-		List<String> validationMsgs = new ArrayList<>();
-		
-		validator.validate(user).forEach(v -> validationMsgs.add(v.getMessage()));
-
-		return validationMsgs;
 	}
 	
 	private User mergeBeans(final User partialUser, final User fullUser) {

@@ -39,9 +39,9 @@ public class StateRepository implements MyRepository<State, Long> {
 	}
 
 	@Override
-	public int update(State entity) {
+	public State update(State entity) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override

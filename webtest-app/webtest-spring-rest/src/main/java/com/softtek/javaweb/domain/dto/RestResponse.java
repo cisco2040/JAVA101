@@ -17,6 +17,7 @@ public class RestResponse {
 	String message;
 	String description;
 	List<String> errors;
+	List<RestError> fieldErrors;
 
 	public RestResponse(Long statusCode, String message, String description, List<String> errors) {
 		this.statusCode = statusCode;
@@ -50,6 +51,13 @@ public class RestResponse {
 	}
 	public void setErrors(List<String> errors) {
 		this.errors = errors;
+	}
+	@JsonInclude(Include.NON_EMPTY)
+	public List<RestError> getFieldErrors() {
+		return fieldErrors;
+	}
+	public void setFieldErrors(List<RestError> fieldErrors) {
+		this.fieldErrors = fieldErrors;
 	}
 	
 	@Override

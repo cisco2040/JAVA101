@@ -8,13 +8,14 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.softtek.javaweb.domain.model.User;
-import com.softtek.javaweb.repository.impl.UserRoleRepository;
+import com.softtek.javaweb.domain.model.UserRole;
+import com.softtek.javaweb.repository.MyRepository;
 
 @Repository
 public class UserRowMapper implements RowMapper<User> {
 
 	@Autowired
-    UserRoleRepository userRoleRepository;
+    MyRepository<UserRole, String> userRoleRepository;
 
 	@Override
 	public User mapRow(ResultSet rs, int rowNum) throws SQLException {

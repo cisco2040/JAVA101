@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.softtek.javaweb.domain.model.Status;
 import com.softtek.javaweb.exception.impl.OperationNotSupportedException;
 import com.softtek.javaweb.exception.impl.ResourceNotAvailableException;
-import com.softtek.javaweb.service.StatusService;
+import com.softtek.javaweb.service.jpa.StatusService;
 
 @RestController
 @RequestMapping("/statuses")

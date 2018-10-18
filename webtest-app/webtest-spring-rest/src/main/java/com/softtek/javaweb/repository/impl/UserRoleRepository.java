@@ -4,20 +4,21 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;
 
 import com.softtek.javaweb.domain.model.UserRole;
 import com.softtek.javaweb.repository.MyRepository;
 import com.softtek.javaweb.repository.impl.mapper.UserRoleRowMapper;
 
-@Repository
-public class UserRoleRepository implements MyRepository<UserRole,String>{
+//@Repository
+//@Transactional
+public class UserRoleRepository implements MyRepository<UserRole,String> {
 
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	@Autowired
-	private UserRoleRowMapper userRoleRowMapper;
+	private RowMapper<UserRole> userRoleRowMapper;
 
 	@Override
 	public UserRole getOne(String id) {
@@ -34,19 +35,16 @@ public class UserRoleRepository implements MyRepository<UserRole,String>{
 
 	@Override
 	public UserRole add(UserRole entity) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int update(UserRole entity) {
-		// TODO Auto-generated method stub
-		return 0;
+	public UserRole update(UserRole entity) {
+		return null;
 	}
 
 	@Override
 	public int delete(String id) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

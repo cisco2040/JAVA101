@@ -2,6 +2,7 @@ package com.softtek.javaweb.exception.impl;
 
 import java.util.List;
 
+import com.softtek.javaweb.domain.dto.RestError;
 import com.softtek.javaweb.exception.JavawebException;
 
 public class ResourceNotDeletedException extends JavawebException {
@@ -16,7 +17,7 @@ public class ResourceNotDeletedException extends JavawebException {
 		super(message);
 	}
 	
-	public ResourceNotDeletedException(final String message, List<String> violations) {
+	public ResourceNotDeletedException(final String message, List<RestError> violations) {
 		super(message, violations);
 	}
 

@@ -54,7 +54,7 @@ public class UserRepository implements MyRepository<User,String>{
 	}
 
 	@Override
-	public int update(final User user) {
+	public User update(final User user) {
 		StringBuilder sql = new StringBuilder();
 		int rowsUpdated = 0;
 
@@ -68,7 +68,7 @@ public class UserRepository implements MyRepository<User,String>{
 			e.printStackTrace();
 		}
 		
-		return rowsUpdated;	
+		return rowsUpdated > 0 ? getOne(user.getUsername()) : null;
 	}
 
 	@Override

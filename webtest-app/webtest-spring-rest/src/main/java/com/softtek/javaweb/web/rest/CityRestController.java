@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.softtek.javaweb.domain.model.City;
 import com.softtek.javaweb.exception.impl.OperationNotSupportedException;
 import com.softtek.javaweb.exception.impl.ResourceNotAvailableException;
-import com.softtek.javaweb.service.CityService;
+import com.softtek.javaweb.service.jpa.CityService;
 
 @RestController
 @RequestMapping("/cities")

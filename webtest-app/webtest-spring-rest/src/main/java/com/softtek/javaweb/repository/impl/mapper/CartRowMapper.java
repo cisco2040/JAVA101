@@ -8,16 +8,17 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.softtek.javaweb.domain.model.Cart;
-import com.softtek.javaweb.repository.impl.ShipToRepository;
-import com.softtek.javaweb.repository.impl.StatusRepository;
+import com.softtek.javaweb.domain.model.ShipTo;
+import com.softtek.javaweb.domain.model.Status;
+import com.softtek.javaweb.repository.MyRepository;
 
 @Repository
 public class CartRowMapper implements RowMapper<Cart> {
 	
 	@Autowired
-	ShipToRepository shipToRepository;
+	MyRepository<ShipTo, Long> shipToRepository;
 	@Autowired
-	StatusRepository statusRepository;
+	MyRepository<Status, Long> statusRepository;
 	@Override
 	public Cart mapRow(ResultSet rs, int rowNum) throws SQLException {
 		

@@ -7,17 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.softtek.javaweb.domain.model.City;
 import com.softtek.javaweb.domain.model.ShipTo;
-import com.softtek.javaweb.repository.impl.CityRepository;
-import com.softtek.javaweb.repository.impl.UserRepository;
+import com.softtek.javaweb.domain.model.User;
+import com.softtek.javaweb.repository.MyRepository;
 
 @Repository
 public class ShipToRowMapper implements RowMapper<ShipTo> {
 
 	@Autowired
-	UserRepository userRepository;
+	MyRepository<User, String> userRepository;
 	@Autowired
-	CityRepository cityRepository;
+	MyRepository<City, Long> cityRepository;
 	
 	@Override
 	public ShipTo mapRow(ResultSet rs, int rowNum) throws SQLException {

@@ -1,6 +1,8 @@
 package com.softtek.javaweb.domain.model;
 
-import javax.validation.*;
+import java.io.Serializable;
+
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import javax.validation.constraints.Email;
 import javax.xml.bind.annotation.*;
@@ -8,29 +10,41 @@ import javax.xml.bind.annotation.*;
 import org.hibernate.validator.constraints.*;
 
 @XmlRootElement
-public class ShipTo {
+@Entity
+@Table (name = "ship_to")
+public class ShipTo implements Serializable{
 	
-	private Long shipToId;
-	@NotNull (message = "<username> {javax.validation.constraints.NotNull.message}")
-	private User user;
-	@NotNull (message = "<name> {javax.validation.constraints.NotNull.message}")
-	@Length (min=1, max=100, message = "<name> {org.hibernate.validator.constraints.Length.message}")
-	private String name;
-	@NotNull (message = "<address> {javax.validation.constraints.NotNull.message}")
-	@Length (min=1, max=250, message = "<name> {org.hibernate.validator.constraints.Length.message}")
-	private String address;
-	@NotNull (message = "<city> {javax.validation.constraints.NotNull.message}")
-	private City city;
-	@NotNull (message = "<zipcode> {javax.validation.constraints.NotNull.message}")
-	private Long zipcode;
-	@NotNull (message = "<phone> {javax.validation.constraints.NotNull.message}")
-	@Length (min=1, max=20, message = "<phone> {org.hibernate.validator.constraints.Length.message}")
-	private String phone;
-	@NotNull (message = "<email> {javax.validation.constraints.NotNull.message}")
-	@Length (min=1, max=100, message = "<email> {org.hibernate.validator.constraints.Length.message}")
-	@Email
-	private String email;
+	private static final long serialVersionUID = -2947717631120715353L;
 
+	@Id @Column (name = "ship_to_id")
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	private Long shipToId;
+
+	@NotNull @ManyToOne @JoinColumn (name = "user")
+	private User user;
+	
+	@NotNull @Length (min=1, max=100)
+	@Column (name = "name")
+	private String name;
+	
+	@NotNull @Length (min=1, max=250)
+	@Column (name = "address")
+	private String address;
+	
+	@NotNull @ManyToOne @JoinColumn (name = "city_id")
+	private City city;
+	
+	@NotNull @Column (name = "zip_code")
+	private Long zipcode;
+	
+	@NotNull @Length (min=1, max=20)
+	@Column (name = "phone")
+	private String phone;
+	
+	@NotNull @Length (min=1, max=100)
+	@Email @Column (name = "email")
+	private String email;
+	
 	public ShipTo(Long shipToId, User user, String name, String address, City city, Long zipcode, String phone,
 			String email) {
 		this.shipToId = shipToId;

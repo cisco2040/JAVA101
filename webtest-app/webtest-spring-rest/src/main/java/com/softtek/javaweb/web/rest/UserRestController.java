@@ -13,7 +13,7 @@ import com.softtek.javaweb.exception.impl.ResourceNotAvailableException;
 import com.softtek.javaweb.exception.impl.ResourceNotDeletedException;
 import com.softtek.javaweb.exception.impl.ResourceCouldNotBeFoundException;
 import com.softtek.javaweb.exception.impl.ResourceNotUpdatedException;
-import com.softtek.javaweb.service.UserService;
+import com.softtek.javaweb.service.jpa.UserService;
 
 @RestController
 @RequestMapping("/users")
@@ -36,27 +36,25 @@ public class UserRestController {
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)	
 	@ResponseStatus(HttpStatus.CREATED)
-	public User add(@RequestBody User user) throws ResourceNotAddedException, ResourceNotAvailableException  {
+	public User add(@RequestBody User user) throws ResourceNotAddedException {
 		return userService.add(user);
 	}
 	
 	@PutMapping(value = "/{id}/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
-	public User updatePut(@RequestBody User user, @PathVariable String id) throws ResourceNotUpdatedException, ResourceNotAvailableException, ResourceCouldNotBeFoundException {
-		userService.updateFull(user, id);
-		return userService.getOne(user.getUsername());
+	public User updatePut(@RequestBody User user, @PathVariable String id) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
+		return userService.updateFull(user, id);
 	}
 	
 	@PatchMapping(value = "/{id}/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
-	public User updatePatch(@RequestBody User user, @PathVariable String id) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException, ResourceNotAvailableException {
-		userService.updatePartial(user, id);
-		return userService.getOne(id);
+	public User updatePatch(@RequestBody User user, @PathVariable String id) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
+		return userService.updatePartial(user, id);
 	}
 
 	@DeleteMapping(value = "/{id}/", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public User delete(@PathVariable String id) throws ResourceCouldNotBeFoundException, ResourceNotDeletedException {
+	public User delete(@PathVariable String id) throws ResourceNotDeletedException {
 		userService.delete(id);
 		return null;
 	}

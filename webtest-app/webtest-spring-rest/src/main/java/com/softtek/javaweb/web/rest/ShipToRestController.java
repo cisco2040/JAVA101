@@ -13,7 +13,7 @@ import com.softtek.javaweb.exception.impl.ResourceNotAvailableException;
 import com.softtek.javaweb.exception.impl.ResourceNotDeletedException;
 import com.softtek.javaweb.exception.impl.ResourceCouldNotBeFoundException;
 import com.softtek.javaweb.exception.impl.ResourceNotUpdatedException;
-import com.softtek.javaweb.service.ShipToService;
+import com.softtek.javaweb.service.jpa.ShipToService;
 
 @RestController
 @RequestMapping("/shipTos")
@@ -36,22 +36,20 @@ public class ShipToRestController {
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)	
 	@ResponseStatus(HttpStatus.CREATED)
-	public ShipTo add(@RequestBody ShipTo shipTo) throws ResourceNotAddedException, ResourceNotAvailableException  {
+	public ShipTo add(@RequestBody ShipTo shipTo) throws ResourceNotAddedException {
 		return shipToService.add(shipTo);
 	}
 	
 	@PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
-	public ShipTo updatePut(@RequestBody ShipTo shipTo, @PathVariable Long id) throws ResourceNotUpdatedException, ResourceNotAvailableException, ResourceCouldNotBeFoundException {
-		shipToService.updateFull(shipTo, id);
-		return shipToService.getOne(shipTo.getShipToId());
+	public ShipTo updatePut(@RequestBody ShipTo shipTo, @PathVariable Long id) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
+		return shipToService.updateFull(shipTo, id);
 	}
 	
 	@PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
-	public ShipTo updatePatch(@RequestBody ShipTo shipTo, @PathVariable Long id) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException, ResourceNotAvailableException {
-		shipToService.updatePartial(shipTo, id);
-		return shipToService.getOne(id);
+	public ShipTo updatePatch(@RequestBody ShipTo shipTo, @PathVariable Long id) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
+		return shipToService.updatePartial(shipTo, id);
 	}
 
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

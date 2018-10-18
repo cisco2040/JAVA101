@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.softtek.javaweb.domain.model.UserRole;
 import com.softtek.javaweb.exception.impl.OperationNotSupportedException;
 import com.softtek.javaweb.exception.impl.ResourceNotAvailableException;
-import com.softtek.javaweb.service.UserRoleService;
+import com.softtek.javaweb.service.jpa.UserRoleService;
 
 @RestController
 @RequestMapping("/userRoles")
@@ -34,24 +34,24 @@ public class UserRoleRestController {
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)	
 	@ResponseStatus(HttpStatus.CREATED)
 	public UserRole add(@RequestBody UserRole userRole) throws OperationNotSupportedException {
-		throw new OperationNotSupportedException("POST operation not supported for Shipping Zone resource");
+		throw new OperationNotSupportedException("POST operation not supported for User Role resource");
 	}
 	
 	@PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public void updatePut(@RequestBody UserRole userRole, @PathVariable String id) throws OperationNotSupportedException {
-		throw new OperationNotSupportedException("PUT operation not supported for Shipping Zone resource");
+		throw new OperationNotSupportedException("PUT operation not supported for User Role resource");
 	}
 	
 	@PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public void updatePatch(@RequestBody UserRole userRole, @PathVariable String id) throws OperationNotSupportedException {
-		throw new OperationNotSupportedException("PATCH operation not supported for Shipping Zone resource");
+		throw new OperationNotSupportedException("PATCH operation not supported for User Role resource");
 	}
 
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) throws OperationNotSupportedException {
-		throw new OperationNotSupportedException("DELETE operation not supported for Shipping Zone resource");
+		throw new OperationNotSupportedException("DELETE operation not supported for User Role resource");
 	}
 }

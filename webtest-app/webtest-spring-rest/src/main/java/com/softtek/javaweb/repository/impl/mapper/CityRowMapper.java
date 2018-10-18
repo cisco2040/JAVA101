@@ -8,12 +8,13 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.softtek.javaweb.domain.model.City;
-import com.softtek.javaweb.repository.impl.StateRepository;
+import com.softtek.javaweb.domain.model.State;
+import com.softtek.javaweb.repository.MyRepository;
 
 @Repository
 public class CityRowMapper implements RowMapper<City> {
 	@Autowired
-	private StateRepository stateRepository;
+	private MyRepository<State, Long> stateRepository;
 	
 	@Override
 	public City mapRow(ResultSet rs, int rowNum) throws SQLException {

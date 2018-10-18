@@ -59,7 +59,7 @@ public class ShipToRepository implements MyRepository<ShipTo, Long> {
 	}
 
 	@Override
-	public int update(final ShipTo shipTo) {
+	public ShipTo update(final ShipTo shipTo) {
 		StringBuilder sql = new StringBuilder();
 		int rowsUpdated = 0;
 
@@ -73,7 +73,7 @@ public class ShipToRepository implements MyRepository<ShipTo, Long> {
 			e.printStackTrace();
 		}
 		
-		return rowsUpdated;
+		return rowsUpdated > 0 ? getOne(shipTo.getShipToId()) : null ;
 	}
 
 	@Override
@@ -96,6 +96,7 @@ public class ShipToRepository implements MyRepository<ShipTo, Long> {
 		args.forEach((k,v) -> params.addValue(k, v));
 		return params;		
 	}
+	
 	private Map<String, Object> buildShipToArgs(ShipTo shipTo) {
 		Map<String, Object> shipToArgs = new HashMap<>();
 		

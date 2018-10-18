@@ -39,9 +39,9 @@ public class StatusRepository implements MyRepository<Status,Long>{
 	}
 
 	@Override
-	public int update(Status entity) {
+	public Status update(Status entity) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override

@@ -25,67 +25,64 @@ public class CartRepository implements MyRepository<Cart,Long> {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	@Autowired
 	private CartRowMapper cartRowMapper;
+	
+	private static final String QUERY_GET_ONE = "SELECT * FROM cart WHERE cart_id = :id";
+	private static final String QUERY_GET_LIST = "SELECT * FROM cart";
+	private static final String QUERY_INSERT = "INSERT INTO cart " + 
+			"(lines_amount, shipping_amount, cart_amount, ship_to_id, status_id, " + 
+			"create_user, create_date, update_user, update_date) " + 
+			"VALUES (:lnamt, :shpamt, :crtamt, :ship_to_id, :status_id, :crtuser, :crtdate, :upduser, :upddate)";
+	private static final String QUERY_UPDATE = "UPDATE cart " +
+			"SET lines_amount = :lnamt, shipping_amount = :shpamt, cart_amount = :crtamt, ship_to_id = :ship_to_id, status_id = :status_id, " +
+			"create_user = :crtuser, create_date = :crtdate, update_user = :upduser, update_date = :upddate " +
+			"WHERE cart_id = :cart_id";
+	private static final String QUERY_DELETE = "DELETE FROM cart WHERE cart_id = :id";
+
 
 	@Override
 	public Cart getOne(final Long id) {
-		String sql = "SELECT * FROM cart WHERE cart_id = :id";
-		List<Cart> carts = namedParameterJdbcTemplate.query(sql, Collections.singletonMap("id", id), cartRowMapper); 
+		List<Cart> carts = namedParameterJdbcTemplate.query(QUERY_GET_ONE, Collections.singletonMap("id", id), cartRowMapper); 
 		return !carts.isEmpty() ? carts.get(0) : null;
 	}
 	
 	@Override
 	public List<Cart> list() {
-		String sql = "SELECT * FROM cart";
-		return namedParameterJdbcTemplate.query(sql, cartRowMapper);
+		return namedParameterJdbcTemplate.query(QUERY_GET_LIST, cartRowMapper);
 	}
 
 	@Override
 	public Cart add(final Cart cart) {
-		StringBuilder sql = new StringBuilder();
 		int rowsUpdated = 0;
 		KeyHolder holder = new GeneratedKeyHolder();
-		System.out.println("### Holder before: " + holder);
-		sql.append("INSERT INTO cart ");
-		sql.append("(lines_amount, shipping_amount, cart_amount, ship_to_id, status_id, ");
-		sql.append("create_user, create_date, update_user, update_date) ");
-		sql.append("VALUES (:lnamt, :shpamt, :crtamt, :ship_to_id, :status_id, :crtuser, :crtdate, :upduser, :upddate)");
-		
+
 		try {
-			rowsUpdated = namedParameterJdbcTemplate.update(sql.toString(),buildCartSqlParams(cart),holder);
+			rowsUpdated = namedParameterJdbcTemplate.update(QUERY_INSERT,buildCartSqlParams(cart),holder);
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
-		System.out.println("### Rows : " + rowsUpdated);
 		
-		return rowsUpdated > 0 ? getOne(holder.getKey().longValue()) : null ;
+		return rowsUpdated > 0 ? getOne(holder.getKey().longValue()) : null;
 	}
 
 	@Override
-	public int update(final Cart cart) {
-		StringBuilder sql = new StringBuilder();
+	public Cart update(final Cart cart) {
 		int rowsUpdated = 0;
 
-		sql.append("UPDATE cart ");
-		sql.append("SET lines_amount = :lnamt, shipping_amount = :shpamt, cart_amount = :crtamt, ship_to_id = :ship_to_id, status_id = :status_id, ");
-		sql.append("create_user = :crtuser, create_date = :crtdate, update_user = :upduser, update_date = :upddate ");
-		sql.append("WHERE cart_id = :cart_id");
-			
 		try {
-			rowsUpdated = namedParameterJdbcTemplate.update(sql.toString(), buildCartArgs(cart));
+			rowsUpdated = namedParameterJdbcTemplate.update(QUERY_UPDATE, buildCartArgs(cart));
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
 		
-		return rowsUpdated; 	
+		return rowsUpdated > 0 ? getOne(cart.getCartId()) : null;
 	}
 
 	@Override
 	public int delete(final Long id) {
-		String sql = "DELETE FROM cart WHERE cart_id = :id";
 		int rowsUpdated = 0;
 	
 		try {
-			rowsUpdated = namedParameterJdbcTemplate.update(sql, Collections.singletonMap("id", id));
+			rowsUpdated = namedParameterJdbcTemplate.update(QUERY_DELETE, Collections.singletonMap("id", id));
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}

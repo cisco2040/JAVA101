@@ -1,42 +1,54 @@
 package com.softtek.javaweb.domain.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.*;
 import javax.validation.*;
 import javax.validation.constraints.*;
 import javax.xml.bind.annotation.*;
 
-@XmlRootElement
-public class Cart {
+import com.fasterxml.jackson.annotation.JsonView;
+import com.softtek.javaweb.domain.json.view.OrderView;
 
+@XmlRootElement @Entity @Table (name = "cart")
+public class Cart extends Auditable implements Serializable {
+
+	private static final long serialVersionUID = -3448409870911306718L;
+
+	@Id @Column (name = "cart_id")
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@JsonView(OrderView.Public.class)
 	private Long cartId;
-	@NotNull (message = "<linesAmount> {javax.validation.constraints.NotNull.message}")
+
+	@NotNull @Column (name = "lines_amount")
 	private Float linesAmount;
+	
+	@Column (name = "shipping_amount")
 	private Float shippingAmount;
+	
+	@Column (name = "cart_amount")
 	private Float cartAmount;
-	@NotNull (message = "<linesAmount> {javax.validation.constraints.NotNull.message}")
-	@Valid
+	
+	@NotNull @Valid @ManyToOne @JoinColumn (name = "ship_to_id")
 	private ShipTo shipTo;
-	@NotNull (message = "<linesAmount> {javax.validation.constraints.NotNull.message}")
-	@Valid
+	
+	@NotNull @Valid @ManyToOne @JoinColumn (name = "status_id")
 	private Status status;
-	private String createUser;
-	private Timestamp createDate;
-	private String updateUser;
-	private Timestamp updateDate;
 	
 	public Cart(Long cartId, Float linesAmount, Float shippingAmount, Float cartAmount, ShipTo shipTo, Status status,
 			String createUser, Timestamp createDate, String updateUser, Timestamp updateDate) {
+		super(createUser, createDate, updateUser, updateDate);
 		this.cartId = cartId;
 		this.linesAmount = linesAmount;
 		this.shippingAmount = shippingAmount;
 		this.cartAmount = cartAmount;
 		this.shipTo = shipTo;
 		this.status = status;
-		this.createUser = createUser;
-		this.createDate = createDate;
-		this.updateUser = updateUser;
-		this.updateDate = updateDate;
+	}
+	public Cart(Long cartId) {
+		super();
+		this.cartId = cartId;
 	}
 	public Cart() {}
 
@@ -88,43 +100,11 @@ public class Cart {
 		this.status = status;
 	}
 
-	public String getCreateUser() {
-		return createUser;
-	}
-
-	public void setCreateUser(String createUser) {
-		this.createUser = createUser;
-	}
-
-	public Timestamp getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Timestamp createDate) {
-		this.createDate = createDate;
-	}
-
-	public String getUpdateUser() {
-		return updateUser;
-	}
-
-	public void setUpdateUser(String updateUser) {
-		this.updateUser = updateUser;
-	}
-
-	public Timestamp getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Timestamp updateDate) {
-		this.updateDate = updateDate;
-	}
-
 	@Override
 	public String toString() {
 		return "Cart [cartId=" + cartId + ", linesAmount=" + linesAmount + ", shippingAmount=" + shippingAmount
-				+ ", cartAmount=" + cartAmount + ", shipTo=" + (shipTo != null ? shipTo.toString() : null) + ", status=" + (status != null ? status.toString() : null) + ", createUser="
-				+ createUser + ", createDate=" + createDate + ", updateUser=" + updateUser + ", updateDate="
-				+ updateDate + "]";
+				+ ", cartAmount=" + cartAmount + ", shipTo=" + shipTo + ", status=" + status + ", getCreateUser()="
+				+ getCreateUser() + ", getCreateDate()=" + getCreateDate() + ", getUpdateUser()=" + getUpdateUser()
+				+ ", getUpdateDate()=" + getUpdateDate() + "]";
 	}	
 }

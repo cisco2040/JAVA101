@@ -39,9 +39,9 @@ public class CityRepository implements MyRepository<City,Long>{
 	}
 
 	@Override
-	public int update(City entity) {
+	public City update(City entity) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override
