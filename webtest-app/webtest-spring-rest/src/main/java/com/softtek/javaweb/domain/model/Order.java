@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import javax.xml.bind.annotation.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -14,7 +13,7 @@ import com.softtek.javaweb.domain.json.view.OrderView;
  * @author victor.cortes
  *
  */
-@XmlRootElement @Entity @Table (name = "orders")
+@Entity @Table (name = "orders")
 public class Order extends Auditable {
 
 	private static final long serialVersionUID = 1798127777172953073L;

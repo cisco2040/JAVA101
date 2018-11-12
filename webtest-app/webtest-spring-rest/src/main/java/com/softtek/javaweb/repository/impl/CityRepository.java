@@ -34,19 +34,16 @@ public class CityRepository implements MyRepository<City,Long>{
 
 	@Override
 	public City add(City entity) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public City update(City entity) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int delete(Long id) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 }

@@ -6,16 +6,16 @@
 	http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd 
 	http://www.springframework.org/schema/context  
-	http://www.springframework.org/schema/context/spring-context.xsd">
+	http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<import resource="classpath:/META-INF/jdbc-applicationContext.xml"/>
  	<!-- <import resource="classpath:/META-INF/spring-security-applicationContext.xml"/> -->
  		
 	<!-- Only needed because we require fileupload in the org.springframework.samples.mvc.fileupload package -->
-	<bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- <beans:property name="maxUploadSize" value="100000"></beans:property>  -->
+<!-- 	<bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="100000"></beans:property> 
 	</bean>
-
+ -->
 <!--  	<context:component-scan base-package="com.softtek.javaweb">
 		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation" />
 		<context:exclude-filter expression="org.springframework.stereotype.Repository" type="annotation" />

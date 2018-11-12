@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -13,7 +12,7 @@ import com.softtek.javaweb.domain.json.view.OrderView;
 
 @Entity
 @Table (name = "coupon")
-public class Coupon implements Serializable{
+public class Coupon implements Serializable {
 	
 	private static final long serialVersionUID = 108094995578831312L;
 

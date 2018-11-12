@@ -1,6 +1,7 @@
 package com.softtek.javaweb.service.jpa;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +27,11 @@ import com.softtek.javaweb.service.filter.OrderFilter;
 import com.softtek.javaweb.service.predicate.OrderPredicate;
 import com.softtek.javaweb.service.types.CouponState;
 import com.softtek.javaweb.service.types.UpdateType;
-
+/**
+ * Service class for Order entity.
+ * @author victor.cortes
+ *
+ */
 @Service
 public class OrderService {
 
@@ -39,8 +44,19 @@ public class OrderService {
 	@Autowired
 	private CouponService couponService;
 
+	public List<Order> getOrderByNameAndRandomStatus (String createUser) {
+		Long[] statusIds = {1100L,1200L,1300L, 1400L, 
+							2100L, 2300L, 2350L, 2400L, 
+							3100L, 3300L, 3400L};
+		Integer index = (int) (Math.random() * 11);
+		List<Order> orders = orderRepository.findByNameStatusSorted(createUser,statusIds[index]);
+			
+		return orders;
+	}
+	
+	
 /**
- * 
+ * Search orders bases on a provided custom filter and return a list as a result.  
  * @param of - {@link OrderFilter} filter object. Results of submitted form bind to this object.
  * @param result - {@link BindingResult} validation object. Will store binding errors if any.
  * @return a {@link List} of {@link Order} entities that match the provided filter object.
@@ -59,6 +75,11 @@ public class OrderService {
 		return orders;
 	}
 
+	/**
+	 * Obtains list of all available orders in DB.
+	 * @return a {@link List} of {@link Order} entities.
+	 * @throws ResourceNotAvailableException
+	 */
 	public List<Order> getList() throws ResourceNotAvailableException {
 		List<Order> orders = orderRepository.findAll();
 		LOGGER.info("## Order List Obtained: {}", orders);
@@ -68,14 +89,39 @@ public class OrderService {
 		return orders;
 	}
 
-	public Order getOne(final Long id) throws ResourceNotAvailableException {
-		Optional<Order> order = this.orderRepository.findById(id);
-		LOGGER.info("## Order Obtained: {}", order.get());
+	/**
+	 * Returns an order matching the provided order number. If none found, an exception is thrown.
+	 * @param id - order number being requested
+	 * @return an {@link Order} entity matching the provided order number.
+	 * @throws ResourceNotAvailableException
+	 * @throws DatabaseOperationException 
+	 */
+	public Order getOne(final Long id) throws ResourceNotAvailableException, DatabaseOperationException {
+		Optional<Order> order = Optional.of(new Order());
+		
+		try {
+			order = this.orderRepository.findById(id);
+		} catch (IllegalArgumentException e) {			
+			throw new DatabaseOperationException("Database lookup operation failed with stacktrace: " + e.getStackTrace());
+		}
+		if (order.isPresent()) {
+			LOGGER.info("## Order Obtained: {}", order.get());
+		}
 		if (!order.isPresent()) {
 			throw new ResourceNotAvailableException("Order id <" + id + "> not found.");
 		}
 		return order.get();
 	}
+	
+	/**
+	 * Updates an existing order with the data provided in a fully constructed valid bean.
+	 * Returned order will contain all values from passed bean.
+	 * @param order - {@link Order} entity bean
+	 * @param id - order number to be updated
+	 * @return - updated order
+	 * @throws ResourceNotUpdatedException
+	 * @throws ResourceCouldNotBeFoundException
+	 */
 	
 	public Order updateFull(final Order order, final Long id) throws ResourceNotUpdatedException, ResourceCouldNotBeFoundException {
 		Order fullOrder = order;
@@ -83,6 +129,15 @@ public class OrderService {
 		return this.update(fullOrder);
 	}
 
+	/**
+	 * Updates an existing order with the data provided in a order bean.
+	 * The provided bean may contain 1 or more fields. Only those will be updated in order.
+	 * @param order - {@link Order} entity bean
+	 * @param id - order number to be updated
+	 * @return - updated order
+	 * @throws ResourceCouldNotBeFoundException
+	 * @throws ResourceNotUpdatedException
+	 */
 	public Order updatePartial(final Order order, final Long id) throws ResourceCouldNotBeFoundException, ResourceNotUpdatedException {
 		Optional<Order> originalOrder = this.orderRepository.findById(id);
 
@@ -187,12 +242,16 @@ public class OrderService {
 		return newOrder;
 	}
 
-	public void delete (final Long id) throws ResourceNotDeletedException {
+	public void delete (final Long id) throws ResourceNotDeletedException, DatabaseOperationException {
 		if (!this.orderRepository.findById(id).isPresent()) {
-			throw new ResourceNotDeletedException("Oder id <" + id + "> not found.");			
+			throw new ResourceNotDeletedException("Order id <" + id + "> not found.");			
 		}
 		
 		this.orderRepository.deleteById(id);
+		
+		if (this.orderRepository.findById(id).isPresent()) {
+			throw new DatabaseOperationException("Order id <" + id + "> could not be deleted.");			
+		}		
 	}
 	
 	public Order previewCoupon (Order order, String code) throws ResourceNotUpdatedException {		
@@ -244,7 +303,7 @@ public class OrderService {
 		Order newOrder = fullOrder;
 
 		if (partialOrder.getCart() != null && partialOrder.getCart().getCartId() != null ) {
-			newOrder.setCart(new Cart(partialOrder.getCart().getCartId()));
+			newOrder.setCart(new Cart(partialOrder.getCart().getCartId(), null, null, null, null, null, null, null, null, null));
 		}
 		if (partialOrder.getOrderDate() != null) {
 			newOrder.setOrderDate(partialOrder.getOrderDate());

@@ -46,10 +46,6 @@ public class Cart extends Auditable implements Serializable {
 		this.shipTo = shipTo;
 		this.status = status;
 	}
-	public Cart(Long cartId) {
-		super();
-		this.cartId = cartId;
-	}
 	public Cart() {}
 
 	public Long getCartId() {

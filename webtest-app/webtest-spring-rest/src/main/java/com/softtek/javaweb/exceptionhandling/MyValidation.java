@@ -10,7 +10,6 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
 import com.softtek.javaweb.domain.dto.RestError;
 
@@ -19,12 +18,6 @@ public class MyValidation {
 	
 	public static List<RestError> getErrorsFromBindingResults (BindingResult result) {
 		List <RestError> errorMsgs = new ArrayList<>();
-		System.out.println("## Binding results: " + result);
-		System.out.println("## FE Binding results: " + result.getFieldErrors());
-		FieldError fieldError = result.getFieldErrors().iterator().next();
-		System.out.println("## FE Binding results Field: " + fieldError.getField());
-		System.out.println("## FE Binding results Message: " + fieldError.getDefaultMessage());
-		System.out.println("## FE Binding results Rejected: " + fieldError.getRejectedValue().toString());
 		result.getFieldErrors().forEach(fe -> errorMsgs.add(new RestError(fe.getField(), fe.getRejectedValue().toString(), fe.getDefaultMessage())));
 		return errorMsgs;		
 	}

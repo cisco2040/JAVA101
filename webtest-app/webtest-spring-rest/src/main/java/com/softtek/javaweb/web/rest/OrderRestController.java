@@ -31,15 +31,7 @@ public class OrderRestController {
 	@PatchMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, params = "couponId")
 	@ResponseStatus(HttpStatus.OK)
 	@JsonView(OrderView.Public.class)
-	public Order applyCoupon(@ModelAttribute Order order, @RequestParam ("couponId") String code) throws ResourceNotAvailableException, ResourceNotUpdatedException {
-		return orderService.previewCoupon(order, code);
-	}
-	
-	@PatchMapping(value = "/applyCoupon/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(HttpStatus.OK)
-	@JsonView(OrderView.Public.class)
-	public Order applyCoupon2(@RequestBody Order order, @PathVariable String code) throws ResourceNotAvailableException, ResourceNotUpdatedException {
-		LOGGER.info("### Order : {} ,  coupon: {}", order, code);
+	public Order applyCoupon(@RequestBody Order order, @RequestParam ("couponId") String code) throws ResourceNotAvailableException, ResourceNotUpdatedException {
 		return orderService.previewCoupon(order, code);
 	}
 	
@@ -53,7 +45,7 @@ public class OrderRestController {
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	@JsonView(OrderView.Public.class)
-	public Order getOne(@PathVariable Long id) throws ResourceNotAvailableException {
+	public Order getOne(@PathVariable Long id) throws ResourceNotAvailableException, DatabaseOperationException {
 		return orderService.getOne(id);
 	}
 	
@@ -90,7 +82,7 @@ public class OrderRestController {
 
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public Order delete(@PathVariable Long id) throws ResourceNotDeletedException {
+	public Order delete(@PathVariable Long id) throws ResourceNotDeletedException, DatabaseOperationException {
 		orderService.delete(id);
 		return null;
 	}

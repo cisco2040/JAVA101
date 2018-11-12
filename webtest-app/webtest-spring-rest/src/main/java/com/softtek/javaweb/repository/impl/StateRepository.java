@@ -34,19 +34,16 @@ public class StateRepository implements MyRepository<State, Long> {
 
 	@Override
 	public State add(State entity) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public State update(State entity) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int delete(Long id) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

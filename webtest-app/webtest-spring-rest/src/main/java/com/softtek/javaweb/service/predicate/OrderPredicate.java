@@ -1,12 +1,10 @@
 package com.softtek.javaweb.service.predicate;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
 
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.softtek.javaweb.domain.model.QOrder;
-import com.softtek.javaweb.exception.impl.IncorrectParametersException;
 import com.softtek.javaweb.service.filter.OrderFilter;
 
 public class OrderPredicate {

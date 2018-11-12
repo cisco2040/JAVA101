@@ -34,19 +34,16 @@ public class StatusRepository implements MyRepository<Status,Long>{
 
 	@Override
 	public Status add(Status entity) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Status update(Status entity) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int delete(Long id) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
