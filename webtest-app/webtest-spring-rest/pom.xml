@@ -11,6 +11,9 @@
 	<name>webtest-spring-rest Maven Webapp</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
+	<!-- this is a comment to test branching  but I changed it as well-->
+	<!-- but added this too -->
+	<!-- what about this? -->
 	<repositories>
 		<repository>
 			<id>public</id>
@@ -68,19 +71,19 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
-			<scope>test</scope>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
 			<version>2.1.1</version>
 		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>3.0.1</version>
-			<scope>provided</scope>
-		</dependency>
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servlet-api</artifactId>
+    <version>3.1.0</version>
+    <!-- <scope>provided</scope> -->
+</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
@@ -117,18 +120,31 @@
 			<version>${junit.platform.version}</version>
 			<scope>test</scope>
 		</dependency>
+<!-- https://mvnrepository.com/artifact/org.hsqldb/hsqldb -->
+<dependency>
+    <groupId>org.hsqldb</groupId>
+    <artifactId>hsqldb</artifactId>
+    <version>2.4.1</version>
+    <scope>test</scope>
+</dependency>
+		
+		<dependency>
+			<groupId>net.bytebuddy</groupId>
+			<artifactId>byte-buddy</artifactId>
+			<version>1.9.5</version>
+		    <scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<version>${mockito-core.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>net.bytebuddy</groupId>
-			<artifactId>byte-buddy</artifactId>
-			<version>1.8.17</version>
-			<scope>runtime</scope>
-		</dependency>
+<dependency>
+    <groupId>net.minidev</groupId>
+    <artifactId>json-smart</artifactId>
+    <version>2.3</version>
+</dependency>
 		<dependency>
 			<groupId>org.objenesis</groupId>
 			<artifactId>objenesis</artifactId>
@@ -145,7 +161,7 @@
 			<groupId>com.jayway.jsonpath</groupId>
 			<artifactId>json-path</artifactId>
 			<version>2.2.0</version>
-			<scope>test</scope>
+			<scope>compile</scope>
 		</dependency>
 		<!-- DB dependencies -->
 		<dependency>
@@ -320,6 +336,19 @@
 							</dependency> -->
 					</dependencies>
 				</plugin>
+				 <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>3.0.0-M2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 				<plugin>
 					<artifactId>maven-war-plugin</artifactId>
 					<version>3.2.0</version>
