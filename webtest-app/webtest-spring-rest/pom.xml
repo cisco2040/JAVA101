@@ -9,8 +9,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>webtest-spring-rest Maven Webapp</name>
-	<!-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
+	<url>http://www.examsoft.com</url>
 	<!-- this is a comment to test branching  but I changed it as well-->
 	<!-- but added this too -->
 	<!-- what about this? -->
