@@ -68,6 +68,7 @@ public class CouponService {
 		if (!coupon.isPresent()) {
 			couponStatus.setStatus(CouponState.NON_EXISTENT);
 			couponStatus.setMessage("Coupon code " + code + " is not valid.");
+			return couponStatus;
 		}
 		if (coupon.get().isRedeemed()) {
 			couponStatus.setStatus(CouponState.REDEEMED);

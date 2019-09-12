@@ -14,6 +14,18 @@ DROP TABLE user_role;
 DROP TABLE city;
 DROP TABLE state;
 DROP TABLE shipping_zone;
+DROP TABLE coupon;
+
+CREATE TABLE COUPON (
+  coupon_id VARCHAR(8) NOT NULL,
+  valid_from DATETIME,
+  expires_on DATETIME,
+  discount_percent DECIMAL(3,2),
+  discount_amount DECIMAL(10,2),
+  redeemed BOOLEAN
+ 
+  PRIMARY KEY(coupon_id)
+) ENGINE=InnoDB;
 
 CREATE TABLE SHIPPING_ZONE (
   shipping_zone_id VARCHAR(5) NOT NULL,

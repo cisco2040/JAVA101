@@ -368,7 +368,7 @@ $(document).ready(function() {
 	$("#readForm").submit(function() {
 		var form = $(this);
 		var button = form.children(":first");
-		$.ajax({ type: "POST", url: form.attr("action"), data: "foo=bar&fruit=apple", contentType: "application/x-www-form-urlencoded", dataType: "text", success: function(text) { MvcUtil.showSuccessResponse(text, button); }, error: function(xhr) { MvcUtil.showErrorResponse(xhr.responseText, button); }});
+		$.ajax({ type: "POST", url: form.attr("action"), data: "foo=bar&fruit=apple&Save=", contentType: "application/x-www-form-urlencoded", dataType: "text", success: function(text) { MvcUtil.showSuccessResponse(text, button); }, error: function(xhr) { MvcUtil.showErrorResponse(xhr.responseText, button); }});
 		return false;
 	});
 

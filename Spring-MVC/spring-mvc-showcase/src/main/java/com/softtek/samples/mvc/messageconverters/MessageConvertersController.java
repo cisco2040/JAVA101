@@ -32,7 +32,7 @@ public class MessageConvertersController {
 
 	// Form encoded data (application/x-www-form-urlencoded)
 
-	@RequestMapping(value="/form", method=RequestMethod.POST)
+	@RequestMapping(value="/form", method=RequestMethod.POST, params = "Save")
 	public @ResponseBody String readForm(@ModelAttribute JavaBean bean) {
 		return "Read x-www-form-urlencoded: " + bean;
 	}
