@@ -4,7 +4,7 @@
 
 	<groupId>com.sottek.javaweb</groupId>
 	<artifactId>webtest-spring-rest</artifactId>
-	<version>1.0.0</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>webtest-spring-rest Maven Webapp</name>
 	<url>http://www.softtek.com</url>
