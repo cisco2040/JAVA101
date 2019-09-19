@@ -4,7 +4,7 @@
 
 	<groupId>com.sottek.javaweb</groupId>
 	<artifactId>webtest-spring-rest</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>webtest-spring-rest Maven Webapp</name>
 	<url>http://www.softtek.com</url>
@@ -20,7 +20,7 @@
 	
 	<scm>
 		<developerConnection>scm:git:https://Victor-H-Cortes@github.com/cisco2040/JAVA101.git</developerConnection>
-	  <tag>webtest-spring-rest-0.0.1</tag>
+	  <tag>webtest-spring-rest-1.0.0</tag>
   </scm>
 	
 	<properties>
