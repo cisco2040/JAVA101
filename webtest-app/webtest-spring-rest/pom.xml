@@ -19,8 +19,13 @@
 			<url>http://maven.nuxeo.org/nexus/content/repositories/public/</url>
 		</repository>
 	</repositories>
-
+	
+	<scm>
+		<developerConnection>scm:git:https://Victor-H-Cortes@github.com/cisco2040/JAVA101.git</developerConnection>
+	</scm>
+	
 	<properties>
+		<project.scm.id>java101git</project.scm.id>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -77,12 +82,12 @@
 			<artifactId>javax.ws.rs-api</artifactId>
 			<version>2.1.1</version>
 		</dependency>
-<dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>javax.servlet-api</artifactId>
-    <version>3.1.0</version>
-    <!-- <scope>provided</scope> -->
-</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<!-- <scope>provided</scope> -->
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
@@ -119,19 +124,19 @@
 			<version>${junit.platform.version}</version>
 			<scope>test</scope>
 		</dependency>
-<!-- https://mvnrepository.com/artifact/org.hsqldb/hsqldb -->
-<dependency>
-    <groupId>org.hsqldb</groupId>
-    <artifactId>hsqldb</artifactId>
-    <version>2.4.1</version>
-    <scope>test</scope>
-</dependency>
-		
+		<!-- https://mvnrepository.com/artifact/org.hsqldb/hsqldb -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>2.4.1</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>net.bytebuddy</groupId>
 			<artifactId>byte-buddy</artifactId>
 			<version>1.9.5</version>
-		    <scope>runtime</scope>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -139,11 +144,11 @@
 			<version>${mockito-core.version}</version>
 			<scope>test</scope>
 		</dependency>
-<dependency>
-    <groupId>net.minidev</groupId>
-    <artifactId>json-smart</artifactId>
-    <version>2.3</version>
-</dependency>
+		<dependency>
+			<groupId>net.minidev</groupId>
+			<artifactId>json-smart</artifactId>
+			<version>2.3</version>
+		</dependency>
 		<dependency>
 			<groupId>org.objenesis</groupId>
 			<artifactId>objenesis</artifactId>
@@ -335,19 +340,19 @@
 							</dependency> -->
 					</dependencies>
 				</plugin>
-				 <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.0.0-M2</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>3.0.0-M2</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>integration-test</goal>
+								<goal>verify</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 				<plugin>
 					<artifactId>maven-war-plugin</artifactId>
 					<version>3.2.0</version>
@@ -359,6 +364,11 @@
 				<plugin>
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>2.8.2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.5.1</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
