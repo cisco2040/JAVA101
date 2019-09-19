@@ -152,7 +152,7 @@ public class OrderService {
 	}
 /**
  * Updates an existing Order in DB. Order must be a fully constructed valid bean. Otherwise, an exception will be thrown.
- * @param Order order
+ * @param order
  * @return updated Order entity
  * @throws ResourceNotUpdatedException
  * @throws ResourceCouldNotBeFoundException
