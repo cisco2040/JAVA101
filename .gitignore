@@ -7,4 +7,4 @@
 **/target/
 webtest-app.zip
 webtest-app/webtest-spring-rest/src/test/resources/
-
+*.settings/
