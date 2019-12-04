@@ -5,3 +5,4 @@ GRANT ALL ON omsdb.* TO 'omsdb'@'%' IDENTIFIED BY 'omsdb';
 GRANT ALL ON omsdb.* TO 'omsdb'@'localhost' IDENTIFIED BY 'omsdb';
 GRANT ALL ON omsdb.delete_orders TO 'omsdb'@'localhost' IDENTIFIED BY 'omsdb';
 FLUSH PRIVILEGES;
+USE omsdb;

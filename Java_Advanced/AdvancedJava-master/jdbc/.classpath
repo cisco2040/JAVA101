@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="C:/sts-3.9.4.RELEASE/plugins/commons-dbcp-1.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/sts-3.9.4.RELEASE/plugins/mysql-connector-java-8.0.11.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/sts-3.9.4.RELEASE/plugins/org.apache.commons.pool_1.6.0.v201204271246.jar"/>
+	<classpathentry kind="lib" path="C:/Users/victor.cortes/Downloads/commons-dbcp-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/victor.cortes/.m2/repository/mysql/mysql-connector-java/8.0.18/mysql-connector-java-8.0.18.jar"/>
+	<classpathentry kind="lib" path="C:/Users/victor.cortes/Downloads/commons-pool-1.6.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
