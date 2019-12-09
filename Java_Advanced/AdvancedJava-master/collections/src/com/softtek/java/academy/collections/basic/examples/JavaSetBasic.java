@@ -14,14 +14,14 @@ import java.util.TreeSet;
 public class JavaSetBasic {
 	public static void main(String args[]) { 
 	     int count[] = {34, 22,10,60,30,22};
-	     Set<Integer> set = new HashSet<Integer>();
+	     Set<Integer> set = new HashSet<>();
 	     try{
-	        for(int i = 0; i<5; i++){
+	        for(int i = 0; i<=5; i++){
 	           set.add(count[i]);
 	        }
 	        System.out.println(set);
 	  
-	        TreeSet sortedSet = new TreeSet<Integer>(set);
+	        TreeSet<Integer> sortedSet = new TreeSet<>(set);
 	        System.out.println("The sorted list is:");
 	        System.out.println(sortedSet);
 

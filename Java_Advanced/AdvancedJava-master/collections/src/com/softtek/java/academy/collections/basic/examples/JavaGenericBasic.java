@@ -9,11 +9,11 @@ package com.softtek.java.academy.collections.basic.examples;
  */
 public class JavaGenericBasic {
    // generic method printArray                         
-   public static < E > void printArray( E[] inputArray )
+   public static < E,K > void printArray( E[] inputArray , K number)
    {
       // Display array elements              
          for ( E element : inputArray ){        
-            System.out.printf( "%s ", element );
+            System.out.printf( "%s %s", element, number );
          }
          System.out.println();
     }
@@ -26,12 +26,12 @@ public class JavaGenericBasic {
         Character[] charArray = { 'H', 'E', 'L', 'L', 'O' };
 
         System.out.println( "Array integerArray contains:" );
-        printArray( intArray  ); // pass an Integer array
+        printArray( intArray, 2  ); // pass an Integer array
 
         System.out.println( "\nArray doubleArray contains:" );
-        printArray( doubleArray ); // pass a Double array
+        printArray( doubleArray, 2.2 ); // pass a Double array
 
         System.out.println( "\nArray characterArray contains:" );
-        printArray( charArray ); // pass a Character array
+        printArray( charArray, "algo" ); // pass a Character array
     } 
 }

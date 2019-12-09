@@ -37,12 +37,12 @@ public class CollectionTest {
                 new Organization(UUID.randomUUID(), "sales", "Big O Company")};
 
         List<Organization> buyingCompany =
-            new ArrayList<Organization>(Arrays.asList(values1));
+            new ArrayList<>(Arrays.asList(values1));
 
         assertFalse(buyingCompany.isEmpty());
 
         List<Organization> purchaseCompany =
-            new ArrayList<Organization>(Arrays.asList(values2));
+            new ArrayList<>(Arrays.asList(values2));
 
         assertFalse(purchaseCompany.isEmpty());
 

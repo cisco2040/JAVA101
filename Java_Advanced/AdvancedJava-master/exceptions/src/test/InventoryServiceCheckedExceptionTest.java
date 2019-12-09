@@ -30,7 +30,7 @@ public class InventoryServiceCheckedExceptionTest {
         ReservationRequest request = new ReservationRequest();
         request.setProductId(UUID.randomUUID());
         // set request number to 66 to throw IO exception
-        request.setNumberRequested(66);
+        request.setNumberRequested(65);
         request.setDateReceived(new Date());
         
         inventoryService.makeReservation(request);

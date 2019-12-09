@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="lib" path="C:/Users/victor.cortes/Downloads/commons-pool-1.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/victor.cortes/.m2/repository/mysql/mysql-connector-java/8.0.18/mysql-connector-java-8.0.18.jar"/>
+	<classpathentry kind="lib" path="C:/Users/victor.cortes/Downloads/commons-dbcp-1.4.jar"/>
 	<classpathentry kind="src" path="collections/src"/>
 	<classpathentry kind="src" path="exceptions/src"/>
 	<classpathentry kind="src" path="io/src"/>
 	<classpathentry kind="src" path="jdbc/src"/>
 	<classpathentry kind="src" path="threads/src"/>
-	<classpathentry kind="lib" path="C:/Users/victor.cortes/Downloads/commons-dbcp-1.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/victor.cortes/.m2/repository/mysql/mysql-connector-java/8.0.18/mysql-connector-java-8.0.18.jar"/>
-	<classpathentry kind="lib" path="C:/Users/victor.cortes/Downloads/commons-pool-1.6.jar"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="jdbc/bin"/>
 </classpath>
