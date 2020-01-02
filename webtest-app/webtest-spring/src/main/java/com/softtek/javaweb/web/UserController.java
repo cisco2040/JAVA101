@@ -3,9 +3,6 @@ package com.softtek.javaweb.web;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.softtek.javaweb.domain.dto.ResponseStatus;
 import com.softtek.javaweb.domain.dto.UserForm;
 import com.softtek.javaweb.domain.mapper.EntityMapper;
-import com.softtek.javaweb.domain.model.User;
-import com.softtek.javaweb.domain.model.UserRole;
-import com.softtek.javaweb.service.UserService;
 import com.softtek.javaweb.service.UserRoleService;
+import com.softtek.javaweb.service.UserService;
 
 @Controller
 @RequestMapping("/user")

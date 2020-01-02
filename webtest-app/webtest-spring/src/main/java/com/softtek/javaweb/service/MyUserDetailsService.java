@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.softtek.javaweb.domain.mapper.MyUserPrincipal;
 import com.softtek.javaweb.domain.model.User;
-import com.softtek.javaweb.repository.impl.UserRepository;
+import com.softtek.javaweb.repository.jpa.UserRepository;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
@@ -18,7 +18,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) {
-		User user =  userRepository.getOne(username);
+		User user =  userRepository.findById(username).orElse(null);
 		if (user == null) {
 			throw new UsernameNotFoundException(username);
 		}

@@ -4,7 +4,7 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="
 	http://www.springframework.org/schema/beans 
-	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
 	http://www.springframework.org/schema/context  
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -16,9 +16,11 @@
 		<!-- <beans:property name="maxUploadSize" value="100000"></beans:property>  -->
 	</bean>
 
- 	<context:component-scan base-package="com.softtek.javaweb">
-		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation" />
-	</context:component-scan>
+<!--  	<context:component-scan base-package="com.softtek.javaweb"> -->
+<!-- 		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation" /> -->
+<!-- 	</context:component-scan> -->
+ 	<context:component-scan base-package="com.softtek.javaweb.service"/>
+ 	<context:component-scan base-package="com.softtek.javaweb.repository.impl"/>
 
 
 </beans>

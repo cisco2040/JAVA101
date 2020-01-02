@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.softtek.javaweb.domain.model.ShipTo;
 import com.softtek.javaweb.repository.impl.CityRepository;
-import com.softtek.javaweb.repository.impl.UserRepository;
+import com.softtek.javaweb.repository.jpa.UserRepository;
 
 @Repository
 public class ShipToRowMapper implements RowMapper<ShipTo> {
@@ -23,7 +23,7 @@ public class ShipToRowMapper implements RowMapper<ShipTo> {
 	public ShipTo mapRow(ResultSet rs, int rowNum) throws SQLException {
 		return new ShipTo(
 			rs.getLong("ship_to_id"),
-			userRepository.getOne(rs.getString("user")),
+			userRepository.findById(rs.getString("user")).orElse(null),
 			rs.getString("name"),
 			rs.getString("address"),
 			cityRepository.getOne(rs.getLong("city_id")),

@@ -12,24 +12,24 @@ import com.softtek.javaweb.domain.dto.ResponseStatus;
 import com.softtek.javaweb.domain.dto.UserForm;
 import com.softtek.javaweb.domain.mapper.EntityMapper;
 import com.softtek.javaweb.domain.model.User;
-import com.softtek.javaweb.repository.MyRepository;
+import com.softtek.javaweb.repository.jpa.UserRepository;
 
 @Service
 public class UserService {
 	
 	@Autowired
-	private MyRepository<User,String> userRepository;
+	private UserRepository userRepository;
 	
 	public static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
 	public List<User> getList() {
-		List<User> users = this.userRepository.list();
+		List<User> users = this.userRepository.findAll();
 		LOGGER.info("## User List Obtained: {}", users);
 		return users;
 	}
 
 	public User getOne(final String id) {
-		User user = this.userRepository.getOne(id);
+		User user = this.userRepository.findById(id).orElse(null);
 		LOGGER.info("## User Obtained: {}", user);
 		return user;
 	}	
@@ -37,7 +37,7 @@ public class UserService {
 		ResponseStatus validateUser = validate(user, confirmPassword, false);
 		if (validateUser.isValid()) {
 			LOGGER.info("## Attempting to update user: {}", user);
-			if (this.userRepository.update(user) <= 0) {
+			if (this.userRepository.save(user) == null) {
 				validateUser.setValid(false);
 				validateUser.appendServiceMsg("There was an unknown error while attempting to update record. Please contact DBAdmin.");				
 			}
@@ -52,7 +52,7 @@ public class UserService {
 		ResponseStatus validateUser = validate(user, confirmPassword, true);
 		if (validateUser.isValid()) {
 			LOGGER.info("## Attempting to add user: {}", user);
-			if (this.userRepository.add(user) < 0) {
+			if (this.userRepository.save(user) == null) {
 				validateUser.setValid(false);
 				validateUser.appendServiceMsg("There was an unknown error while attempting to add record. Please contact DBAdmin.");				
 			}
@@ -65,10 +65,11 @@ public class UserService {
 	public ResponseStatus delete (final String id) {
 		ResponseStatus validateUser = new ResponseStatus();
 		validateUser.setValid(true);
-		if (this.userRepository.delete(id) <= 0) {
-			validateUser.setValid(false);
-			validateUser.appendServiceMsg("There was an unknown error while attempting to delete record, or record does not exist. Please contact DBAdmin.");
-		}
+		this.userRepository.deleteById(id);
+//		if (this.userRepository.deleteById(id)) {
+//			validateUser.setValid(false);
+//			validateUser.appendServiceMsg("There was an unknown error while attempting to delete record, or record does not exist. Please contact DBAdmin.");
+//		}
 				
 		return validateUser;
 	}

@@ -1,6 +1,7 @@
 package com.softtek.javaweb.domain.dto;
 
 import java.sql.Timestamp;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement

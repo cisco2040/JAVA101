@@ -2,14 +2,7 @@ package com.softtek.javaweb.main;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.softtek.javaweb.domain.dto.StoredFiles;
-import com.softtek.javaweb.service.*;
 
 public class JavaWebMain {
 
