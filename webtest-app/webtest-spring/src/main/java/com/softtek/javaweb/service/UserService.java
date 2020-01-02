@@ -124,4 +124,10 @@ public class UserService {
 		return true;
 	}
 
+	public List<User> findByUserRoleId(String id) {
+//		List<User> users = userRepository.findByUserRole_UserRoleId(id);
+		List<User> users = userRepository.findByUserRole_UserRoleId2(id);
+		return users;
+	}
+
 }

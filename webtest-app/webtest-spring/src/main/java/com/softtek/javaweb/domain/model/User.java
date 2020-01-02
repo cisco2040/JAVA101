@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.annotations.Proxy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,6 +21,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Proxy(lazy = false)
 @Table(name = "user")
+@NamedQuery(
+	    name = "User.findByUserRoleId",
+	    query = "SELECT u FROM User u WHERE u.userRole.userRoleId = :userRoleId")
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = 9141276168135546112L;

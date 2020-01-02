@@ -11,13 +11,14 @@
 </head>
 <body>	
 	<div id="headerList">
-		<h1 align="center">User List</h1>
+		<h1 align="center">User List ${ headerTitle }</h1>
 	</div>
 	
 	<div style="margin-left:5%;margin-bottom: 1%;">
 		<form action=<c:url value="/user/edit"/> method="post">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<button name="home" type="submit" >Home</button>
+			<button name="advSearch" type="submit" value="">Advanced Search...</button>
 			<button name="addNew" type="submit" >Add New..</button>
 		</form>
 	</div>
@@ -41,6 +42,9 @@
 			</tr>
 		</c:forEach>		
 	</table>
+	<c:forEach var="frmValMsg" items="${ frmValMsgs }">
+		<p style="color: red">${ frmValMsg }</p>
+	</c:forEach>
 	</div>
 </body>
 </html>

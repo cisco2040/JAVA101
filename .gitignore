@@ -7,7 +7,7 @@
 **/target/
 webtest-app.zip
 webtest-app/webtest-spring-rest/src/test/resources/
-*.settings/
+**/.settings/
 jsp-app/.tern-project
 jstl-app-spring/
 servlet-app/.tern-project

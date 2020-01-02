@@ -5,6 +5,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp/WEB-INF"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-sources/java"/>
         <property name="context-root" value="webtest-spring"/>
         <property name="java-output-path" value="/webtest-spring/target/classes"/>
     </wb-module>

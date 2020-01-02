@@ -1,9 +1,16 @@
 package com.softtek.javaweb.repository.jpa;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.softtek.javaweb.domain.model.User;
 
 public interface UserRepository extends BaseRepository<User, String> {
-
+	List<User> findByUserRole_UserRoleId(String id);
+	@Query("SELECT u FROM User u WHERE u.userRole.userRoleId = :userRoleId")
+	List<User> findByUserRole_UserRoleId2(@Param ("userRoleId") String id);
 }
 //package com.softtek.javaweb.repository.impl;
 //
