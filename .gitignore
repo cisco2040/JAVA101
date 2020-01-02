@@ -8,3 +8,9 @@
 webtest-app.zip
 webtest-app/webtest-spring-rest/src/test/resources/
 *.settings/
+jsp-app/.tern-project
+jstl-app-spring/
+servlet-app/.tern-project
+webtest-app/.project
+webtest-app/webtest-spring/.tern-project
+webtest-app/webtest/.tern-project
