@@ -22,7 +22,7 @@ public class UserRestController {
 	@Autowired
 	UserService userService;
 	
-	@GetMapping(value = "/{id}/", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public User getOne(@PathVariable String id) throws ResourceNotAvailableException {
 		return userService.getOne(id);

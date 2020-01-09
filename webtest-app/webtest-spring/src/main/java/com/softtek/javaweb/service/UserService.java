@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import com.softtek.javaweb.domain.dto.ResponseStatus;
 import com.softtek.javaweb.domain.dto.UserForm;
 import com.softtek.javaweb.domain.mapper.EntityMapper;
+import com.softtek.javaweb.domain.model.ErrorResponse;
 import com.softtek.javaweb.domain.model.User;
+import com.softtek.javaweb.exception.UserAlreadyExistsException;
 import com.softtek.javaweb.repository.jpa.UserRepository;
 
 @Service
@@ -47,7 +49,11 @@ public class UserService {
 	public ResponseStatus update(final UserForm userForm) {
 		return this.update(EntityMapper.makeUserFromForm(userForm), userForm.getPasswordConfirm());
 	}
-	
+
+	public User update(final User user) {
+		return userRepository.save(user); 
+	}
+
 	public ResponseStatus add(final User user, final String confirmPassword) {
 		ResponseStatus validateUser = validate(user, confirmPassword, true);
 		if (validateUser.isValid()) {
@@ -59,6 +65,18 @@ public class UserService {
 		}
 		return validateUser;
 	}
+	
+	public User add(final User user) throws UserAlreadyExistsException {
+		User existingUser = this.getOne(user.getUsername());
+		
+		if ( existingUser == null ) {
+			return this.userRepository.save(user);
+		} else {
+			throw new UserAlreadyExistsException(new ErrorResponse(1000, "User " + user.getUsername() + " already exists."));
+		}
+	}
+	
+	
 	public ResponseStatus add(final UserForm userForm) {
 		return this.add(EntityMapper.makeUserFromForm(userForm), userForm.getPasswordConfirm());
 	}
@@ -128,6 +146,18 @@ public class UserService {
 //		List<User> users = userRepository.findByUserRole_UserRoleId(id);
 		List<User> users = userRepository.findByUserRole_UserRoleId2(id);
 		return users;
+	}
+
+	public User patchUser(String username, User requestBody) {
+		User user = this.getOne(username);
+		
+		user.setUsername(username);
+		user.setName(requestBody.getName() != null ? requestBody.getName() : user.getName());
+		user.setPassword(requestBody.getPassword() != null ? requestBody.getPassword() : user.getPassword());
+		user.setUserRole(requestBody.getUserRole() != null ? requestBody.getUserRole() : user.getUserRole());
+		user.setActive(requestBody.getActive() != null ? requestBody.getActive() : user.getActive());
+
+		return userRepository.save(user);
 	}
 
 }

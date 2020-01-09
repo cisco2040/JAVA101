@@ -40,7 +40,7 @@ public class User implements Serializable {
 	@Column (name = "name")
 	private String name;
 	
-	@NotNull @Valid	@ManyToOne
+	@NotNull @ManyToOne
 	@JoinColumn (name = "user_role_id")
 	private UserRole userRole;
 	
