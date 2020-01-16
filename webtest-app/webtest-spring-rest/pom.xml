@@ -34,7 +34,7 @@
 		<querydsl.version>4.2.1</querydsl.version>
 		<mysema.querydsl.version>3.7.4</mysema.querydsl.version>
 		<!-- validation properties -->
-		<hibernate.validator.version>6.0.12.Final</hibernate.validator.version>
+		<hibernate.validator.version>6.1.1.Final</hibernate.validator.version>
 		<jackson.version>2.9.6</jackson.version>
 		<!-- unit test properties -->
 		<junit.version>4.12</junit.version>
