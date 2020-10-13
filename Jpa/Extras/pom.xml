@@ -25,7 +25,7 @@
 		<hibernate.version>4.3.8.Final</hibernate.version>
 		<hibernate.jpa.version>1.0.0.Final</hibernate.jpa.version>
 		<hibernate.validator.version>5.0.3.Final</hibernate.validator.version>
-		<junit.version>4.10</junit.version>
+		<junit.version>4.13.1</junit.version>
 	</properties>
 
 	<dependencies>
